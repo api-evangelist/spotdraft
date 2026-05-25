@@ -1,0 +1,1383 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: SpotDraft Public API — Contract APIs
+  description: SpotDraft Contract APIs capability. 53 operations across versions v1/v2/v2.1.
+  tags:
+  - SpotDraft
+  - CLM
+  - Contracts
+  - Contract APIs
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SPOTDRAFT_CLIENT_ID: SPOTDRAFT_CLIENT_ID
+    SPOTDRAFT_CLIENT_SECRET: SPOTDRAFT_CLIENT_SECRET
+capability:
+  consumes:
+  - type: http
+    namespace: contract-apis
+    baseUri: https://api.us.spotdraft.com
+    description: SpotDraft Contract APIs endpoints.
+    headers: {}
+    resources:
+    - name: v1-public-contracts
+      path: /api/v1/public/contracts
+      operations:
+      - name: v1-public-contracts-retrieve
+        method: GET
+        description: List contracts
+        outputRawFormat: json
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          required: false
+        - name: page
+          in: query
+          type: integer
+          required: false
+      - name: v1-public-contracts-create
+        method: POST
+        description: Create contract
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v1-public-contracts-by-external-metadata-external-metadata-i
+      path: /api/v1/public/contracts/by_external_metadata/{external_metadata_id}
+      operations:
+      - name: v1-public-contracts-by-external-metadata-retriev
+        method: GET
+        description: List contracts by external metadata ID
+        outputRawFormat: json
+        inputParameters:
+        - name: external_metadata_id
+          in: path
+          type: string
+          required: true
+    - name: v1-public-contracts-contract-id-download
+      path: /api/v1/public/contracts/{contract_id}/download
+      operations:
+      - name: v1-public-contracts-download-create
+        method: POST
+        description: Download contract file
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+    - name: v1-public-contracts-contract-id-download-link
+      path: /api/v1/public/contracts/{contract_id}/download_link
+      operations:
+      - name: v1-public-contracts-download-link-create
+        method: POST
+        description: Create contract download link
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v1-public-contracts-contract-id-send-to-counterparties
+      path: /api/v1/public/contracts/{contract_id}/send_to_counterparties
+      operations:
+      - name: v1-public-contracts-send-to-counterparties-creat
+        method: POST
+        description: Send Contract to Counterparties
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v1-public-contracts-contract-id-status
+      path: /api/v1/public/contracts/{contract_id}/status
+      operations:
+      - name: v1-public-contracts-status-retrieve
+        method: GET
+        description: Get contract status
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+    - name: v2-1-public-contracts
+      path: /api/v2.1/public/contracts/
+      operations:
+      - name: v2-1-public-contracts-retrieve
+        method: GET
+        description: List contracts
+        outputRawFormat: json
+        inputParameters:
+        - name: filter__approvals_pending
+          in: query
+          type: string
+          required: false
+        - name: filter__approvals_pending[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__approvals_pending[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__approvals_pending[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__assigned_to
+          in: query
+          type: integer
+          required: false
+        - name: filter__assigned_to[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__assigned_to[$gt]
+          in: query
+          type: string
+          required: false
+        - name: filter__assigned_to[$gte]
+          in: query
+          type: string
+          required: false
+        - name: filter__assigned_to[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__assigned_to[$lt]
+          in: query
+          type: string
+          required: false
+        - name: filter__assigned_to[$lte]
+          in: query
+          type: string
+          required: false
+        - name: filter__assigned_to[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__business_user_id
+          in: query
+          type: integer
+          required: false
+        - name: filter__business_user_id[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__business_user_id[$gt]
+          in: query
+          type: string
+          required: false
+        - name: filter__business_user_id[$gte]
+          in: query
+          type: string
+          required: false
+        - name: filter__business_user_id[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__business_user_id[$lt]
+          in: query
+          type: string
+          required: false
+        - name: filter__business_user_id[$lte]
+          in: query
+          type: string
+          required: false
+        - name: filter__business_user_id[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_brand_name
+          in: query
+          type: string
+          required: false
+        - name: filter__client_brand_name[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_brand_name[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_brand_name[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_email
+          in: query
+          type: string
+          required: false
+        - name: filter__client_email[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_email[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_email[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_email_address
+          in: query
+          type: string
+          required: false
+        - name: filter__client_email_address[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_email_address[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_email_address[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_name
+          in: query
+          type: string
+          required: false
+        - name: filter__client_name[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_name[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__client_name[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_id
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_id[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_id[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_id[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_kind
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_kind[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_kind[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_kind[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_packet_name
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_packet_name[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_packet_name[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_packet_name[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_reference_id
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_reference_id[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_reference_id[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_reference_id[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_type_id
+          in: query
+          type: integer
+          required: false
+        - name: filter__contract_type_id[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_type_id[$gt]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_type_id[$gte]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_type_id[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_type_id[$lt]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_type_id[$lte]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_type_id[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_type_name
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_type_name[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_type_name[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__contract_type_name[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__created_at
+          in: query
+          type: string
+          required: false
+        - name: filter__created_at[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__created_at[$gt]
+          in: query
+          type: string
+          required: false
+        - name: filter__created_at[$gte]
+          in: query
+          type: string
+          required: false
+        - name: filter__created_at[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__created_at[$lt]
+          in: query
+          type: string
+          required: false
+        - name: filter__created_at[$lte]
+          in: query
+          type: string
+          required: false
+        - name: filter__created_at[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__display_status
+          in: query
+          type: string
+          required: false
+        - name: filter__display_status[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__display_status[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__display_status[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__entity_name
+          in: query
+          type: string
+          required: false
+        - name: filter__entity_name[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__entity_name[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__entity_name[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__execution_date
+          in: query
+          type: string
+          required: false
+        - name: filter__execution_date[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__execution_date[$gt]
+          in: query
+          type: string
+          required: false
+        - name: filter__execution_date[$gte]
+          in: query
+          type: string
+          required: false
+        - name: filter__execution_date[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__execution_date[$lt]
+          in: query
+          type: string
+          required: false
+        - name: filter__execution_date[$lte]
+          in: query
+          type: string
+          required: false
+        - name: filter__execution_date[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__expiring_at
+          in: query
+          type: string
+          required: false
+        - name: filter__expiring_at[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__expiring_at[$gt]
+          in: query
+          type: string
+          required: false
+        - name: filter__expiring_at[$gte]
+          in: query
+          type: string
+          required: false
+        - name: filter__expiring_at[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__expiring_at[$lt]
+          in: query
+          type: string
+          required: false
+        - name: filter__expiring_at[$lte]
+          in: query
+          type: string
+          required: false
+        - name: filter__expiring_at[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__last_updated_on
+          in: query
+          type: string
+          required: false
+        - name: filter__last_updated_on[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__last_updated_on[$gt]
+          in: query
+          type: string
+          required: false
+        - name: filter__last_updated_on[$gte]
+          in: query
+          type: string
+          required: false
+        - name: filter__last_updated_on[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__last_updated_on[$lt]
+          in: query
+          type: string
+          required: false
+        - name: filter__last_updated_on[$lte]
+          in: query
+          type: string
+          required: false
+        - name: filter__last_updated_on[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__legal_user_id
+          in: query
+          type: integer
+          required: false
+        - name: filter__legal_user_id[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__legal_user_id[$gt]
+          in: query
+          type: string
+          required: false
+        - name: filter__legal_user_id[$gte]
+          in: query
+          type: string
+          required: false
+        - name: filter__legal_user_id[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__legal_user_id[$lt]
+          in: query
+          type: string
+          required: false
+        - name: filter__legal_user_id[$lte]
+          in: query
+          type: string
+          required: false
+        - name: filter__legal_user_id[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__pending_with
+          in: query
+          type: string
+          required: false
+        - name: filter__pending_with[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__pending_with[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__pending_with[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatories
+          in: query
+          type: string
+          required: false
+        - name: filter__signatories[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatories[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatories[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_completed_by
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_completed_by[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_completed_by[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_completed_by[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_pending_on
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_pending_on[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_pending_on[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_pending_on[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_rejected_by
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_rejected_by[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_rejected_by[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__signatures_rejected_by[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__tags
+          in: query
+          type: string
+          required: false
+        - name: filter__tags[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__tags[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__tags[$ne]
+          in: query
+          type: string
+          required: false
+        - name: limit
+          in: query
+          type: integer
+          required: false
+        - name: page
+          in: query
+          type: integer
+          required: false
+        - name: query
+          in: query
+          type: string
+          required: false
+      - name: v2-1-public-contracts-create
+        method: POST
+        description: Create contract
+        outputRawFormat: json
+        inputParameters:
+        - name: user-email
+          in: header
+          type: string
+          required: false
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-by-external-metadata-external-metadata
+      path: /api/v2.1/public/contracts/by_external_metadata/{external_metadata_id}
+      operations:
+      - name: v2-1-public-contracts-by-external-metadata-retri
+        method: GET
+        description: List contracts by external metadata ID
+        outputRawFormat: json
+        inputParameters:
+        - name: external_metadata_id
+          in: path
+          type: string
+          required: true
+    - name: v2-1-public-contracts-embedded-contracts-contract-id-counter
+      path: /api/v2.1/public/contracts/embedded/contracts/{contract_id}/counter_party/
+      operations:
+      - name: v2-1-public-contracts-embedded-contracts-counter
+        method: GET
+        description: Get CounterParty Embedded Url
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: cp_email_id
+          in: query
+          type: string
+          required: false
+    - name: v2-1-public-contracts-executed-contracts
+      path: /api/v2.1/public/contracts/executed_contracts/
+      operations:
+      - name: v2-1-public-contracts-executed-contracts-create
+        method: POST
+        description: Upload Executed Contract Api
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-preview
+      path: /api/v2.1/public/contracts/preview/
+      operations:
+      - name: v2-1-public-contracts-preview-create
+        method: POST
+        description: Generate contract preview
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-upload-review-contracts
+      path: /api/v2.1/public/contracts/upload_review_contracts/
+      operations:
+      - name: v2-1-public-contracts-upload-review-contracts-cr
+        method: POST
+        description: Upload Contract For Review
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-upload-sign-contracts
+      path: /api/v2.1/public/contracts/upload_sign_contracts/
+      operations:
+      - name: v2-1-public-contracts-upload-sign-contracts-crea
+        method: POST
+        description: Upload Contract For Signature
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-webhooks-re-trigger-latest
+      path: /api/v2.1/public/contracts/webhooks/re_trigger_latest/
+      operations:
+      - name: v2-1-public-contracts-webhooks-re-trigger-latest
+        method: POST
+        description: Re-trigger Contract Webhooks
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-composite-id-content
+      path: /api/v2.1/public/contracts/{composite_id}/content
+      operations:
+      - name: v2-1-public-contracts-content-retrieve
+        method: GET
+        description: Get Contract Content
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: contract_version_id
+          in: query
+          type: integer
+          required: false
+        - name: text_format
+          in: query
+          type: string
+          required: false
+    - name: v2-1-public-contracts-composite-id-content-scanned
+      path: /api/v2.1/public/contracts/{composite_id}/content/scanned
+      operations:
+      - name: v2-1-public-contracts-content-scanned-retrieve
+        method: GET
+        description: Get Scanned Contract Content
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: contract_version_id
+          in: query
+          type: integer
+          required: false
+    - name: v2-1-public-contracts-composite-id-download
+      path: /api/v2.1/public/contracts/{composite_id}/download
+      operations:
+      - name: v2-1-public-contracts-download-create
+        method: POST
+        description: Download contract file
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+    - name: v2-1-public-contracts-composite-id-download-link
+      path: /api/v2.1/public/contracts/{composite_id}/download_link
+      operations:
+      - name: v2-1-public-contracts-download-link-create
+        method: POST
+        description: Create contract download link
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-1-public-contracts-composite-id-intake-form-response
+      path: /api/v2.1/public/contracts/{composite_id}/intake_form/response
+      operations:
+      - name: v2-1-public-contracts-intake-form-response-parti
+        method: PATCH
+        description: Edit Intake Form Response
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-1-public-contracts-composite-id-mark-for-execution
+      path: /api/v2.1/public/contracts/{composite_id}/mark_for_execution/
+      operations:
+      - name: v2-1-public-contracts-mark-for-execution-create
+        method: POST
+        description: Marks the contract for execution
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-1-public-contracts-composite-id-send-to-counterparties
+      path: /api/v2.1/public/contracts/{composite_id}/send_to_counterparties
+      operations:
+      - name: v2-1-public-contracts-send-to-counterparties-cre
+        method: POST
+        description: Send Contract to Counterparties
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-composite-id-signatories-resend-email
+      path: /api/v2.1/public/contracts/{composite_id}/signatories/resend_email/
+      operations:
+      - name: v2-1-public-contracts-signatories-resend-email-c
+        method: POST
+        description: Resend Email to the signatory of a Contract.
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-composite-id-status
+      path: /api/v2.1/public/contracts/{composite_id}/status
+      operations:
+      - name: v2-1-public-contracts-status-retrieve
+        method: GET
+        description: Get contract status
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+    - name: v2-1-public-contracts-composite-id-status-void
+      path: /api/v2.1/public/contracts/{composite_id}/status/void
+      operations:
+      - name: v2-1-public-contracts-status-void-create
+        method: POST
+        description: Void contract
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-composite-id-unmark-for-execution
+      path: /api/v2.1/public/contracts/{composite_id}/unmark_for_execution
+      operations:
+      - name: v2-1-public-contracts-unmark-for-execution-creat
+        method: POST
+        description: Unmark the Contract for Execution
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-1-public-contracts-contract-id-business-user
+      path: /api/v2.1/public/contracts/{contract_id}/business_user/
+      operations:
+      - name: v2-1-public-contracts-business-user-partial-upda
+        method: PATCH
+        description: Update business user for a contract
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-contract-id-contract-data
+      path: /api/v2.1/public/contracts/{contract_id}/contract_data
+      operations:
+      - name: v2-1-public-contracts-contract-data-partial-upda
+        method: PATCH
+        description: Update contract data
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: user-email
+          in: header
+          type: string
+          required: false
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-contract-id-contract-relation
+      path: /api/v2.1/public/contracts/{contract_id}/contract_relation/
+      operations:
+      - name: v2-1-public-contracts-contract-relation-create
+        method: POST
+        description: Create Contract relations
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-contract-id-download-docx
+      path: /api/v2.1/public/contracts/{contract_id}/download_docx/
+      operations:
+      - name: v2-1-public-contracts-download-docx-create
+        method: POST
+        description: Download DOCX for a contract
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-1-public-contracts-contract-id-process-metrics
+      path: /api/v2.1/public/contracts/{contract_id}/process_metrics/
+      operations:
+      - name: v2-1-public-contracts-process-metrics-retrieve
+        method: GET
+        description: Get Contract Process Metric Data
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+    - name: v2-1-public-contracts-contract-id-questionnaire-responses
+      path: /api/v2.1/public/contracts/{contract_id}/questionnaire/responses/
+      operations:
+      - name: v2-1-public-contracts-questionnaire-responses-re
+        method: GET
+        description: Get Questionnaire Response
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: questionnaire_type
+          in: query
+          type: string
+          required: true
+    - name: v2-1-public-contracts-contract-id-related-contracts
+      path: /api/v2.1/public/contracts/{contract_id}/related_contracts/
+      operations:
+      - name: v2-1-public-contracts-related-contracts-retrieve
+        method: GET
+        description: List Related Contracts
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          required: false
+        - name: page
+          in: query
+          type: integer
+          required: false
+    - name: v2-1-public-contracts-contract-id-review-request
+      path: /api/v2.1/public/contracts/{contract_id}/review_request/
+      operations:
+      - name: v2-1-public-contracts-review-request-create
+        method: POST
+        description: Create and assign a legal review task
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-1-public-supported-documents-contract-id
+      path: /api/v2.1/public/supported_documents/{contract_id}/
+      operations:
+      - name: v2-1-public-supported-documents-create
+        method: POST
+        description: Upload supported documents for a given contract
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-public-contracts
+      path: /api/v2/public/contracts/
+      operations:
+      - name: v2-public-contracts-retrieve
+        method: GET
+        description: List contracts
+        outputRawFormat: json
+        inputParameters:
+        - name: filter__client_email_address
+          in: query
+          type: string
+          required: false
+        - name: filter__client_name
+          in: query
+          type: string
+          required: false
+        - name: limit
+          in: query
+          type: integer
+          required: false
+        - name: page
+          in: query
+          type: integer
+          required: false
+      - name: v2-public-contracts-create
+        method: POST
+        description: Create contract
+        outputRawFormat: json
+        inputParameters:
+        - name: user-email
+          in: header
+          type: string
+          required: false
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-public-contracts-by-external-metadata-external-metadata-i
+      path: /api/v2/public/contracts/by_external_metadata/{external_metadata_id}
+      operations:
+      - name: v2-public-contracts-by-external-metadata-retriev
+        method: GET
+        description: List contracts by external metadata ID
+        outputRawFormat: json
+        inputParameters:
+        - name: external_metadata_id
+          in: path
+          type: string
+          required: true
+    - name: v2-public-contracts-embedded-contracts-contract-id-counter-p
+      path: /api/v2/public/contracts/embedded/contracts/{contract_id}/counter_party/
+      operations:
+      - name: v2-public-contracts-embedded-contracts-counter-p
+        method: GET
+        description: Get CounterParty Embedded Url
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: cp_email_id
+          in: query
+          type: string
+          required: false
+    - name: v2-public-contracts-preview
+      path: /api/v2/public/contracts/preview/
+      operations:
+      - name: v2-public-contracts-preview-create
+        method: POST
+        description: Generate contract preview
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-public-contracts-upload-review-contracts
+      path: /api/v2/public/contracts/upload_review_contracts/
+      operations:
+      - name: v2-public-contracts-upload-review-contracts-crea
+        method: POST
+        description: Upload Contract For Review
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-public-contracts-upload-sign-contracts
+      path: /api/v2/public/contracts/upload_sign_contracts/
+      operations:
+      - name: v2-public-contracts-upload-sign-contracts-create
+        method: POST
+        description: Upload Contract For Signature
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-public-contracts-webhooks-re-trigger-latest
+      path: /api/v2/public/contracts/webhooks/re_trigger_latest/
+      operations:
+      - name: v2-public-contracts-webhooks-re-trigger-latest-c
+        method: POST
+        description: Re-trigger Contract Webhooks
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-public-contracts-composite-id-download
+      path: /api/v2/public/contracts/{composite_id}/download
+      operations:
+      - name: v2-public-contracts-download-create
+        method: POST
+        description: Download contract file
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+    - name: v2-public-contracts-composite-id-download-link
+      path: /api/v2/public/contracts/{composite_id}/download_link
+      operations:
+      - name: v2-public-contracts-download-link-create
+        method: POST
+        description: Create contract download link
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-public-contracts-composite-id-intake-form-response
+      path: /api/v2/public/contracts/{composite_id}/intake_form/response
+      operations:
+      - name: v2-public-contracts-intake-form-response-partial
+        method: PATCH
+        description: Edit Intake Form Response
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-public-contracts-composite-id-send-to-counterparties
+      path: /api/v2/public/contracts/{composite_id}/send_to_counterparties
+      operations:
+      - name: v2-public-contracts-send-to-counterparties-creat
+        method: POST
+        description: Send contract to counterparties
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-public-contracts-composite-id-status
+      path: /api/v2/public/contracts/{composite_id}/status
+      operations:
+      - name: v2-public-contracts-status-retrieve
+        method: GET
+        description: Get contract status
+        outputRawFormat: json
+        inputParameters:
+        - name: composite_id
+          in: path
+          type: string
+          required: true
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+    - name: v2-public-contracts-contract-id-contract-data
+      path: /api/v2/public/contracts/{contract_id}/contract_data
+      operations:
+      - name: v2-public-contracts-contract-data-partial-update
+        method: PATCH
+        description: Update contract data
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: user-email
+          in: header
+          type: string
+          required: false
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-public-contracts-contract-id-download-docx
+      path: /api/v2/public/contracts/{contract_id}/download_docx/
+      operations:
+      - name: v2-public-contracts-download-docx-create
+        method: POST
+        description: Download DOCX for a contract
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-public-contracts-contract-id-questionnaire-responses
+      path: /api/v2/public/contracts/{contract_id}/questionnaire/responses/
+      operations:
+      - name: v2-public-contracts-questionnaire-responses-retr
+        method: GET
+        description: Get Questionnaire Response
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: questionnaire_type
+          in: query
+          type: string
+          required: true
+    - name: v2-public-supported-documents-contract-id
+      path: /api/v2/public/supported_documents/{contract_id}/
+      operations:
+      - name: v2-public-supported-documents-create
+        method: POST
+        description: Upload supported documents for a given contract
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true

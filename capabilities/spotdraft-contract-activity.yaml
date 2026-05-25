@@ -1,0 +1,90 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: SpotDraft Public API — Contract Activity
+  description: SpotDraft Contract Activity capability. 4 operations across versions v1/v2/v2.1.
+  tags:
+  - SpotDraft
+  - CLM
+  - Contracts
+  - Contract Activity
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SPOTDRAFT_CLIENT_ID: SPOTDRAFT_CLIENT_ID
+    SPOTDRAFT_CLIENT_SECRET: SPOTDRAFT_CLIENT_SECRET
+capability:
+  consumes:
+  - type: http
+    namespace: contract-activity
+    baseUri: https://api.us.spotdraft.com
+    description: SpotDraft Contract Activity endpoints.
+    headers: {}
+    resources:
+    - name: v2-1-public-contracts-contract-id-comments
+      path: /api/v2.1/public/contracts/{contract_id}/comments/
+      operations:
+      - name: v2-1-public-contracts-comments-retrieve
+        method: GET
+        description: Get Comments in Contract Activity Log.
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          required: false
+        - name: page
+          in: query
+          type: integer
+          required: false
+      - name: v2-1-public-contracts-comments-create
+        method: POST
+        description: Add Comment to Contract Activity Log.
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-public-contracts-contract-id-comments
+      path: /api/v2/public/contracts/{contract_id}/comments/
+      operations:
+      - name: v2-public-contracts-comments-retrieve
+        method: GET
+        description: Get Comments in Contract Activity Log.
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          required: false
+        - name: page
+          in: query
+          type: integer
+          required: false
+      - name: v2-public-contracts-comments-create
+        method: POST
+        description: Add Comment to Contract Activity Log.
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true

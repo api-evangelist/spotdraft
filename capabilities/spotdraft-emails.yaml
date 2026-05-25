@@ -1,0 +1,36 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: SpotDraft Public API — Emails
+  description: SpotDraft Emails capability. 1 operations across versions v1/v2/v2.1.
+  tags:
+  - SpotDraft
+  - CLM
+  - Contracts
+  - Emails
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SPOTDRAFT_CLIENT_ID: SPOTDRAFT_CLIENT_ID
+    SPOTDRAFT_CLIENT_SECRET: SPOTDRAFT_CLIENT_SECRET
+capability:
+  consumes:
+  - type: http
+    namespace: emails
+    baseUri: https://api.us.spotdraft.com
+    description: SpotDraft Emails endpoints.
+    headers: {}
+    resources:
+    - name: v1-public-view-email-email-audit-key
+      path: /api/v1/public/view-email/{email_audit_key}/
+      operations:
+      - name: v1-public-view-email-retrieve
+        method: GET
+        description: View Rendered Email
+        outputRawFormat: json
+        inputParameters:
+        - name: email_audit_key
+          in: path
+          type: string
+          required: true

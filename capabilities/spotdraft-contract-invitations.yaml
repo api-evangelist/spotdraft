@@ -1,0 +1,84 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: SpotDraft Public API — Contract Invitations
+  description: SpotDraft Contract Invitations capability. 4 operations across versions v1/v2/v2.1.
+  tags:
+  - SpotDraft
+  - CLM
+  - Contracts
+  - Contract Invitations
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SPOTDRAFT_CLIENT_ID: SPOTDRAFT_CLIENT_ID
+    SPOTDRAFT_CLIENT_SECRET: SPOTDRAFT_CLIENT_SECRET
+capability:
+  consumes:
+  - type: http
+    namespace: contract-invitations
+    baseUri: https://api.us.spotdraft.com
+    description: SpotDraft Contract Invitations endpoints.
+    headers: {}
+    resources:
+    - name: v2-1-public-contracts-contract-id-invite
+      path: /api/v2.1/public/contracts/{contract_id}/invite/
+      operations:
+      - name: v2-1-public-contracts-invite-create
+        method: POST
+        description: Invite Users & Roles
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-1-public-contracts-contract-id-uninvite
+      path: /api/v2.1/public/contracts/{contract_id}/uninvite/
+      operations:
+      - name: v2-1-public-contracts-uninvite-create
+        method: POST
+        description: Un-Invite a User or Role
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-1-public-contracts-contract-id-uninvite-all
+      path: /api/v2.1/public/contracts/{contract_id}/uninvite_all/
+      operations:
+      - name: v2-1-public-contracts-uninvite-all-create
+        method: POST
+        description: Un-Invite all Users & Roles
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+    - name: v2-public-contracts-contract-id-invite
+      path: /api/v2/public/contracts/{contract_id}/invite/
+      operations:
+      - name: v2-public-contracts-invite-create
+        method: POST
+        description: Invite Users & Roles
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true

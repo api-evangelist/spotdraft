@@ -1,0 +1,71 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: SpotDraft
+providerId: spotdraft
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - FinOps
+  - SaaS
+  - CLM
+description: >-
+  FOCUS-aligned FinOps view of SpotDraft as a SaaS commercial surface.
+  SpotDraft is a subscription-priced CLM platform with sales-quoted plans.
+  Pricing dimensions include seat count, annual contract volume, workspaces,
+  AI extraction quota, and selected integrations. Public API usage is included
+  in paid editions and does not surface as a separately metered line item in
+  most customer invoices.
+sources:
+  - https://www.spotdraft.com/pricing
+  - https://api.spotdraft.com/api/docs/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: SpotDraft Inc.
+serviceCategory: Business Applications
+serviceSubcategory: Contract Lifecycle Management
+billingModel:
+  pricingCategory: Subscription
+  pricingMethod: contact-sales
+  commitmentDiscounts: annual-prepay
+chargeCategories:
+  - id: subscription
+    label: Subscription Seat
+    description: Per-seat subscription fee per billing period.
+    focusChargeCategory: Usage
+  - id: ai-extraction
+    label: AI Extraction
+    description: Quota or overage on SpotDraft AI metadata extraction and risk-flagging actions.
+    focusChargeCategory: Usage
+  - id: integrations
+    label: Premium Integrations
+    description: Add-on charges for Salesforce, HubSpot, Coupa, or Greenhouse connectors above the included set.
+    focusChargeCategory: Usage
+  - id: clickwrap
+    label: Clickwrap Module
+    description: Volume-based pricing for clickwrap agreement executions and consent storage.
+    focusChargeCategory: Usage
+  - id: support
+    label: Premium Support
+    description: Dedicated CSM, 24/7 multi-channel support, and implementation services.
+    focusChargeCategory: Support
+billingCurrency:
+  - USD
+  - EUR
+  - INR
+  - GBP
+invoiceDimensions:
+  - seat
+  - workspace
+  - annual-contract-volume
+  - ai-extraction-quota
+  - clickwrap-agreement-count
+notes:
+  - SpotDraft does not publish list prices; FinOps practitioners should track committed seats and quota tiers on the order form (MSA + Order Schedule).
+  - AI extraction and Clickwrap module usage are common surprise-overage sources; instrument via Webhook Logs and Public API analytics queries.
+  - Regional data residency (IN, US, EU, ME) is typically Enterprise-tier and may carry a residency premium.

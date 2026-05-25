@@ -1,0 +1,41 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: SpotDraft
+providerId: spotdraft
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - CLM
+  - Rate Limiting
+  - Quotas
+description: >-
+  SpotDraft does not publish a numerical rate-limit table in its public docs.
+  The Public API is gated per Client ID/Secret pair issued from Developer
+  Settings, and limits are negotiated per contract for Enterprise customers.
+  Throttling follows the conventional 429 Too Many Requests response with
+  Retry-After. This file documents what is known and observable.
+sources:
+  - https://api.spotdraft.com/api/docs/
+  - https://help.spotdraft.com/hc/en-us/articles/19587223206429-Developer-Settings
+algorithm: unspecified
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+headers:
+  retryAfter: retry-after
+scopes:
+  - id: per-client
+    label: Per Client Credentials
+    description: Limits are enforced per Client ID + Client Secret pair issued in Developer Settings.
+  - id: per-region
+    label: Per Regional Cluster
+    description: Each regional cluster (IN, US, EU, ME) maintains independent limits and quotas.
+webhookDelivery:
+  description: Webhook deliveries are retried on non-2xx responses. Failures are visible in the Developer Settings Webhook Logs.
+  retries: retry-with-backoff
+notes:
+  - Numerical per-second or per-hour request quotas are not documented publicly; contact SpotDraft support or your CSM for the exact figures in your plan.
+  - The analytics SQL endpoint (V2.1 Analytics Query) is read-only and protected by query complexity and row-scan limits.
+  - Webhook payload re-trigger is exposed via /api/v2.1/public/contracts/webhooks/re_trigger_latest/ for failed deliveries.

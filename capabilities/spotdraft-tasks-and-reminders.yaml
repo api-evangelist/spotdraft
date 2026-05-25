@@ -1,0 +1,64 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: SpotDraft Public API — Tasks and Reminders
+  description: SpotDraft Tasks and Reminders capability. 3 operations across versions v1/v2/v2.1.
+  tags:
+  - SpotDraft
+  - CLM
+  - Contracts
+  - Tasks and Reminders
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SPOTDRAFT_CLIENT_ID: SPOTDRAFT_CLIENT_ID
+    SPOTDRAFT_CLIENT_SECRET: SPOTDRAFT_CLIENT_SECRET
+capability:
+  consumes:
+  - type: http
+    namespace: tasks-and-reminders
+    baseUri: https://api.us.spotdraft.com
+    description: SpotDraft Tasks and Reminders endpoints.
+    headers: {}
+    resources:
+    - name: v2-1-public-contracts-contract-id-tasks-bulk
+      path: /api/v2.1/public/contracts/{contract_id}/tasks/bulk/
+      operations:
+      - name: v2-1-public-contracts-tasks-bulk-create
+        method: POST
+        description: V2.1 Bulk Create User Tasks
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-1-public-user-tasks
+      path: /api/v2.1/public/user_tasks/
+      operations:
+      - name: v2-1-public-user-tasks-create
+        method: POST
+        description: V2.1 Create User Tasks List
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-public-user-tasks
+      path: /api/v2/public/user_tasks/
+      operations:
+      - name: v2-public-user-tasks-create
+        method: POST
+        description: V2 Create User Tasks List
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true

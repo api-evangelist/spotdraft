@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/spotdraft/main/json-schema/spotdraft-organization-schema.json",
+  "title": "SpotDraft Organization",
+  "description": "Defines structure for organization address",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string",
+      "default": ""
+    },
+    "country": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string",
+      "default": ""
+    },
+    "line_one": {
+      "type": "string"
+    },
+    "line_two": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "gst_number": {
+      "type": "string"
+    },
+    "tax_id": {
+      "type": "string"
+    },
+    "country_iso_code": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "city",
+    "country",
+    "line_one"
+  ]
+}

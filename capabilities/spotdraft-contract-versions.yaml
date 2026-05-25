@@ -1,0 +1,56 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: SpotDraft Public API — Contract Versions
+  description: SpotDraft Contract Versions capability. 2 operations across versions v1/v2/v2.1.
+  tags:
+  - SpotDraft
+  - CLM
+  - Contracts
+  - Contract Versions
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SPOTDRAFT_CLIENT_ID: SPOTDRAFT_CLIENT_ID
+    SPOTDRAFT_CLIENT_SECRET: SPOTDRAFT_CLIENT_SECRET
+capability:
+  consumes:
+  - type: http
+    namespace: contract-versions
+    baseUri: https://api.us.spotdraft.com
+    description: SpotDraft Contract Versions endpoints.
+    headers: {}
+    resources:
+    - name: v2-1-public-contracts-contract-id-contract-version
+      path: /api/v2.1/public/contracts/{contract_id}/contract_version/
+      operations:
+      - name: v2-1-public-contracts-contract-version-create
+        method: POST
+        description: Upload Contract Version.
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v2-public-contracts-contract-id-contract-version
+      path: /api/v2/public/contracts/{contract_id}/contract_version/
+      operations:
+      - name: v2-public-contracts-contract-version-create
+        method: POST
+        description: Upload Contract Version.
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true

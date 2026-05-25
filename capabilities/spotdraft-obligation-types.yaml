@@ -1,0 +1,43 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: SpotDraft Public API — Obligation Types
+  description: SpotDraft Obligation Types capability. 2 operations across versions v1/v2/v2.1.
+  tags:
+  - SpotDraft
+  - CLM
+  - Contracts
+  - Obligation Types
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SPOTDRAFT_CLIENT_ID: SPOTDRAFT_CLIENT_ID
+    SPOTDRAFT_CLIENT_SECRET: SPOTDRAFT_CLIENT_SECRET
+capability:
+  consumes:
+  - type: http
+    namespace: obligation-types
+    baseUri: https://api.us.spotdraft.com
+    description: SpotDraft Obligation Types endpoints.
+    headers: {}
+    resources:
+    - name: v1-public-obligations-types
+      path: /api/v1/public/obligations/types/
+      operations:
+      - name: v1-public-obligations-types-list
+        method: GET
+        description: Get Active Obligation Type List
+        outputRawFormat: json
+    - name: v1-public-obligations-types-obligation-type-id
+      path: /api/v1/public/obligations/types/{obligation_type_id}/
+      operations:
+      - name: v1-public-obligations-types-retrieve-by-id
+        method: GET
+        description: Get Obligation Type
+        outputRawFormat: json
+        inputParameters:
+        - name: obligation_type_id
+          in: path
+          type: integer
+          required: true

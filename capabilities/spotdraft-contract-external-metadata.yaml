@@ -1,0 +1,49 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: SpotDraft Public API — Contract External Metadata
+  description: SpotDraft Contract External Metadata capability. 2 operations across versions v1/v2/v2.1.
+  tags:
+  - SpotDraft
+  - CLM
+  - Contracts
+  - Contract External Metadata
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SPOTDRAFT_CLIENT_ID: SPOTDRAFT_CLIENT_ID
+    SPOTDRAFT_CLIENT_SECRET: SPOTDRAFT_CLIENT_SECRET
+capability:
+  consumes:
+  - type: http
+    namespace: contract-external-metadata
+    baseUri: https://api.us.spotdraft.com
+    description: SpotDraft Contract External Metadata endpoints.
+    headers: {}
+    resources:
+    - name: v2-1-public-contracts-contract-id-external-metadata
+      path: /api/v2.1/public/contracts/{contract_id}/external_metadata
+      operations:
+      - name: v2-1-public-contracts-external-metadata-retrieve
+        method: GET
+        description: Get contract external metadata
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+      - name: v2-1-public-contracts-external-metadata-create
+        method: POST
+        description: Create or update contract external metadata
+        outputRawFormat: json
+        inputParameters:
+        - name: contract_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true

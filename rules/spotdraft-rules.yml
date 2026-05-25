@@ -1,0 +1,74 @@
+extends: spectral:oas
+formats:
+  - oas3
+rules:
+  spotdraft-info-contact:
+    description: SpotDraft OpenAPI must include contact info.
+    given: $.info
+    severity: warn
+    then:
+      field: contact
+      function: truthy
+  spotdraft-summary-required:
+    description: Every operation must have a summary.
+    given: $.paths[*][get,post,put,patch,delete]
+    severity: error
+    then:
+      field: summary
+      function: truthy
+  spotdraft-summary-title-case:
+    description: Operation summaries must use Title Case.
+    given: $.paths[*][get,post,put,patch,delete].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+  spotdraft-tag-required:
+    description: Every operation must carry at least one tag (used for resource grouping).
+    given: $.paths[*][get,post,put,patch,delete]
+    severity: error
+    then:
+      field: tags
+      function: truthy
+  spotdraft-tag-versioned:
+    description: SpotDraft tags should follow the "V<n> Resource" pattern.
+    given: $.tags[*].name
+    severity: info
+    then:
+      function: pattern
+      functionOptions:
+        match: "^V[0-9](\\.[0-9])?\\s+.+"
+  spotdraft-path-public-prefix:
+    description: Public API paths should be rooted under /api/v<n>/public/.
+    given: $.paths
+    severity: warn
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: "^/api/v\\d(\\.\\d)?/public/"
+  spotdraft-server-regional:
+    description: At least four regional servers must be declared (IN, US, EU, ME).
+    given: $.servers
+    severity: warn
+    then:
+      function: length
+      functionOptions:
+        min: 4
+  spotdraft-security-defined:
+    description: Public API operations should declare a security requirement.
+    given: $.paths[*][get,post,put,patch,delete]
+    severity: warn
+    then:
+      field: security
+      function: truthy
+  spotdraft-trailing-slash:
+    description: SpotDraft uses trailing slashes on collection paths; keep them consistent.
+    given: $.paths
+    severity: info
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: ".*"

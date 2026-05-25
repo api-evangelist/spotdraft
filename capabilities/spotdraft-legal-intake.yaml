@@ -1,0 +1,123 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: SpotDraft Public API — Legal Intake
+  description: SpotDraft Legal Intake capability. 5 operations across versions v1/v2/v2.1.
+  tags:
+  - SpotDraft
+  - CLM
+  - Contracts
+  - Legal Intake
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SPOTDRAFT_CLIENT_ID: SPOTDRAFT_CLIENT_ID
+    SPOTDRAFT_CLIENT_SECRET: SPOTDRAFT_CLIENT_SECRET
+capability:
+  consumes:
+  - type: http
+    namespace: legal-intake
+    baseUri: https://api.us.spotdraft.com
+    description: SpotDraft Legal Intake endpoints.
+    headers: {}
+    resources:
+    - name: v1-public-legal-intake
+      path: /api/v1/public/legal_intake/
+      operations:
+      - name: v1-public-legal-intake-retrieve
+        method: GET
+        description: List legal intakes
+        outputRawFormat: json
+        inputParameters:
+        - name: filter__priority
+          in: query
+          type: string
+          required: false
+        - name: filter__priority[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__priority[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__priority[$ne]
+          in: query
+          type: string
+          required: false
+        - name: filter__status
+          in: query
+          type: string
+          required: false
+        - name: filter__status[$eq]
+          in: query
+          type: string
+          required: false
+        - name: filter__status[$in]
+          in: query
+          type: string
+          required: false
+        - name: filter__status[$ne]
+          in: query
+          type: string
+          required: false
+        - name: limit
+          in: query
+          type: integer
+          required: false
+        - name: page
+          in: query
+          type: integer
+          required: false
+        - name: query
+          in: query
+          type: string
+          required: false
+        - name: sort
+          in: query
+          type: string
+          required: false
+      - name: v1-public-legal-intake-create
+        method: POST
+        description: Create legal intake
+        outputRawFormat: json
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: v1-public-legal-intake-legal-intake-id
+      path: /api/v1/public/legal_intake/{legal_intake_id}/
+      operations:
+      - name: v1-public-legal-intake-retrieve-2
+        method: GET
+        description: Get legal intake by ID
+        outputRawFormat: json
+        inputParameters:
+        - name: legal_intake_id
+          in: path
+          type: integer
+          required: true
+      - name: v1-public-legal-intake-partial-update
+        method: PATCH
+        description: Update legal intake
+        outputRawFormat: json
+        inputParameters:
+        - name: legal_intake_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+      - name: v1-public-legal-intake-destroy
+        method: DELETE
+        description: Delete legal intake
+        outputRawFormat: json
+        inputParameters:
+        - name: legal_intake_id
+          in: path
+          type: integer
+          required: true

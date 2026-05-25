@@ -1,0 +1,168 @@
+specification: API Commons Vocabulary
+specificationVersion: '0.1'
+provider: SpotDraft
+providerId: spotdraft
+created: '2026-05-25'
+modified: '2026-05-25'
+description: >-
+  Operational and capability vocabulary for the SpotDraft Contract Lifecycle
+  Management (CLM) platform. Captures the core concepts exposed across the
+  Public API (v1, v2, v2.1) — contracts, templates, counterparties, approvals,
+  workflows, clickwrap agreements, webhooks, recipients, metadata, obligations,
+  notes, and analytics — plus operational dimensions such as regional
+  clusters, versioning, and authentication.
+sources:
+  - https://api.spotdraft.com/api/docs/
+  - https://help.spotdraft.com/hc/en-us/sections/20205760975133-Public-API
+  - https://www.spotdraft.com/integrations
+domains:
+  - id: contracting
+    label: Contract Lifecycle Management
+    description: End-to-end management of contracts from intake through execution and renewal.
+  - id: signing
+    label: Electronic Signature
+    description: ESIGN- and EIDAS-compliant digital signing and clickwrap consent.
+  - id: collaboration
+    label: Negotiation and Collaboration
+    description: Multi-party negotiation, redlining, and approvals in Word and the SpotDraft UI.
+  - id: governance
+    label: Governance and Compliance
+    description: Approval chains, access controls, audit trails, and regulatory alignment.
+  - id: integration
+    label: Workflow Integration
+    description: CRM, HRIS, e-sign, ticketing, procurement, and storage connectors.
+concepts:
+  - id: Contract
+    label: Contract
+    description: A legal agreement managed in SpotDraft. Has a status, version history, parties, metadata, and obligations.
+    versions: [v1, v2, v2.1]
+  - id: Template
+    label: Template
+    description: A reusable contract template with associated metadata definitions and intake questionnaires.
+    versions: [v1, v2, v2.1]
+  - id: ContractType
+    label: Contract Type
+    description: A category that groups contracts (e.g., NDA, MSA, SOW) and drives access control and workflows.
+    versions: [v2, v2.1]
+  - id: Counterparty
+    label: Counterparty
+    description: An external party to a contract — organization or individual — with associated contacts and addresses.
+    versions: [v2, v2.1]
+  - id: Approval
+    label: Approval
+    description: A step in an approval chain that gates contract progression. Can be predefined or adhoc.
+    versions: [v2, v2.1]
+  - id: Recipient
+    label: Recipient
+    description: A party that receives a contract for review, signature, or acknowledgement.
+    versions: [v2, v2.1]
+  - id: Workflow
+    label: Workflow
+    description: Conditional routing and automation that move contracts through their lifecycle.
+  - id: Clickwrap
+    label: Clickwrap
+    description: An online consent agreement (e.g., Terms of Service) accepted via click-through.
+    versions: [v2.1]
+  - id: Webhook
+    label: Webhook
+    description: A user-registered HTTP callback that delivers real-time contract lifecycle events.
+    versions: [v1, v2.1]
+  - id: MetadataDefinition
+    label: Metadata Definition
+    description: A typed field definition used to capture structured data on contracts and templates.
+    versions: [v2, v2.1]
+  - id: MetadataValue
+    label: Metadata Value
+    description: The captured value for a metadata definition on a specific contract or template.
+    versions: [v2, v2.1]
+  - id: Obligation
+    label: Obligation
+    description: A commitment, deliverable, deadline, or term tracked on an executed contract.
+    versions: [v2.1]
+  - id: Note
+    label: Contract Note
+    description: A free-form note attached to a contract for internal context.
+    versions: [v2, v2.1]
+  - id: Activity
+    label: Contract Activity
+    description: A timestamped event in the contract's audit log.
+    versions: [v2, v2.1]
+  - id: User
+    label: User
+    description: A SpotDraft platform user with assigned roles and workspace memberships.
+    versions: [v1, v2, v2.1]
+  - id: Role
+    label: Role
+    description: A named permission bundle assigned to users.
+    versions: [v2.1]
+  - id: Workspace
+    label: Workspace
+    description: An organizational unit within an account that scopes contracts, templates, and access.
+    versions: [v2.1]
+  - id: Organization
+    label: Organization
+    description: A SpotDraft customer organization including addresses and configuration.
+    versions: [v2, v2.1]
+operations:
+  - Create
+  - List
+  - Get
+  - Update
+  - Delete
+  - Send
+  - Sign
+  - Approve
+  - Cancel
+  - Download
+  - Preview
+  - Re-trigger Webhook
+regions:
+  - id: in
+    label: India
+    baseUrl: https://api.in.spotdraft.com
+  - id: us
+    label: United States
+    baseUrl: https://api.us.spotdraft.com
+  - id: eu
+    label: European Union
+    baseUrl: https://api.eu.spotdraft.com
+  - id: me
+    label: Middle East
+    baseUrl: https://api.me.spotdraft.com
+authentication:
+  - id: client-credentials
+    label: Client ID + Client Secret
+    description: Generate from Developer Settings; used to authenticate API requests.
+  - id: oauth-bearer
+    label: OAuth Bearer
+    description: OAuth JWT bearer tokens for delegated access.
+integrations:
+  crm:
+    - Salesforce
+    - HubSpot
+    - Zoho
+  storage:
+    - Google Drive
+    - Dropbox
+    - Box
+    - OneDrive
+    - SharePoint
+  collaboration:
+    - Slack
+    - Microsoft Teams
+    - Google Forms
+  email:
+    - Gmail
+    - Outlook
+  esign:
+    - DocuSign
+  identity:
+    - Okta
+  ticketing:
+    - Jira
+  procurement:
+    - Coupa
+  automation:
+    - Zapier
+  recruiting:
+    - Greenhouse

@@ -1,0 +1,91 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: SpotDraft
+providerId: spotdraft
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - CLM
+  - Contracts
+  - Pricing
+description: >-
+  SpotDraft does not publish public per-seat or per-contract pricing. Plans
+  are quoted by sales after a discovery call. This file captures the named
+  editions referenced in SpotDraft marketing and analyst reports along with
+  the commercial dimensions that drive pricing (users, contract volume,
+  workspaces, integrations, AI usage).
+sources:
+  - https://www.spotdraft.com/pricing
+  - https://www.spotdraft.com/integrations
+  - https://www.spotdraft.com/security
+pricingModel: contact-sales
+plans:
+  - id: spotdraft-essentials
+    name: Essentials
+    type: subscription
+    description: Entry tier for small legal and sales teams to centralize templates, e-signatures, and approvals.
+    elements:
+      - Contract Templates
+      - Workflows and Approvals
+      - E-Signature (ESIGN / EIDAS)
+      - Counterparty Management
+      - Repository Search
+      - Standard Integrations
+      - Email Support
+    entries:
+      - label: Pricing
+        type: contact
+        price: Contact Sales
+  - id: spotdraft-business
+    name: Business
+    type: subscription
+    description: Mid-market tier with deeper AI, conditional workflows, and CRM integrations.
+    elements:
+      - All Essentials features
+      - SpotDraft AI (extraction, redlining assistance)
+      - Conditional Workflows
+      - Salesforce / HubSpot Integration
+      - Slack / Teams Notifications
+      - Advanced Analytics
+      - Audit Logs
+    entries:
+      - label: Pricing
+        type: contact
+        price: Contact Sales
+  - id: spotdraft-enterprise
+    name: Enterprise
+    type: subscription
+    description: Enterprise tier with regional residency, SSO, fine-grained access, and dedicated CSM.
+    elements:
+      - All Business features
+      - Regional Data Residency (IN, US, EU, ME)
+      - SAML SSO (Okta and others)
+      - SCIM Provisioning
+      - Role-Based Access Control
+      - Public API and Webhooks
+      - Clickwrap Module
+      - Custom Workflows and Approval Chains
+      - Premium Support and Dedicated CSM
+    entries:
+      - label: Pricing
+        type: contact
+        price: Contact Sales
+  - id: spotdraft-clickwrap
+    name: Clickwrap
+    type: add-on
+    description: Click-through agreement product for end-user consent flows (web and mobile SDKs).
+    elements:
+      - Hosted Clickwrap Agreements
+      - Consent Tracking and Audit
+      - Android and iOS SDKs
+      - Public Clickwrap API
+    entries:
+      - label: Pricing
+        type: contact
+        price: Contact Sales
+notes:
+  - Pricing dimensions referenced by SpotDraft sales include seat count, contract volume per year, number of workspaces, AI extraction quota, and selected integrations.
+  - The Public API and webhooks are included with paid editions; the practical access tier is Business or Enterprise.
+  - Regional clusters (IN, US, EU, ME) are an Enterprise data-residency capability.

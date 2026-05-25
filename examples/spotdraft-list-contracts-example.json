@@ -1,0 +1,35 @@
+{
+  "_request": {
+    "method": "GET",
+    "url": "https://api.us.spotdraft.com/api/v2.1/public/contracts/?status=executed&limit=20",
+    "headers": {
+      "X-Client-Id": "<CLIENT_ID>",
+      "X-Client-Secret": "<CLIENT_SECRET>",
+      "Accept": "application/json"
+    }
+  },
+  "_response": {
+    "next": "https://api.us.spotdraft.com/api/v2.1/public/contracts/?cursor=eyJsYXN0IjoiYWJjMTIzIn0&limit=20",
+    "previous": null,
+    "results": [
+      {
+        "composite_id": "c_01HZ2GQ3K8YQX5N5W4ZB9JK1XY",
+        "name": "Acme MSA — Globex Corp",
+        "contract_type": "Master Services Agreement",
+        "status": "executed",
+        "created_at": "2026-04-12T17:11:08Z",
+        "executed_at": "2026-04-18T09:22:31Z",
+        "effective_date": "2026-05-01",
+        "expiration_date": "2027-05-01",
+        "owner": {
+          "id": "u_01HZ1Z5MN9P2WTRJV3F5KX8C0E",
+          "email": "legal-ops@acme.example"
+        },
+        "counterparties": [
+          { "id": "cp_01HZ09P5K3RW0M1J4D6Q7T2YH8", "name": "Globex Corp" }
+        ],
+        "tags": ["renewal-2026", "tier-1"]
+      }
+    ]
+  }
+}

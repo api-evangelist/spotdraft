@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/spotdraft/main/json-schema/spotdraft-contracttype-schema.json",
+  "title": "SpotDraft ContractType",
+  "description": "JSON Schema for the SpotDraft ContractType resource derived from ContractTypeListDomainModel in the Public API OpenAPI spec.",
+  "type": "array",
+  "items": {
+    "title": "ContractTypeDomainModel",
+    "type": "object",
+    "properties": {
+      "id": {
+        "title": "Id",
+        "type": "integer"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "name"
+    ]
+  }
+}

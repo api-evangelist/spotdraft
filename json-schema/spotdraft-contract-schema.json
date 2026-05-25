@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/spotdraft/main/json-schema/spotdraft-contract-schema.json",
+  "title": "SpotDraft Contract",
+  "description": "Defines the data that is required for contract creation",
+  "type": "object",
+  "properties": {
+    "contract_template_id": {
+      "type": "integer",
+      "description": "ID of the SpotDraft contract template used to generate the contract."
+    },
+    "contract_data": {
+      "description": "A key-value object where each key must match a template field name from the contract template.\n\nValues should use the data type expected by that template field. Common patterns include:\n- `string`: free-form text\n- `number`: integer or decimal values\n- `boolean`: `true` or `false`\n- `date`: `YYYY-MM-DD`\n- `datetime`: ISO 8601 timestamp such as `2026-03-28T10:15:00Z`\n- `duration`: `{ \"type\": \"MONTHS\" | \"YEARS\" | \"DAYS\", \"value\": number, \"days\": number }`\n- `currency`: `{ \"type\": \"USD\" | \"INR\" | ... , \"value\": number }`\n- `dropdown`: the selected option value as configured in the template\n- `multi_select`: an array of selected option values\n- `address`: an object such as `{ \"line_one\": ..., \"city\": ..., \"country\": ..., \"zipcode\": ... }`\n- `repeating`: an array of row objects for repeating groups or dynamic tables\n- `file`: a file object or uploaded file reference where the workflow supports attachments\n\nUse template field names exactly as configured in SpotDraft."
+    },
+    "counter_party_details": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ExternalCounterPartyDetails"
+      },
+      "description": "A list of counterparties involved in the contract. At least one counterparty must be provided."
+    },
+    "external_metadata": {
+      "description": "Optional external system metadata to associate with the contract, such as a CRM or ERP record reference."
+    },
+    "entity_reference_id": {
+      "type": "string",
+      "description": "Optional creator organization entity reference ID. If omitted, SpotDraft uses the primary organization entity for the creator organization."
+    },
+    "workflow_config": {
+      "$ref": "#/components/schemas/WorkflowConfig"
+    },
+    "send_to_counterparty_config": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/SendToCounterparty"
+        }
+      ],
+      "description": "Optional email-delivery settings to apply when sending the contract to counterparties."
+    },
+    "contract_name": {
+      "type": "string",
+      "description": "Optional contract display name. If omitted, SpotDraft derives the contract name from the workflow or template configuration."
+    },
+    "signatories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ExternalCreateContractSignatory"
+      },
+      "description": "An optional list of signatories for the contract. If provided, each signatory must be associated with a counterparty specified in `counter_party_details`."
+    },
+    "is_embedded_contract": {
+      "type": "boolean",
+      "default": false,
+      "description": "Set to true when the contract will be used in an embedded signing flow."
+    }
+  },
+  "required": [
+    "contract_data",
+    "contract_template_id",
+    "counter_party_details"
+  ]
+}

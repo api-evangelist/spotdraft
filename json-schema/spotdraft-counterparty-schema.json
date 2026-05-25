@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/spotdraft/main/json-schema/spotdraft-counterparty-schema.json",
+  "title": "SpotDraft Counterparty",
+  "description": "JSON Schema for the SpotDraft Counterparty resource derived from SendToCounterparty in the Public API OpenAPI spec.",
+  "type": "object",
+  "properties": {
+    "to_emails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional list of primary recipient email addresses. If omitted, SpotDraft uses the configured counterparty recipients for the contract."
+    },
+    "cc_emails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional list of email addresses to copy on the outbound contract email."
+    },
+    "bcc_emails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional list of blind-copy email addresses for the outbound contract email."
+    },
+    "attachment_formats": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/AttachmentFormatsEnum"
+      },
+      "description": "At least one attachment format is required. Allowed values come from the ContractEmailFormat enum."
+    },
+    "extra_attachments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/EmailBase64Attachment"
+      },
+      "description": "Optional additional attachments to send with the contract email."
+    },
+    "custom_message": {
+      "type": "string",
+      "description": "Optional custom message to include in the contract email body."
+    },
+    "subject": {
+      "type": "string",
+      "description": "Optional custom email subject line."
+    }
+  },
+  "required": [
+    "attachment_formats"
+  ]
+}

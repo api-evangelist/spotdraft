@@ -1,0 +1,17 @@
+{
+  "_description": "Example webhook payload delivered by SpotDraft when a contract is executed. Configure the destination URL and trigger events in Developer Settings.",
+  "event": "contract.executed",
+  "delivery_id": "wh_evt_01HZBKM6QJ4R3T7Y9P2D5VHN0X",
+  "occurred_at": "2026-05-25T16:22:09Z",
+  "data": {
+    "composite_id": "c_01HZ2GQ3K8YQX5N5W4ZB9JK1XY",
+    "name": "Acme MSA — Globex Corp",
+    "status": "executed",
+    "contract_type": "Master Services Agreement",
+    "executed_at": "2026-05-25T16:21:58Z",
+    "owner_id": "u_01HZ1Z5MN9P2WTRJV3F5KX8C0E",
+    "counterparties": [
+      { "id": "cp_01HZ09P5K3RW0M1J4D6Q7T2YH8", "name": "Globex Corp" }
+    ]
+  }
+}

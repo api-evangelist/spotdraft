@@ -1,0 +1,206 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: SpotDraft Public API — Templates
+  description: SpotDraft Templates capability. 10 operations across versions v1/v2/v2.1.
+  tags:
+  - SpotDraft
+  - CLM
+  - Contracts
+  - Templates
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SPOTDRAFT_CLIENT_ID: SPOTDRAFT_CLIENT_ID
+    SPOTDRAFT_CLIENT_SECRET: SPOTDRAFT_CLIENT_SECRET
+capability:
+  consumes:
+  - type: http
+    namespace: templates
+    baseUri: https://api.us.spotdraft.com
+    description: SpotDraft Templates endpoints.
+    headers: {}
+    resources:
+    - name: v1-public-templates
+      path: /api/v1/public/templates/
+      operations:
+      - name: v1-public-templates-list
+        method: GET
+        description: Get Template List
+        outputRawFormat: json
+        inputParameters:
+        - name: cp_types
+          in: query
+          type: string
+          required: false
+        - name: cp_types_all
+          in: query
+          type: boolean
+          required: false
+        - name: exclude_multi_party
+          in: query
+          type: boolean
+          required: false
+        - name: include_archived
+          in: query
+          type: boolean
+          required: false
+        - name: tags
+          in: query
+          type: array
+          required: false
+        - name: tags_all
+          in: query
+          type: array
+          required: false
+    - name: v1-public-templates-template-id-metadata
+      path: /api/v1/public/templates/{template_id}/metadata
+      operations:
+      - name: v1-public-templates-metadata-retrieve
+        method: GET
+        description: Get Template Metadata
+        outputRawFormat: json
+        inputParameters:
+        - name: template_id
+          in: path
+          type: string
+          required: true
+    - name: v2-1-public-templates
+      path: /api/v2.1/public/templates/
+      operations:
+      - name: v2-1-public-templates-list
+        method: GET
+        description: Get Template List
+        outputRawFormat: json
+        inputParameters:
+        - name: cp_types
+          in: query
+          type: string
+          required: false
+        - name: cp_types_all
+          in: query
+          type: boolean
+          required: false
+        - name: exclude_multi_party
+          in: query
+          type: boolean
+          required: false
+        - name: include_archived
+          in: query
+          type: boolean
+          required: false
+        - name: tags
+          in: query
+          type: array
+          required: false
+        - name: tags_all
+          in: query
+          type: array
+          required: false
+    - name: v2-1-public-templates-template-id
+      path: /api/v2.1/public/templates/{template_id}/
+      operations:
+      - name: v2-1-public-templates-retrieve-by-id
+        method: GET
+        description: Get Template Details
+        outputRawFormat: json
+        inputParameters:
+        - name: template_id
+          in: path
+          type: integer
+          required: true
+      - name: v2-1-public-templates-partial-update
+        method: PATCH
+        description: Update Template Data
+        outputRawFormat: json
+        inputParameters:
+        - name: template_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-1-public-templates-template-id-metadata
+      path: /api/v2.1/public/templates/{template_id}/metadata
+      operations:
+      - name: v2-1-public-templates-metadata-retrieve
+        method: GET
+        description: Get Template Metadata
+        outputRawFormat: json
+        inputParameters:
+        - name: template_id
+          in: path
+          type: string
+          required: true
+    - name: v2-public-templates
+      path: /api/v2/public/templates/
+      operations:
+      - name: v2-public-templates-list
+        method: GET
+        description: Get Template List
+        outputRawFormat: json
+        inputParameters:
+        - name: cp_types
+          in: query
+          type: string
+          required: false
+        - name: cp_types_all
+          in: query
+          type: boolean
+          required: false
+        - name: exclude_multi_party
+          in: query
+          type: boolean
+          required: false
+        - name: include_archived
+          in: query
+          type: boolean
+          required: false
+        - name: tags
+          in: query
+          type: array
+          required: false
+        - name: tags_all
+          in: query
+          type: array
+          required: false
+    - name: v2-public-templates-template-id
+      path: /api/v2/public/templates/{template_id}/
+      operations:
+      - name: v2-public-templates-retrieve-by-id
+        method: GET
+        description: Get Template Details
+        outputRawFormat: json
+        inputParameters:
+        - name: template_id
+          in: path
+          type: integer
+          required: true
+      - name: v2-public-templates-partial-update
+        method: PATCH
+        description: Update Template Data
+        outputRawFormat: json
+        inputParameters:
+        - name: template_id
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    - name: v2-public-templates-template-id-metadata
+      path: /api/v2/public/templates/{template_id}/metadata
+      operations:
+      - name: v2-public-templates-metadata-retrieve
+        method: GET
+        description: Get Template Metadata
+        outputRawFormat: json
+        inputParameters:
+        - name: template_id
+          in: path
+          type: string
+          required: true

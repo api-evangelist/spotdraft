@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/spotdraft/main/json-schema/spotdraft-user-schema.json",
+  "title": "SpotDraft User",
+  "description": "The response for the user created in SpotDraft",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "readOnly": true
+    },
+    "first_name": {
+      "type": "string",
+      "description": "The first name of the user."
+    },
+    "last_name": {
+      "type": "string",
+      "description": "The last name of the user."
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "readOnly": true,
+      "description": "The list of roles for the user."
+    },
+    "username": {
+      "type": "string",
+      "description": "The email address of the user."
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The ISO timestamp when the user was created."
+    },
+    "modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The ISO timestamp when the user was last modified."
+    }
+  },
+  "required": [
+    "created",
+    "first_name",
+    "id",
+    "last_name",
+    "modified",
+    "roles",
+    "username"
+  ]
+}
