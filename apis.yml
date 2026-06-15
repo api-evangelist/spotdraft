@@ -1,23 +1,17 @@
 aid: spotdraft
 name: SpotDraft
 description: >-
-  SpotDraft is an AI-powered Contract Lifecycle Management (CLM) platform
-  headquartered in Bangalore, India, with offices in San Francisco, New York,
-  and London. The platform lets legal, sales, procurement, and operations teams
-  create, negotiate, sign, store, and analyze contracts in one place. Core
-  capabilities include conditional workflows and approval routing, collaborative
-  Word-based negotiation, a searchable contract repository with granular access
-  controls, embedded SpotDraft AI for metadata extraction and risk flagging,
-  ESIGN/EIDAS-compliant e-signatures, Clickwrap agreements, obligation
-  tracking, and analytics dashboards. SpotDraft serves 450+ companies and is
-  recognized as a Leader in the IDC MarketScape for AI-enabled buy-side CLMs
-  and a G2 Leader. The company exposes a documented Public API (OpenAPI 3.0.3)
-  with versions v1, v2, and v2.1 covering contracts, templates, counterparties,
-  approvals, workflows, clickwrap, webhooks, analytics, users, and
-  organizations across four regional clusters (India, United States, European
-  Union, Middle East). Webhooks notify external systems of contract lifecycle
-  events in real time. Native integrations exist for Salesforce, HubSpot,
-  Zoho, Slack, Microsoft Teams, Google Drive, Dropbox, Box, OneDrive,
+  SpotDraft is an AI-powered Contract Lifecycle Management (CLM) platform headquartered in Bangalore, India, with
+  offices in San Francisco, New York, and London. The platform lets legal, sales, procurement, and operations teams
+  create, negotiate, sign, store, and analyze contracts in one place. Core capabilities include conditional workflows
+  and approval routing, collaborative Word-based negotiation, a searchable contract repository with granular access
+  controls, embedded SpotDraft AI for metadata extraction and risk flagging, ESIGN/EIDAS-compliant e-signatures,
+  Clickwrap agreements, obligation tracking, and analytics dashboards. SpotDraft serves 450+ companies and is recognized
+  as a Leader in the IDC MarketScape for AI-enabled buy-side CLMs and a G2 Leader. The company exposes a documented
+  Public API (OpenAPI 3.0.3) with versions v1, v2, and v2.1 covering contracts, templates, counterparties, approvals,
+  workflows, clickwrap, webhooks, analytics, users, and organizations across four regional clusters (India, United
+  States, European Union, Middle East). Webhooks notify external systems of contract lifecycle events in real time.
+  Native integrations exist for Salesforce, HubSpot, Zoho, Slack, Microsoft Teams, Google Drive, Dropbox, Box, OneDrive,
   SharePoint, DocuSign, Okta, Jira, Coupa, Zapier, and Greenhouse.
 type: Index
 position: Provider
@@ -49,16 +43,13 @@ apis:
   - aid: spotdraft:spotdraft-public-api
     name: SpotDraft Public API
     description: >-
-      The SpotDraft Public API is a unified OpenAPI 3.0.3 surface for managing
-      contracts, templates, counterparties, approvals, metadata, obligations,
-      versions, recipients, clickwrap agreements, webhooks, analytics, users,
-      organizations, and workspaces. Endpoints are versioned (v1, v2, v2.1)
-      and are served from four regional clusters (api.in.spotdraft.com,
-      api.us.spotdraft.com, api.eu.spotdraft.com, api.me.spotdraft.com).
-      Authentication uses Client ID + Client Secret or OAuth Bearer tokens
-      generated from Developer Settings. The API exposes 148 paths across 48
-      tag groups and 211 component schemas. Webhooks deliver real-time
-      notifications for contract lifecycle events.
+      The SpotDraft Public API is a unified OpenAPI 3.0.3 surface for managing contracts, templates, counterparties,
+      approvals, metadata, obligations, versions, recipients, clickwrap agreements, webhooks, analytics, users,
+      organizations, and workspaces. Endpoints are versioned (v1, v2, v2.1) and are served from four regional clusters
+      (api.in.spotdraft.com, api.us.spotdraft.com, api.eu.spotdraft.com, api.me.spotdraft.com). Authentication uses
+      Client ID + Client Secret or OAuth Bearer tokens generated from Developer Settings. The API exposes 148 paths
+      across 48 tag groups and 211 component schemas. Webhooks deliver real-time notifications for contract lifecycle
+      events.
     humanURL: https://api.spotdraft.com/api/docs/
     baseURL: https://api.us.spotdraft.com
     tags:
@@ -111,64 +102,6 @@ apis:
         url: examples/spotdraft-create-contract-example.json
       - type: Example
         url: examples/spotdraft-webhook-event-example.json
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-apis.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-templates.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-counterparties.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-approvals.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-types.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-versions.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-metadata-definitions.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-metadata-values.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-external-metadata.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-notes.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-activity.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-invitations.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-obligations.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-contract-facets.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-recipients.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-clickwrap.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-webhooks.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-analytics-query.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-users.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-organizations.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-workspaces.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-workspace-tags.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-workspace-files.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-tasks-and-reminders.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-obligation-types.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-legal-intake.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-native-integrations.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-emails.yaml
-      - type: NaftikoCapability
-        url: capabilities/spotdraft-sidebar.yaml
       - type: Webhooks
         url: https://help.spotdraft.com/hc/en-us/articles/19587223206429-Developer-Settings
     contact:
