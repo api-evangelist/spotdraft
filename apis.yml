@@ -96,11 +96,11 @@ apis:
         url: rate-limits/spotdraft-rate-limits.yml
       - type: FinOps
         url: finops/spotdraft-finops.yml
-      - type: Example
+      - type: Examples
         url: examples/spotdraft-list-contracts-example.json
-      - type: Example
+      - type: Examples
         url: examples/spotdraft-create-contract-example.json
-      - type: Example
+      - type: Examples
         url: examples/spotdraft-webhook-event-example.json
       - type: Webhooks
         url: https://help.spotdraft.com/hc/en-us/articles/19587223206429-Developer-Settings
@@ -122,7 +122,7 @@ common:
     url: https://www.spotdraft.com/integrations
   - type: Pricing
     url: https://www.spotdraft.com/pricing
-  - type: SignUp
+  - type: Signup
     url: https://www.spotdraft.com/book-a-demo
   - type: Login
     url: https://app.spotdraft.com
