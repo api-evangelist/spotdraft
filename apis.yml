@@ -108,6 +108,12 @@ apis:
       - FN: SpotDraft Support
         url: https://www.spotdraft.com/contact
 common:
+  - type: TrustCenter
+    url: security/spotdraft-trust-center.yml
+  - type: DomainSecurity
+    url: security/spotdraft-domain-security.yml
+  - type: Authentication
+    url: authentication/spotdraft-authentication.yml
   - type: Website
     url: https://www.spotdraft.com
   - type: Documentation

@@ -1,0 +1,50 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/spotdraft-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: ClickwrapId
+  type: apiKey
+  in: header
+  parameter: clickwrap-id
+  description: Public clickwrap identifier header.
+  sources:
+  - openapi/spotdraft-openapi.yml
+- name: ClientId
+  type: apiKey
+  in: header
+  parameter: client-id
+  sources:
+  - openapi/spotdraft-openapi.yml
+- name: ClientSecret
+  type: apiKey
+  in: header
+  parameter: client-secret
+  sources:
+  - openapi/spotdraft-openapi.yml
+- name: NativeIntegrationBasic
+  type: http
+  scheme: basic
+  description: HTTP Basic auth for supported native integrations. Send base64(client_id:client_secret)
+    in the Authorization header.
+  sources:
+  - openapi/spotdraft-openapi.yml
+- name: OAuthBearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: OAuth 2.0 bearer token for workspace user access.
+  sources:
+  - openapi/spotdraft-openapi.yml
+- name: Origin
+  type: apiKey
+  in: header
+  parameter: Origin
+  description: Browser origin header used for clickwrap domain validation.
+  sources:
+  - openapi/spotdraft-openapi.yml
