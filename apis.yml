@@ -108,6 +108,8 @@ apis:
       - FN: SpotDraft Support
         url: https://www.spotdraft.com/contact
 common:
+  - type: AgenticAccess
+    url: agentic-access/spotdraft-agentic-access.yml
   - type: TrustCenter
     url: security/spotdraft-trust-center.yml
   - type: DomainSecurity
