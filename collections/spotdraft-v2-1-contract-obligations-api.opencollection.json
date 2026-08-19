@@ -1,0 +1,224 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Contract Obligations API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Contract Obligations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Obligations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/obligations/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List obligations for a given contract"
+        },
+        {
+          "info": {
+            "name": "Create Obligation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/obligations/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new obligation for a given contract"
+        },
+        {
+          "info": {
+            "name": "Bulk Create Obligations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/obligations/bulk/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk create obligations for a given contract"
+        },
+        {
+          "info": {
+            "name": "Bulk Update Obligations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/obligations/bulk/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk update obligations for a given contract"
+        },
+        {
+          "info": {
+            "name": "Get Obligation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/obligations/:obligation_id/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "obligation_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Obligation."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get an obligation for a given contract"
+        },
+        {
+          "info": {
+            "name": "Update Obligation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/obligations/:obligation_id/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "obligation_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Obligation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update an obligation for a given contract"
+        },
+        {
+          "info": {
+            "name": "Delete Obligation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/obligations/:obligation_id/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "obligation_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Obligation."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an obligation for a given contract"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

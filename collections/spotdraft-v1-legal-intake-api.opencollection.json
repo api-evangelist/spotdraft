@@ -1,0 +1,209 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V1 Legal Intake API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V1 Legal Intake",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Legal Intakes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/legal_intake/",
+            "params": [
+              {
+                "name": "filter__priority",
+                "value": "",
+                "type": "query",
+                "description": "Filter by priority (exact match). Equivalent to filter__priority[$eq]=value. Allowed values: LOW, MEDIUM, HIGH."
+              },
+              {
+                "name": "filter__priority[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by priority using $eq operator. Expects a single value for equality (e.g., string). Allowed values: LOW, MEDIUM, HIGH."
+              },
+              {
+                "name": "filter__priority[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by priority using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values. Allowed values: LOW, MEDIUM, HIGH."
+              },
+              {
+                "name": "filter__priority[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by priority using $ne operator. Expects a single value for not-equal comparison (e.g., string). Allowed values: LOW, MEDIUM, HIGH."
+              },
+              {
+                "name": "filter__status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status (exact match). Equivalent to filter__status[$eq]=value. Allowed values: DRAFT, PENDING, IN_PROGRESS, BLOCKED, COMPLETED, DISCARDED."
+              },
+              {
+                "name": "filter__status[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status using $eq operator. Expects a single value for equality (e.g., string). Allowed values: DRAFT, PENDING, IN_PROGRESS, BLOCKED, COMPLETED, DISCARDED."
+              },
+              {
+                "name": "filter__status[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values. Allowed values: DRAFT, PENDING, IN_PROGRESS, BLOCKED, COMPLETED, DISCARDED."
+              },
+              {
+                "name": "filter__status[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status using $ne operator. Expects a single value for not-equal comparison (e.g., string). Allowed values: DRAFT, PENDING, IN_PROGRESS, BLOCKED, COMPLETED, DISCARDED."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to return. Page numbers start at 1."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search legal intake requests by keyword. This query performs a full-text search across main fields such as Title, Description, or Reference ID. Use keywords relevant to your request. For example: <code>?query=contract+review</code>.<br><br>Results will match legal intakes containing all specified keywords. "
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting option for results. Use '-field' for descending or 'field'/'+field' for ascending order. Supported values are `created_at`, `priority`, `status`, and `title`. Example: `sort=-created_at`. Only a single sort field is supported."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a paginated list of legal intakes for the authenticated user's workspace. Results are limited to intakes visible to the authenticated user in that workspace. Supports filtering, sorting, and text search via query parameters."
+        },
+        {
+          "info": {
+            "name": "Create Legal Intake",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/legal_intake/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCreates a new legal intake in the authenticated workspace from the latest\npublished frozen version of the workflow identified by `workflow_id`.\nOptional `file_ids` are resolved against workspace files, and the response\nreturns the created intake in the detailed legal intake response shape.\n"
+        },
+        {
+          "info": {
+            "name": "Get Legal Intake by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/legal_intake/:legal_intake_id/",
+            "params": [
+              {
+                "name": "legal_intake_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the legal intake request.<br>Required in the path for endpoints that operate on a specific legal intake.<br><br>"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the detailed legal intake for the provided id. Results are limited to intakes visible to the authenticated user in that workspace."
+        },
+        {
+          "info": {
+            "name": "Update Legal Intake",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/legal_intake/:legal_intake_id/",
+            "params": [
+              {
+                "name": "legal_intake_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the legal intake request.<br>Required in the path for endpoints that operate on a specific legal intake.<br><br>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the specified legal intake. Only users with edit access can modify an intake. This operation uses PATCH and performs a partial update: only supplied fields are modified and omitted fields are left unchanged. Send `null` for nullable fields such as `description` or `due_date` to clear them."
+        },
+        {
+          "info": {
+            "name": "Delete Legal Intake",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/legal_intake/:legal_intake_id/",
+            "params": [
+              {
+                "name": "legal_intake_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the legal intake request.<br>Required in the path for endpoints that operate on a specific legal intake.<br><br>"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Soft deletes the specified legal intake."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

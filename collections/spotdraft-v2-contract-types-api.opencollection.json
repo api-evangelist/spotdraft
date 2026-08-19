@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2 Contract Types API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2 Contract Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Contract Type List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contract_types/",
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the contract types available to the authenticated workspace. Use these ids when creating contracts, uploading third-party paper, or querying intake-form requirements."
+        },
+        {
+          "info": {
+            "name": "List Contract Type Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contract_types/:contract_type_id/entities",
+            "params": [
+              {
+                "name": "contract_type_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract Type."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the list of contract type entities"
+        },
+        {
+          "info": {
+            "name": "Get Intake Form Questionnaire Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contract_types/:contract_type_id/intake_form/questionnaire/",
+            "params": [
+              {
+                "name": "contract_type_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract Type."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Intake Form Questionnaire Details"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

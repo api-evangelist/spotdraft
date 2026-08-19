@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2 Users API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2 Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Active Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/auth/roles/",
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the Roles that exist for the workspace whose credentials are used."
+        },
+        {
+          "info": {
+            "name": "Add Role Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/auth/roles/:role_id/members",
+            "params": [
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path",
+                "description": "Use the [Get Active Roles](#tag/v21-users/GET/api/v2.1/public/auth/roles/) API to get the role ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nAdds one or more users to the specified role within the current workspace.\nUse this when role membership is managed separately from user creation.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Role Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/auth/roles/:role_id/members",
+            "params": [
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path",
+                "description": "Use the [Get Active Roles](#tag/v21-users/GET/api/v2.1/public/auth/roles/) API to get the role ID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nRemoves one or more users from the specified role within the current workspace.\nThe role itself is not deleted.\n"
+        },
+        {
+          "info": {
+            "name": "Get User List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/auth/users/",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to return. Page numbers start at 1."
+              },
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "User email address for which that user list should be filtered. Please make sure that the value is url encoded. So for example, if the email address is `abc+123@xyz.com` the value passed should be `abc%2B123%40xyz.com`."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nLists users in the organization backing the current workspace.\nUse `page`, `limit`, and `user_email` to page through results or narrow the list.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

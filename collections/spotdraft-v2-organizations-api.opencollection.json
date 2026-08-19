@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2 Organizations API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2 Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Organization Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/organizations/entities/",
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets all the entity associated with the Organization"
+        },
+        {
+          "info": {
+            "name": "Create Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/organizations/entities/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create an entity associated with the Organization"
+        },
+        {
+          "info": {
+            "name": "Get Organization Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/organizations/types/",
+            "params": [
+              {
+                "name": "jurisdiction_iso_code",
+                "value": "",
+                "type": "query",
+                "description": "The ISO-3166-1 Alpha-2 code of the jurisdiction associated with this organization. Any value passed here is overrides `jurisdiction`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets all the organization types available for a jurisdiction"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

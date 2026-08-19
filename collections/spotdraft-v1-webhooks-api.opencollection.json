@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V1 Webhooks API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V1 Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Sample Webhook Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/webhook-sample/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This is a sample webhook request as sent to the listener of the webhook. Sample payloads for each activity type can be seen in the responses section by changing the mime type on the right side.\n\nPlease note that this API does not exist and will throw a 404."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

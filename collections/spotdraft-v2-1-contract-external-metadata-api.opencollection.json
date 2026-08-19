@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Contract External Metadata API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Contract External Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Contract External Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/external_metadata",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the external record metadata currently associated with the contract.\n\nPass the composite contract id in the path, for example `T-123` or `H-123`."
+        },
+        {
+          "info": {
+            "name": "Create or Update Contract External Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/external_metadata",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates or updates the external record metadata linked to the contract.\n\nUse this to associate a SpotDraft contract with a CRM, ERP, or other external system record. Pass the composite contract id in the path, for example `T-123` or `H-123`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

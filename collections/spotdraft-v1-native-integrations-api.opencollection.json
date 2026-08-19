@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V1 Native Integrations API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V1 Native Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Queue Native Integration Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/native_integration/solution/:integration_solution_entity_id/:credential_public_id/",
+            "params": [
+              {
+                "name": "credential_public_id",
+                "value": "",
+                "type": "path",
+                "description": "Public id of the native integration credential for this workspace."
+              },
+              {
+                "name": "integration_solution_entity_id",
+                "value": "",
+                "type": "path",
+                "description": "Native integration solution entity identifier (e.g. Coupa create-contract)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Enqueues **asynchronous** contract creation for the given native integration solution and credential (e.g. Coupa). The HTTP response returns immediately after the job is queued. Request body shape is integration-specific; for Coupa, send the approval payload expected by your integration configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

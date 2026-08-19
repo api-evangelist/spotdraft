@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Analytics Query API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Analytics Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute Read-only Analytics SQL (GoogleSQL)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/analytics/query/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Runs **read-only** analytics SQL in **GoogleSQL** (Google Standard SQL), including for timestamps, dates, and functions. Submit exactly one **`SELECT`** statement (optional **`WITH`** / **`UNION`**). Inserts, updates, deletes, DDL, and multi-statement batches are rejected.\n\n**Enablement**  \nThis capability must be enabled for your workspace. If it is not, the API returns **501** with code `SD_PUBLIC_00045`. Contact SpotDraft support to request access.\n\n**Authentication**  \nOAuth 2.0 Bearer JWT i"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

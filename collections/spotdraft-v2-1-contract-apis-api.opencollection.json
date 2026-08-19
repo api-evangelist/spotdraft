@@ -1,0 +1,1672 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Contract APIs API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Contract APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/",
+            "params": [
+              {
+                "name": "filter__approvals_pending",
+                "value": "",
+                "type": "query",
+                "description": "Filter by approvals pending (exact match). Equivalent to filter__approvals_pending[$eq]=value."
+              },
+              {
+                "name": "filter__approvals_pending[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by approvals pending using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__approvals_pending[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by approvals pending using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__approvals_pending[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by approvals pending using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__assigned_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assigned to (exact match). Equivalent to filter__assigned_to[$eq]=value."
+              },
+              {
+                "name": "filter__assigned_to[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assigned to using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__assigned_to[$gt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assigned to using $gt operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__assigned_to[$gte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assigned to using $gte operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__assigned_to[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assigned to using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__assigned_to[$lt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assigned to using $lt operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__assigned_to[$lte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assigned to using $lte operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__assigned_to[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assigned to using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__business_user_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by business user id (exact match). Equivalent to filter__business_user_id[$eq]=value."
+              },
+              {
+                "name": "filter__business_user_id[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by business user id using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__business_user_id[$gt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by business user id using $gt operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__business_user_id[$gte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by business user id using $gte operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__business_user_id[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by business user id using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__business_user_id[$lt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by business user id using $lt operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__business_user_id[$lte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by business user id using $lte operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__business_user_id[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by business user id using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__client_brand_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client brand name (exact match). Equivalent to filter__client_brand_name[$eq]=value."
+              },
+              {
+                "name": "filter__client_brand_name[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client brand name using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__client_brand_name[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client brand name using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__client_brand_name[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client brand name using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__client_email",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client email (exact match). Equivalent to filter__client_email[$eq]=value."
+              },
+              {
+                "name": "filter__client_email[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client email using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__client_email[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client email using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__client_email[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client email using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__client_email_address",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client email address (exact match). Equivalent to filter__client_email_address[$eq]=value."
+              },
+              {
+                "name": "filter__client_email_address[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client email address using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__client_email_address[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client email address using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__client_email_address[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client email address using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__client_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client name (exact match). Equivalent to filter__client_name[$eq]=value."
+              },
+              {
+                "name": "filter__client_name[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client name using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__client_name[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client name using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__client_name[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client name using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__contract_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract id (exact match). Equivalent to filter__contract_id[$eq]=value."
+              },
+              {
+                "name": "filter__contract_id[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract id using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__contract_id[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract id using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__contract_id[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract id using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__contract_kind",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract kind (exact match). Equivalent to filter__contract_kind[$eq]=value."
+              },
+              {
+                "name": "filter__contract_kind[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract kind using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__contract_kind[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract kind using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__contract_kind[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract kind using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__contract_packet_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract packet name (exact match). Equivalent to filter__contract_packet_name[$eq]=value."
+              },
+              {
+                "name": "filter__contract_packet_name[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract packet name using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__contract_packet_name[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract packet name using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__contract_packet_name[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract packet name using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__contract_reference_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract reference id (exact match). Equivalent to filter__contract_reference_id[$eq]=value."
+              },
+              {
+                "name": "filter__contract_reference_id[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract reference id using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__contract_reference_id[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract reference id using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__contract_reference_id[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract reference id using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__contract_type_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type id (exact match). Equivalent to filter__contract_type_id[$eq]=value."
+              },
+              {
+                "name": "filter__contract_type_id[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type id using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__contract_type_id[$gt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type id using $gt operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__contract_type_id[$gte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type id using $gte operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__contract_type_id[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type id using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__contract_type_id[$lt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type id using $lt operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__contract_type_id[$lte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type id using $lte operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__contract_type_id[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type id using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__contract_type_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type name (exact match). Equivalent to filter__contract_type_name[$eq]=value."
+              },
+              {
+                "name": "filter__contract_type_name[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type name using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__contract_type_name[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type name using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__contract_type_name[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contract type name using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__created_at",
+                "value": "",
+                "type": "query",
+                "description": "Filter by created at (exact match). Equivalent to filter__created_at[$eq]=value."
+              },
+              {
+                "name": "filter__created_at[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by created at using $eq operator. Expects a single value for equality (e.g., date-time)."
+              },
+              {
+                "name": "filter__created_at[$gt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by created at using $gt operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__created_at[$gte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by created at using $gte operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__created_at[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by created at using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__created_at[$lt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by created at using $lt operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__created_at[$lte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by created at using $lte operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__created_at[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by created at using $ne operator. Expects a single value for not-equal comparison (e.g., date-time)."
+              },
+              {
+                "name": "filter__display_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by display status (exact match). Equivalent to filter__display_status[$eq]=value. Allowed values: DRAFT, REDLINING, SIGN, EXECUTED, ON_HOLD, VOIDED."
+              },
+              {
+                "name": "filter__display_status[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by display status using $eq operator. Expects a single value for equality (e.g., string). Allowed values: DRAFT, REDLINING, SIGN, EXECUTED, ON_HOLD, VOIDED."
+              },
+              {
+                "name": "filter__display_status[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by display status using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values. Allowed values: DRAFT, REDLINING, SIGN, EXECUTED, ON_HOLD, VOIDED."
+              },
+              {
+                "name": "filter__display_status[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by display status using $ne operator. Expects a single value for not-equal comparison (e.g., string). Allowed values: DRAFT, REDLINING, SIGN, EXECUTED, ON_HOLD, VOIDED."
+              },
+              {
+                "name": "filter__entity_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by entity name (exact match). Equivalent to filter__entity_name[$eq]=value."
+              },
+              {
+                "name": "filter__entity_name[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by entity name using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__entity_name[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by entity name using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__entity_name[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by entity name using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__execution_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter by execution date (exact match). Equivalent to filter__execution_date[$eq]=value."
+              },
+              {
+                "name": "filter__execution_date[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by execution date using $eq operator. Expects a single value for equality (e.g., date-time)."
+              },
+              {
+                "name": "filter__execution_date[$gt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by execution date using $gt operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__execution_date[$gte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by execution date using $gte operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__execution_date[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by execution date using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__execution_date[$lt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by execution date using $lt operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__execution_date[$lte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by execution date using $lte operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__execution_date[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by execution date using $ne operator. Expects a single value for not-equal comparison (e.g., date-time)."
+              },
+              {
+                "name": "filter__expiring_at",
+                "value": "",
+                "type": "query",
+                "description": "Filter by expiring at (exact match). Equivalent to filter__expiring_at[$eq]=value."
+              },
+              {
+                "name": "filter__expiring_at[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by expiring at using $eq operator. Expects a single value for equality (e.g., date-time)."
+              },
+              {
+                "name": "filter__expiring_at[$gt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by expiring at using $gt operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__expiring_at[$gte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by expiring at using $gte operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__expiring_at[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by expiring at using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__expiring_at[$lt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by expiring at using $lt operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__expiring_at[$lte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by expiring at using $lte operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__expiring_at[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by expiring at using $ne operator. Expects a single value for not-equal comparison (e.g., date-time)."
+              },
+              {
+                "name": "filter__last_updated_on",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last updated on (exact match). Equivalent to filter__last_updated_on[$eq]=value."
+              },
+              {
+                "name": "filter__last_updated_on[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last updated on using $eq operator. Expects a single value for equality (e.g., date-time)."
+              },
+              {
+                "name": "filter__last_updated_on[$gt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last updated on using $gt operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__last_updated_on[$gte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last updated on using $gte operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__last_updated_on[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last updated on using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__last_updated_on[$lt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last updated on using $lt operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__last_updated_on[$lte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last updated on using $lte operator. Expects a single value (e.g., number or ISO date-time)."
+              },
+              {
+                "name": "filter__last_updated_on[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by last updated on using $ne operator. Expects a single value for not-equal comparison (e.g., date-time)."
+              },
+              {
+                "name": "filter__legal_user_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by legal user id (exact match). Equivalent to filter__legal_user_id[$eq]=value."
+              },
+              {
+                "name": "filter__legal_user_id[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by legal user id using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__legal_user_id[$gt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by legal user id using $gt operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__legal_user_id[$gte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by legal user id using $gte operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__legal_user_id[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by legal user id using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__legal_user_id[$lt]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by legal user id using $lt operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__legal_user_id[$lte]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by legal user id using $lte operator. Expects a single value (e.g., number or ISO string)."
+              },
+              {
+                "name": "filter__legal_user_id[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by legal user id using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__pending_with",
+                "value": "",
+                "type": "query",
+                "description": "Filter by pending with (exact match). Equivalent to filter__pending_with[$eq]=value."
+              },
+              {
+                "name": "filter__pending_with[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by pending with using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__pending_with[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by pending with using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__pending_with[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by pending with using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__signatories",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatories (exact match). Equivalent to filter__signatories[$eq]=value."
+              },
+              {
+                "name": "filter__signatories[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatories using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__signatories[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatories using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__signatories[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatories using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__signatures_completed_by",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures completed by (exact match). Equivalent to filter__signatures_completed_by[$eq]=value."
+              },
+              {
+                "name": "filter__signatures_completed_by[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures completed by using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__signatures_completed_by[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures completed by using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__signatures_completed_by[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures completed by using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__signatures_pending_on",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures pending on (exact match). Equivalent to filter__signatures_pending_on[$eq]=value."
+              },
+              {
+                "name": "filter__signatures_pending_on[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures pending on using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__signatures_pending_on[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures pending on using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__signatures_pending_on[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures pending on using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__signatures_rejected_by",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures rejected by (exact match). Equivalent to filter__signatures_rejected_by[$eq]=value."
+              },
+              {
+                "name": "filter__signatures_rejected_by[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures rejected by using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__signatures_rejected_by[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures rejected by using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__signatures_rejected_by[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signatures rejected by using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "filter__tags",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tags (exact match). Equivalent to filter__tags[$eq]=value."
+              },
+              {
+                "name": "filter__tags[$eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tags using $eq operator. Expects a single value for equality (e.g., string)."
+              },
+              {
+                "name": "filter__tags[$in]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tags using $in operator. Expects a comma-separated list of values (e.g., val1,val2). Use \\, to include literal commas in values."
+              },
+              {
+                "name": "filter__tags[$ne]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tags using $ne operator. Expects a single value for not-equal comparison (e.g., string)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to return. Page numbers start at 1."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Query to filter the contracts. Searches on the contract name, entity name, party name, and party email."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns contracts visible to the current workspace.\n\nUse pagination, filter, and sort parameters to narrow the result set. Where supported by the version, contract metadata filters are also available."
+        },
+        {
+          "info": {
+            "name": "Create Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/",
+            "headers": [
+              {
+                "name": "user-email",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new contract from a SpotDraft template and returns the created contract.\n\nProvide the template id, contract data, and counterparty details needed to render the agreement. Use this endpoint when you want SpotDraft to generate the contract from structured data.\n\nCreates a new contract from a SpotDraft template and returns the created contract.\n\nProvide contract data, counterparty details, and any required signatories for the workflow.\n\n\nIn signatories list, sign_order should be set for e"
+        },
+        {
+          "info": {
+            "name": "List Contracts by External Metadata ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/by_external_metadata/:external_metadata_id",
+            "params": [
+              {
+                "name": "external_metadata_id",
+                "value": "",
+                "type": "path",
+                "description": "External Metadata ID of the Contract. This can be used to search for contracts based on an ID specified when creating the contract using the external API."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns up to 50 contracts linked to the supplied external metadata id.\n\nUse this when you have an external system record id and need to find the related SpotDraft contracts."
+        },
+        {
+          "info": {
+            "name": "Get Counterparty Embedded URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/embedded/contracts/:contract_id/counter_party/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cp_email_id",
+                "value": "",
+                "type": "query",
+                "description": "Email address of the CP for which the url needs to be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nReturns a short-lived embedded signing URL for the specified counterparty email on the contract.\nUse this to render the counterparty signing experience inside your own product.\n"
+        },
+        {
+          "info": {
+            "name": "Upload Executed Contract API",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/executed_contracts/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\n    This API can be used to upload existing executed contracts to SpotDraft.\n    `contract_name` is treated as a caller-provided display name and is not inferred from the file content.\n    Counterparty names in `counterparty_details` are also caller-provided values used for display/association.\n"
+        },
+        {
+          "info": {
+            "name": "Generate Contract Preview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/preview/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates a preview PDF using the supplied contract data without creating or updating a contract.\n\nUse this to validate how template variables render before you create the actual contract.\n\n\nThe `contract_data` object must use **template field names as keys**. Each value should match the data type configured for that field in SpotDraft.\n\n| Field type | Expected value | Example |\n| ---------- | -------------- | ------- |\n| String / text | String | `\"Acme Inc.\"` |\n| Multi-line text | String with l"
+        },
+        {
+          "info": {
+            "name": "Upload Contract for Review",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/upload_review_contracts/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nThis API endpoint supports uploading Third-Party Paper (TPP) contracts and optionally allows for a review request.\n\n`contract_type_id` must be linked to a published Third-Party Paper upload workflow.\nIf this linkage is missing, the API can fail with `SD_CONTRACTS_00289`.\n\nIt accepts intake form data.\n\nThe Intake Form Data should have the following data types with the following output:\n<table>\n    <thead>\n    <tr>\n        <td>Type</td>\n        <td>Data Format</td>\n        <td>Sample</td>\n    </t"
+        },
+        {
+          "info": {
+            "name": "Upload Contract for Signature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/upload_sign_contracts/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nThis API can be used to create a new Third-Party Paper (TPP) contract for signing.\nUse this API when you want to upload a new contract and send it for signing.\n\n`contract_type_id` must be linked to a published Third-Party Paper upload workflow.\nIf this linkage is missing, the API can fail with `SD_CONTRACTS_00289`.\n\nIt accepts intake form data.\n\nThe Intake Form Data should have the following data types with the following output:\n<table>\n    <thead>\n    <tr>\n        <td>Type</td>\n        <td>Dat"
+        },
+        {
+          "info": {
+            "name": "Re-trigger Contract Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/webhooks/re_trigger_latest/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\n            Re-trigger the last webhook call made for all given contracts.\n        "
+        },
+        {
+          "info": {
+            "name": "Get Contract Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/content",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              },
+              {
+                "name": "contract_version_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the contract version. If not provided, latest published version is used."
+              },
+              {
+                "name": "text_format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the returned content (text or segments)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\n        Retrieve the text content of a contract in different formats.\n\n        **Formats:**\n        - `text`: Returns the full contract text as a single string\n        - `segments`: Returns the contract text as an array of segments with metadata\n\n        **Feature Flags:**\n        This API requires `FULL_TEXT_SEARCH` to be enabled for the workspace.\n\n        **Content Availability:**\n        Content must be previously extracted to be available through this API.\n\n        This API supports user s"
+        },
+        {
+          "info": {
+            "name": "Get Scanned Contract Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/content/scanned",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              },
+              {
+                "name": "contract_version_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the contract version. If not provided, latest published version is used."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\n        Retrieve extracted text content from a scanned PDF contract.\n        It uses mr-ping endpoints to check if the contract is scanned and extract the text content.\n        /is_scanned_pdf to check if the contract is scanned and /scanned_pdf_to_text to extract the text content from the scanned PDF.\n\n        This API supports user scoping when the 'Enforce-User-Scoping'\n        header is set to 'true'. When enabled, the API will only return content for\n        contracts that the specified us"
+        },
+        {
+          "info": {
+            "name": "Download Contract File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/download",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates and returns the latest downloadable copy of the contract.\n\nUse this when you need the contract file itself rather than a temporary download URL."
+        },
+        {
+          "info": {
+            "name": "Create Contract Download Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/download_link",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a temporary download URL for the contract file.\n\nOptionally provide a `format` in the request body (`PDF`, `DOCX`, or `DOCX_WITH_FALLBACK_TO_PDF`). If omitted, the response defaults to `PDF`."
+        },
+        {
+          "info": {
+            "name": "Edit Intake Form Response",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/intake_form/response",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nUpdate intake-form data for the uploaded contract.\nFor information about construction of payload, refer to `Sample Intake Form Data` in this [section](#tag/v21-contract-apis/POST/api/v2.1/public/contracts/upload_sign_contracts/).\nGet the Intake form questionnaire details using the [Get Intake Form Questionnaire](#tag/v21-contract-types/GET/api/v2.1/public/contract_types/intake_form_questionnaire/) API.\n\nThe request is merged as a partial update into the latest intake-form response.\nUnknown keys"
+        },
+        {
+          "info": {
+            "name": "Marks the Contract for Execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/mark_for_execution/",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Marks the contract for execution"
+        },
+        {
+          "info": {
+            "name": "Send Contract to Counterparties",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/send_to_counterparties",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns status code 200 if successful"
+        },
+        {
+          "info": {
+            "name": "Resend Email to the Signatory of a Contract.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/signatories/resend_email/",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\n    This API can be used to resend email to signatory associated to the contract.\n"
+        },
+        {
+          "info": {
+            "name": "Get Contract Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/status",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the display **status** and **contract name** for the requested contract.\n\nWhen the `Enforce-User-Scoping` header is `true`, only contracts the specified user may access (based on their permissions) are returned."
+        },
+        {
+          "info": {
+            "name": "Void Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/status/void",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nVoids a contract and stores the provided void note.\nThis endpoint is available on the v2.1 surface but retains the original v1 contract tag family because it operates on the legacy contract flow.\n"
+        },
+        {
+          "info": {
+            "name": "Unmark the Contract for Execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/unmark_for_execution",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Unmarks the contract for execution and voids the signature service resource (For eg. DocuSign's envelope if enabled)."
+        },
+        {
+          "info": {
+            "name": "Update Business User for a Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/business_user/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nUpdates the business user associated with the contract.\nUse this when ownership needs to move to a different workspace user after the contract has been created.\n"
+        },
+        {
+          "info": {
+            "name": "Update Contract Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/contract_data",
+            "headers": [
+              {
+                "name": "user-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the structured contract data used to populate the contract template.\n\nUse this to refresh template field values before the contract is finalized. Historic contracts are not supported for this endpoint.\n\n\nThe `contract_data` object must use **template field names as keys**. Each value should match the data type configured for that field in SpotDraft.\n\n| Field type | Expected value | Example |\n| ---------- | -------------- | ------- |\n| String / text | String | `\"Acme Inc.\"` |\n| Multi-line"
+        },
+        {
+          "info": {
+            "name": "Create Contract Relations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/contract_relation/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\n    This 'Create Contract relations' API can be used to create a relation between two contracts,\n    identifying &lt;related_contract_id&gt; as a &lt;relation_type&gt; of &lt;contract_id&gt;.\n"
+        },
+        {
+          "info": {
+            "name": "Download Docx for a Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/download_docx/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nDownloads a DOCX version of the contract.\nIf the current version does not have a DOCX artifact, SpotDraft returns the last available DOCX version for the contract.\n"
+        },
+        {
+          "info": {
+            "name": "Get Contract Process Metric Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/process_metrics/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nReturns process-metric timestamps and workflow-state measurements tracked for the contract.\nUse this for reporting, SLA monitoring, or contract-cycle analytics.\n"
+        },
+        {
+          "info": {
+            "name": "Get Questionnaire Response",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/questionnaire/responses/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              },
+              {
+                "name": "questionnaire_type",
+                "value": "",
+                "type": "query",
+                "description": "Enum: `INTAKE_FORM/TEMPLATE`. Type of the questionnaire for which response needs to be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the saved questionnaire answers for the contract. Use `questionnaire_type` to choose whether you want intake-form answers or template-questionnaire answers."
+        },
+        {
+          "info": {
+            "name": "List Related Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/related_contracts/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to return. Page numbers start at 1."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\n    This API gets all related contracts for the given contract.\n    Related contracts can be of type CHILD, PARENT, ADDENDUM, or AMENDMENT.\n    Only contracts that the requesting user has access to are returned.\n"
+        },
+        {
+          "info": {
+            "name": "Create and Assign a Legal Review Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/review_request/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCreates a manual legal review task on the contract and assigns it to a user or role.\nUse this to trigger a review workflow from your own intake or contracting application.\n"
+        },
+        {
+          "info": {
+            "name": "Upload Supported Documents for a Given Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/supported_documents/:contract_id/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Uploads an additional supporting document for the contract, such as a schedule, annexure, or supporting evidence file. The file is attached to the contract record and can be used alongside the primary contract document."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

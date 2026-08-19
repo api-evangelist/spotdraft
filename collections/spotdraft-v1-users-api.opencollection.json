@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V1 Users API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V1 Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/auth/roles",
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nLists the active roles configured for the workspace tied to the API credentials.\nUse these ids in user-create and user-update requests.\n"
+        },
+        {
+          "info": {
+            "name": "Get User List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/auth/users",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to return. Page numbers start at 1."
+              },
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "User email address for which that user list should be filtered. Please make sure that the value is url encoded. So for example, if the email address is `abc+123@xyz.com` the value passed should be `abc%2B123%40xyz.com`."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nLists users in the workspace linked to the API credentials.\nUse `page`, `limit`, and `user_email` to page through results or narrow to a specific user.\n"
+        },
+        {
+          "info": {
+            "name": "Create User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/auth/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCreates a user in the client account and assigns the requested roles.\nIf the user already exists in a deactivated state, the same endpoint can reactivate that user.\n"
+        },
+        {
+          "info": {
+            "name": "Update User Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/auth/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user as returned by the List Users API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nUpdates the roles assigned to an existing workspace user.\nUse this to add or remove role access without recreating the user.\n"
+        },
+        {
+          "info": {
+            "name": "Deactivate a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/auth/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user as returned by the List Users API."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nDeactivates a workspace user by id.\nThe user remains part of the historical audit trail but can no longer act in the workspace.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

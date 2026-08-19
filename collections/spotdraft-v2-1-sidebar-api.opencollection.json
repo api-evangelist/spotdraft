@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Sidebar API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Sidebar",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload Sidebar File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/sidebar/files/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upload a file to Sidebar and attach it to a chat, hub, agent, or table.\n\n- Omit `webhook_url` for a synchronous terminal file result.\n- Provide HTTPS `webhook_url` to receive `202 Accepted` once upload has completed and processing has been scheduled.\n- `upload_source` currently accepts `chat`, `hub`, `assistant`, or `table`. Use `assistant` when you want to attach the file to an agent."
+        },
+        {
+          "info": {
+            "name": "Run Sidebar Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/sidebar/query/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Ask Sidebar a legal question or continue an existing conversation.\n\n- Omit `chat_id` to start a new conversation.\n- Provide `chat_id` to continue an existing conversation.\n- Omit `webhook_url` for a synchronous response.\n- Provide HTTPS `webhook_url` to receive `202 Accepted` immediately and get the final result via webhook.\n\nYou can optionally control which sources Sidebar may use and include related files, contracts, tables, or extra context."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

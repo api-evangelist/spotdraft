@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2 Contract Metadata Definitions API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2 Contract Metadata Definitions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Contract Metadata Definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/key_pointers/",
+            "params": [
+              {
+                "name": "contract_type_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the Contract type."
+              },
+              {
+                "name": "is_external",
+                "value": "",
+                "type": "query",
+                "description": "Set to True to get only key pointers from external sections."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Lists the contract metadata definitions configured for the workspace. These definitions describe which metadata fields exist; they do not return values for a specific contract. The underlying API paths still use legacy key-pointer naming for backward compatibility."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

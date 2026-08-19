@@ -1,0 +1,203 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V1 Contract APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/contracts",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to return. Page numbers start at 1."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nReturns contracts visible to the current workspace.\nUse pagination parameters to step through the result set.\n"
+        },
+        {
+          "info": {
+            "name": "Create Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/contracts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new contract from a SpotDraft template and returns the created contract.\n\nProvide contract data, counterparty details, and any required signatories for the workflow.\n\n\nIn signatories list, sign_order should be set for either all items or no items of the list. Additionally when\nsign_order is set for all items of signatories list then at-least one counter party signatory user should also be part\nof the list.\n\nThe `contract_data` object must use **template field names as keys**. Each valu"
+        },
+        {
+          "info": {
+            "name": "List Contracts by External Metadata ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/contracts/by_external_metadata/:external_metadata_id",
+            "params": [
+              {
+                "name": "external_metadata_id",
+                "value": "",
+                "type": "path",
+                "description": "External Metadata ID of the Contract. This can be used to search for contracts based on an ID specified when creating the contract using the external API."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns up to 50 contracts linked to the supplied external metadata id.\n\nUse this when you have an external system record id and need to find the related SpotDraft contracts."
+        },
+        {
+          "info": {
+            "name": "Download Contract File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/contracts/:contract_id/download",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates and returns the latest downloadable copy of the contract.\n\nUse this when you need the contract file itself rather than a temporary download URL."
+        },
+        {
+          "info": {
+            "name": "Create Contract Download Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/contracts/:contract_id/download_link",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a temporary download URL for the contract file.\n\nOptionally provide a `format` in the request body (`PDF`, `DOCX`, or `DOCX_WITH_FALLBACK_TO_PDF`). If omitted, the response defaults to `PDF`."
+        },
+        {
+          "info": {
+            "name": "Send Contract to Counterparties",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/contracts/:contract_id/send_to_counterparties",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns status code 200 if successful"
+        },
+        {
+          "info": {
+            "name": "Get Contract Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/contracts/:contract_id/status",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the display **status** and **contract name** for the requested contract.\n\nWhen the `Enforce-User-Scoping` header is `true`, only contracts the specified user may access (based on their permissions) are returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

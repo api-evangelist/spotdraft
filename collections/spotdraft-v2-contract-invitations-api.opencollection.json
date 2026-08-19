@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2 Contract Invitations API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2 Contract Invitations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invite Users & Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/:contract_id/invite/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nInvites specific users or roles to collaborate on the contract.\nThis grants contract-level access in addition to any access already inherited from the contract type.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

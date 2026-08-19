@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Contract Metadata Values API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Contract Metadata Values",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Contract Metadata Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/key_pointers",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns **contract metadata values** for the requested contract.\n\nUse this when you already have a specific contract id and need the metadata captured on that contract. This is different from the metadata-definition APIs, which list field definitions for a workspace or contract type.\n\nThe underlying API paths still use legacy key-pointer naming for backward compatibility. When the `Enforce-User-Scoping` header is `true`, only metadata values for contracts the specified user may access (based on "
+        },
+        {
+          "info": {
+            "name": "Bulk Update Contract Metadata Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/key_pointers/bulk",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the specified list of contract metadata values. The underlying API path still uses legacy key-pointer naming for backward compatibility."
+        },
+        {
+          "info": {
+            "name": "Update Contract Metadata Value",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/key_pointers/:contract_key_pointer_id",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              },
+              {
+                "name": "contract_key_pointer_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the contract key pointer value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the specified contract metadata value. The underlying API path still uses legacy key-pointer naming for backward compatibility."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

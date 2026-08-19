@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Contract Notes API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Contract Notes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Contract Notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/notes",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns all **notes** for the requested contract.\n\nWhen the `Enforce-User-Scoping` header is `true`, only notes for contracts the specified user may access (based on their permissions) are returned."
+        },
+        {
+          "info": {
+            "name": "Update Contract Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/notes/:note_id",
+            "headers": [
+              {
+                "name": "user-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              },
+              {
+                "name": "note_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the note."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the updated note"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

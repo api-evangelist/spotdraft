@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Recipients API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Recipients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Contract Recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:composite_id/recipients/",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "A recipient is a person who can access the contract and perform an action. A recipient can be one of these\n        3 types:<table>\n        <thead>\n            <tr>\n                <th>Type</td>\n                <th>Action</td>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td>APPROVER</td>\n                <td>Approve the contract</td>\n            <tr>\n            <tr>\n                <td>SIGNATORY</td>\n                <td>Sign the contract</td>\n            <t"
+        },
+        {
+          "info": {
+            "name": "Get Recipient Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/recipients/recipient_link/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              },
+              {
+                "name": "recipient_email",
+                "value": "",
+                "type": "query",
+                "description": "Email of the recipient for whom the link needs to be generated."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a recipient-specific signing or review link for the given contract and recipient email. Use this when you need to surface the recipient journey from your own application."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

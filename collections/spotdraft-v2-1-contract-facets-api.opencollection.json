@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Contract Facets API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Contract Facets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Contract Search Facets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/facets/",
+            "params": [
+              {
+                "name": "include_options",
+                "value": "",
+                "type": "query",
+                "description": "If `true`, include selectable option values for each facet. If `false` (default), return facet structure only (lighter for discovery)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns **facet metadata** for contract search and filtering in the workspace.\n\nUse `include_options=true` to include option values for dropdown-style facets; omit or set `false` for a lighter discovery response (structure only)."
+        },
+        {
+          "info": {
+            "name": "Get Facet Field Options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/facets/options/:field_name/",
+            "params": [
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated values to exclude from results."
+              },
+              {
+                "name": "field_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Optional search string to filter option labels/values."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns **suggestions / option values** for a single facet (metadata) field, for use in contract search filters. Supports optional `q` and `exclude` query params."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Workspace Tags API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Workspace Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bulk Create Workspace Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/workspace/tags/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nBulk-create one or more workspace tags.\n\nTags are used to categorize, identify, and filter contracts within a workspace.\nUse this endpoint to create multiple tags in a single request before assigning them to contracts.\n\n**Required fields per tag:** `name`\n\n**Optional fields per tag:**\n- `colour_code` — hex colour string (e.g. `\"#FF5733\"`); defaults to empty string\n- `tag_entity_type` — `\"Contract\"` (default) or `\"Clause\"`\n\n**Responses:**\n- `201 Created` — all tags were created successfully; ret"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

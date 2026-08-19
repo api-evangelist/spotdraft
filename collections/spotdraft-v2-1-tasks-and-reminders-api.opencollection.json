@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Tasks and Reminders API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Tasks and Reminders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "V2.1 Bulk Create User Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/contracts/:contract_id/tasks/bulk/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This API can be used to bulk create user tasks"
+        },
+        {
+          "info": {
+            "name": "V2.1 Create User Tasks List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/user_tasks/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nCreates one or more user tasks in SpotDraft.\n\nValidation notes:\n- For non-intake tasks, exactly one of `due_date` or `due_date_key_pointer_id` should be provided.\n- Each assignee must set exactly one of `org_user_id` or `role_id`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

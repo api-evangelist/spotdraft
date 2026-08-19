@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V1 Templates API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V1 Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Template List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/templates/",
+            "params": [
+              {
+                "name": "cp_types",
+                "value": "",
+                "type": "query",
+                "description": "The type of Counterparty that can be added to contracts created from this template.\nMust be either `Organisation` or `Individual`.\nThis value will be used to filter the list of templates returned by the API.\nThe template will be having one or more CP that match cp_types."
+              },
+              {
+                "name": "cp_types_all",
+                "value": "",
+                "type": "query",
+                "description": "When a template has multiple counterparties, whether all counterparties should match the CP type given in cp_types.\nFalse by default"
+              },
+              {
+                "name": "exclude_multi_party",
+                "value": "",
+                "type": "query",
+                "description": "Whether templates that support multiple counterparties should be excluded."
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query",
+                "description": "Whether archived templates should be included in the results."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "The tags (if any) to filter the templates by.\n\nMultiple tags can be specified by specifying the query param multiple times. Only templates where the Template tags are a subset of the tags passed will be returned."
+              },
+              {
+                "name": "tags_all",
+                "value": "",
+                "type": "query",
+                "description": "The tags (if any) to filter the templates by.\n\nMultiple tags can be specified by specifying the query param multiple times. Only templates where the tags passed are a subset of the Template tags will be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nLists published templates available to the workspace tied to the API credentials.\nUse query parameters to filter by tags, counterparty type, archive state, and multipart support.\n"
+        },
+        {
+          "info": {
+            "name": "Get Template Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/templates/:template_id/metadata",
+            "params": [
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nReturns the fields required to construct `contract_data` for contracts created from the given template.\nUse this when your integration needs to dynamically render a form before calling the create-contract endpoint.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

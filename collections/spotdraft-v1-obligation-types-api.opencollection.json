@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V1 Obligation Types API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V1 Obligation Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Active Obligation Type List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/obligations/types/",
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the list of active obligation types"
+        },
+        {
+          "info": {
+            "name": "Get Obligation Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v1/public/obligations/types/:obligation_type_id/",
+            "params": [
+              {
+                "name": "obligation_type_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Obligation Type."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the obligation type details for the given obligation type id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

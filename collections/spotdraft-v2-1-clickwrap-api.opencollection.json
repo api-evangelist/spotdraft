@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Clickwrap API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Clickwrap",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Preview Clickwrap Agreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/clickwrap/:clickwrap_id/agreements/preview/",
+            "params": [
+              {
+                "name": "clickwrap_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric id of the clickwrap."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates an HTML preview of a clickwrap agreement for the given clickwrap.\n\nExposed on the **public** API so custom scripts can run under the clickwrap/CSP domain instead of the main app domain."
+        },
+        {
+          "info": {
+            "name": "Get Clickwrap",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/clickwrap/:clickwrap_public_id/",
+            "params": [
+              {
+                "name": "clickwrap_public_id",
+                "value": "",
+                "type": "path",
+                "description": "Public Id of Clickwrap"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "clickwrap-id",
+              "value": "{{clickwrap-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the clickwrap corresponding to the clickwrap public id"
+        },
+        {
+          "info": {
+            "name": "Get Consent Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/clickwrap/:clickwrap_public_id/consent_status/",
+            "params": [
+              {
+                "name": "clickwrap_public_id",
+                "value": "",
+                "type": "path",
+                "description": "Public Id of Clickwrap"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nUsed to know if a particular user has given consent to a specific clickwrap.\n\nReturns one of the following values as consent status for the user.\n<table>\n    <thead>\n    <tr>\n        <th>Status field value</td>\n        <th>Details</td>\n    </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td>NOT_ACCEPTED</td>\n            <td>When the user hasn’t accepted this clickwrap before.</td>\n        </tr>\n        <tr>\n            <td>ACCEPTED_OLDER_VERSION</td>\n            <td>When the user has ac"
+        },
+        {
+          "info": {
+            "name": "Create Clickwrap Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/clickwrap/:clickwrap_public_id/execute/",
+            "params": [
+              {
+                "name": "clickwrap_public_id",
+                "value": "",
+                "type": "path",
+                "description": "Public Id of Clickwrap"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "clickwrap-id",
+              "value": "{{clickwrap-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates the clickwrap contract"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

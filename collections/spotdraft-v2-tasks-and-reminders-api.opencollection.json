@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2 Tasks and Reminders API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2 Tasks and Reminders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "V2 Create User Tasks List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/user_tasks/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nThis API can be used to create User Tasks List for Task Creation on SpotDraft.\n\nValidation notes:\n- Exactly one of `due_date` or `due_date_key_pointer_id` should be provided.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

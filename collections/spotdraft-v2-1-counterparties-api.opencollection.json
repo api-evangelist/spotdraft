@@ -1,0 +1,398 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2.1 Counterparties API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2.1 Counterparties",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Counterparties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/",
+            "params": [
+              {
+                "name": "filter__client_email_address",
+                "value": "",
+                "type": "query",
+                "description": "Filters on the counter party email. Does an exact match."
+              },
+              {
+                "name": "filter_custom__<custom_field_name>",
+                "value": "",
+                "type": "query",
+                "description": "Filters all the counterparties which have the custom field values present. Example: filter_custom__vendor_id=1234"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to return. Page numbers start at 1."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the list of counterparties"
+        },
+        {
+          "info": {
+            "name": "Create Counter Party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nThis method takes in counter party details to be used for counter Party creation\n and returns status code 201 along with the counterparty workspace id if successfully created.\n"
+        },
+        {
+          "info": {
+            "name": "Get Counterparty",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/:counterparty_id",
+            "params": [
+              {
+                "name": "counterparty_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the details of a counterparty by its ID"
+        },
+        {
+          "info": {
+            "name": "Update Counterparty",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/:counterparty_id",
+            "params": [
+              {
+                "name": "counterparty_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update counterparty details"
+        },
+        {
+          "info": {
+            "name": "List Counterparty Addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/:counterparty_id/addresses/",
+            "params": [
+              {
+                "name": "counterparty_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to return. Page numbers start at 1."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the list of counterparty addresses"
+        },
+        {
+          "info": {
+            "name": "Create Counterparty Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/:counterparty_id/addresses/",
+            "params": [
+              {
+                "name": "counterparty_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create counterparty address"
+        },
+        {
+          "info": {
+            "name": "Update Counterparty Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/:counterparty_id/addresses/:address_id/",
+            "params": [
+              {
+                "name": "address_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty address."
+              },
+              {
+                "name": "counterparty_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update counterparty address"
+        },
+        {
+          "info": {
+            "name": "List Counterparty Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/:counterparty_id/contacts",
+            "params": [
+              {
+                "name": "counterparty_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to return. Page numbers start at 1."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the list of counterparty contacts"
+        },
+        {
+          "info": {
+            "name": "Create Counterparty Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/:counterparty_id/contacts",
+            "params": [
+              {
+                "name": "counterparty_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Counterparty Contact"
+        },
+        {
+          "info": {
+            "name": "Bulk Update Counterparty Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/:counterparty_id/contacts/bulk/",
+            "params": [
+              {
+                "name": "counterparty_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk Update counterparty contacts"
+        },
+        {
+          "info": {
+            "name": "Update Counterparty Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/:counterparty_id/contacts/:contact_id/",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty contact."
+              },
+              {
+                "name": "counterparty_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update counterparty contact"
+        },
+        {
+          "info": {
+            "name": "Delete Counterparty Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.eu.spotdraft.com/api/v2.1/public/counter_parties/:counterparty_id/contacts/:contact_id/",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty contact."
+              },
+              {
+                "name": "counterparty_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Counterparty."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete counterparty contact"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

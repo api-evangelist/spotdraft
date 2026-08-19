@@ -1,0 +1,503 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SpotDraft V1 Contract APIs V2 Contract APIs API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "V2 Contract APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/",
+            "params": [
+              {
+                "name": "filter__client_email_address",
+                "value": "",
+                "type": "query",
+                "description": "Filters on the counter party email. Does an exact match."
+              },
+              {
+                "name": "filter__client_name",
+                "value": "",
+                "type": "query",
+                "description": "Filters on the counter party name. Does an exact match."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to return. Page numbers start at 1."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns contracts visible to the current workspace.\n\nUse pagination, filter, and sort parameters to narrow the result set. Where supported by the version, contract metadata filters are also available."
+        },
+        {
+          "info": {
+            "name": "Create Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/",
+            "headers": [
+              {
+                "name": "user-email",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new contract from a SpotDraft template and returns the created contract.\n\nProvide the template id, contract data, and counterparty details needed to render the agreement. Use this endpoint when you want SpotDraft to generate the contract from structured data.\n\nCreates a new contract from a SpotDraft template and returns the created contract.\n\nProvide contract data, counterparty details, and any required signatories for the workflow.\n\n\nIn signatories list, sign_order should be set for e"
+        },
+        {
+          "info": {
+            "name": "List Contracts by External Metadata ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/by_external_metadata/:external_metadata_id",
+            "params": [
+              {
+                "name": "external_metadata_id",
+                "value": "",
+                "type": "path",
+                "description": "External Metadata ID of the Contract. This can be used to search for contracts based on an ID specified when creating the contract using the external API."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns up to 50 contracts linked to the supplied external metadata id.\n\nUse this when you have an external system record id and need to find the related SpotDraft contracts."
+        },
+        {
+          "info": {
+            "name": "Get Counterparty Embedded URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/embedded/contracts/:contract_id/counter_party/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cp_email_id",
+                "value": "",
+                "type": "query",
+                "description": "Email address of the CP for which the url needs to be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nReturns a short-lived embedded signing URL for the specified counterparty email on the contract.\nUse this to render the counterparty signing experience inside your own product.\n"
+        },
+        {
+          "info": {
+            "name": "Generate Contract Preview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/preview/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates a preview PDF using the supplied contract data without creating or updating a contract.\n\nUse this to validate how template variables render before you create the actual contract.\n\n\nThe `contract_data` object must use **template field names as keys**. Each value should match the data type configured for that field in SpotDraft.\n\n| Field type | Expected value | Example |\n| ---------- | -------------- | ------- |\n| String / text | String | `\"Acme Inc.\"` |\n| Multi-line text | String with l"
+        },
+        {
+          "info": {
+            "name": "Upload Contract for Review",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/upload_review_contracts/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nThis API endpoint supports uploading Third-Party Paper (TPP) contracts and optionally allows for a review request.\n\n`contract_type_id` must be linked to a published Third-Party Paper upload workflow.\nIf this linkage is missing, the API can fail with `SD_CONTRACTS_00289`.\n\nIt accepts intake form data.\n\nThe Intake Form Data should have the following data types with the following output:\n<table>\n    <thead>\n    <tr>\n        <td>Type</td>\n        <td>Data Format</td>\n        <td>Sample</td>\n    </t"
+        },
+        {
+          "info": {
+            "name": "Upload Contract for Signature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/upload_sign_contracts/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nThis API can be used to create a new Third-Party Paper (TPP) contract for signing.\nUse this API when you want to upload a new contract and send it for signing.\n\n`contract_type_id` must be linked to a published Third-Party Paper upload workflow.\nIf this linkage is missing, the API can fail with `SD_CONTRACTS_00289`.\n\nIt accepts intake form data.\n\nThe Intake Form Data should have the following data types with the following output:\n<table>\n    <thead>\n    <tr>\n        <td>Type</td>\n        <td>Dat"
+        },
+        {
+          "info": {
+            "name": "Re-trigger Contract Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/webhooks/re_trigger_latest/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\n            Re-trigger the last webhook call made for all given contracts.\n        "
+        },
+        {
+          "info": {
+            "name": "Download Contract File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/:composite_id/download",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generates and returns the latest downloadable copy of the contract.\n\nUse this when you need the contract file itself rather than a temporary download URL."
+        },
+        {
+          "info": {
+            "name": "Create Contract Download Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/:composite_id/download_link",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a temporary download URL for the contract file.\n\nOptionally provide a `format` in the request body (`PDF`, `DOCX`, or `DOCX_WITH_FALLBACK_TO_PDF`). If omitted, the response defaults to `PDF`."
+        },
+        {
+          "info": {
+            "name": "Edit Intake Form Response",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/:composite_id/intake_form/response",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nUpdate intake-form data for the uploaded contract.\nFor information about construction of payload, refer to `Sample Intake Form Data` in this [section](#tag/v21-contract-apis/POST/api/v2.1/public/contracts/upload_sign_contracts/).\nGet the Intake form questionnaire details using the [Get Intake Form Questionnaire](#tag/v21-contract-types/GET/api/v2.1/public/contract_types/intake_form_questionnaire/) API.\n\nThe request is merged as a partial update into the latest intake-form response.\nUnknown keys"
+        },
+        {
+          "info": {
+            "name": "Send Contract to Counterparties",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/:composite_id/send_to_counterparties",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sends the contract to counterparties for their next action in the workflow.\n\nUse this after preparing the contract when you want SpotDraft to trigger the external recipient flow."
+        },
+        {
+          "info": {
+            "name": "Get Contract Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/:composite_id/status",
+            "params": [
+              {
+                "name": "composite_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the display **status** and **contract name** for the requested contract.\n\nWhen the `Enforce-User-Scoping` header is `true`, only contracts the specified user may access (based on their permissions) are returned."
+        },
+        {
+          "info": {
+            "name": "Update Contract Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/:contract_id/contract_data",
+            "headers": [
+              {
+                "name": "user-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the structured contract data used to populate the contract template.\n\nUse this to refresh template field values before the contract is finalized. Historic contracts are not supported for this endpoint.\n\n\nThe `contract_data` object must use **template field names as keys**. Each value should match the data type configured for that field in SpotDraft.\n\n| Field type | Expected value | Example |\n| ---------- | -------------- | ------- |\n| String / text | String | `\"Acme Inc.\"` |\n| Multi-line"
+        },
+        {
+          "info": {
+            "name": "Download Docx for a Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/:contract_id/download_docx/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nDownloads a DOCX version of the contract.\nIf the current version does not have a DOCX artifact, SpotDraft returns the last available DOCX version for the contract.\n"
+        },
+        {
+          "info": {
+            "name": "Get Questionnaire Response",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/contracts/:contract_id/questionnaire/responses/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract."
+              },
+              {
+                "name": "questionnaire_type",
+                "value": "",
+                "type": "query",
+                "description": "Enum: `INTAKE_FORM/TEMPLATE`. Type of the questionnaire for which response needs to be returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Questionnaire Response"
+        },
+        {
+          "info": {
+            "name": "Upload Supported Documents for a Given Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.eu.spotdraft.com/api/v2/public/supported_documents/:contract_id/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contract. Should be of the form T-123 or H-123. T stands for Template contracts and H stands for Historical contracts."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "client-id",
+              "value": "{{client-id}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upload Supported Documents for a Given Contract"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
