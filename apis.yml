@@ -44,6 +44,24 @@ tags:
   - Counterparties
   - Obligations
   - Analytics
+  - Webhook
+  - Artificial Intelligence
+  - Software-as-a-Service
+  - Bangalore
+tags_raw:
+  - Contract Lifecycle Management
+  - CLM
+  - Contracts
+  - Legal Tech
+  - E-Signature
+  - Clickwrap
+  - Workflows
+  - Approvals
+  - Negotiation
+  - Templates
+  - Counterparties
+  - Obligations
+  - Analytics
   - Webhooks
   - AI
   - SaaS
@@ -352,6 +370,8 @@ apis:
   humanURL: https://api.spotdraft.com/api/docs/
   baseURL: https://api.us.spotdraft.com
   tags:
+  - v1 - Users
+  tags_raw:
   - V1 Users
   properties:
   - type: OpenAPI
