@@ -14,6 +14,18 @@ description: >-
   Native integrations exist for Salesforce, HubSpot, Zoho, Slack, Microsoft Teams, Google Drive, Dropbox, Box, OneDrive,
   SharePoint, DocuSign, Okta, Jira, Coupa, Zapier, and Greenhouse.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
@@ -2408,6 +2420,9 @@ apis:
   - type: Webhooks
     url: https://help.spotdraft.com/hc/en-us/articles/19587223206429-Developer-Settings
 common:
+  - type: CapabilityMap
+    url: capabilities/spotdraft-capability-edges.yml
+    name: SpotDraft Business Capability Map
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/spotdraft/overview
   - type: AgenticAccess
