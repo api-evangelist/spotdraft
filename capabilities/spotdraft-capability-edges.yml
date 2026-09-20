@@ -1,0 +1,293 @@
+slug: spotdraft
+provider: SpotDraft
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 30
+edges:
+- tag: V2.1 Contract APIs
+  spec_file: spotdraft-v2-1-contract-apis-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.95
+  evidence: '"Create Contract", "Upload Executed Contract API", "Upload Contract for Signature", "Download
+    Contract File"'
+  reason: Core contract lifecycle operations — creation, review, signature, execution and retrieval of
+    contracts.
+- tag: V2 Contract APIs
+  spec_file: spotdraft-v2-contract-apis-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.93
+  evidence: '"Create Contract", "Upload Contract for Signature", "Send Contract to Counterparties", schema
+    ExternalCreateContractSignatory'
+  reason: Core contract lifecycle operations — creation, review, signature, counterparty distribution,
+    download — squarely Contract Management.
+- tag: V1 Contract APIs
+  spec_file: spotdraft-v1-contract-apis-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.92
+  evidence: POST /api/v1/public/contracts  Create Contract; POST /api/v1/public/contracts/{contract_id}/send_to_counterparties  Send
+    Contract to Counterparties; GET .../status  Get Contract Status
+  reason: Operations create, list, download, route to counterparties and track status of contracts — the
+    contract lifecycle from drafting to closure, i.e. Contract Management within Legal Management. The
+    vendor is explicitly a Contract Lifecycle Management platform.
+- tag: V2.1 Contract Approvals
+  spec_file: spotdraft-v2-1-contract-approvals-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.88
+  evidence: '"Get Contract Approvals", "Create and Send Adhoc Approvals"'
+  reason: Approval routing on contracts is an explicit stage of contract lifecycle management in this
+    CLM platform.
+- tag: V2 Contract Approvals
+  spec_file: spotdraft-v2-contract-approvals-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.85
+  evidence: '"Get Contract Approvals" / "Create and Send Adhoc Approvals", schema PublicContractApprovalListResponse'
+  reason: Approval routing on contracts is an explicit stage of the contract lifecycle described by the
+    vendor ("conditional workflows and approval routing").
+- tag: V2 Contract Versions
+  spec_file: spotdraft-v2-contract-versions-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.85
+  evidence: POST /api/v2/public/contracts/{contract_id}/contract_version/ — "Upload Contract Version."
+  reason: Uploading new versions of a contract document is part of contract lifecycle management (drafting/negotiation
+    versioning) on a CLM platform.
+- tag: V2.1 Contract Obligations
+  spec_file: spotdraft-v2-1-contract-obligations-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.85
+  evidence: '"List Obligations", "Create Obligation", schema ContractObligationResponse'
+  reason: Post-signature contract obligation tracking with status/priority — squarely contract lifecycle
+    management.
+- tag: V2.1 Webhooks
+  spec_file: spotdraft-v2-1-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.85
+  evidence: POST /api/v2.1/public/webhooks/ 'Setup Webhook'; 'Get Webhook Secret'; 'Remove Webhook'; schema
+    PublicWebhookCreateRequest, OnlyForActivitiesEnum
+  reason: Straightforward lifecycle of outbound webhook subscriptions with event filtering and HMAC signing
+    key — matches Webhook & Event Subscription Management in the developer platform capability.
+- tag: V2.1 Contract Versions
+  spec_file: spotdraft-v2-1-contract-versions-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.82
+  evidence: POST .../contracts/{contract_id}/contract_version/  "Upload Contract Version."
+  reason: Versioning of contract documents during drafting/negotiation — contract lifecycle management.
+- tag: V2.1 Templates
+  spec_file: spotdraft-v2-1-templates-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.82
+  evidence: GET /api/v2.1/public/templates/ 'Get Template List'; PATCH 'Update Template Data'; schema
+    TemplateResponseV2, CounterPartyKindEnum
+  reason: Templates with a CounterPartyKindEnum in a contract lifecycle management API are contract drafting
+    templates — the drafting stage of contract lifecycle management.
+- tag: V1 Legal Intake
+  spec_file: spotdraft-v1-legal-intake-api-openapi.yml
+  capability_id: BC-150.50
+  capability_id_l1: BC-150
+  capability_name: Legal Operations Management
+  confidence: 0.8
+  evidence: 'POST /api/v1/public/legal_intake/  Create Legal Intake; schemas: LegalIntakeAssigneePublicResponse,
+    LegalIntakeTaskPublicResponse, TaskPriority, FrozenWorkflowPublicResponse'
+  reason: CRUD over legal intake requests with assignees, task status, priority and workflow — this is
+    legal department request/matter intake and operations, i.e. Legal Operations Management. Some ambiguity
+    vs. Contract Management, hence 0.80.
+- tag: V1 Templates
+  spec_file: spotdraft-v1-templates-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.8
+  evidence: '"Get Template List" / "Get Template Metadata" with schemas TemplateListResponse, TemplateMetaDataResponse'
+  reason: Templates in this CLM vendor are contract templates used for contract creation, a core Contract
+    Management activity.
+- tag: V2 Contract Metadata Values
+  spec_file: spotdraft-v2-contract-metadata-values-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.8
+  evidence: '"Get Contract Metadata Values" / "Update Contract Metadata Value"'
+  reason: Reading and updating structured contract attributes on individual contracts is core CLM repository
+    management.
+- tag: V2 Contract Types
+  spec_file: spotdraft-v2-contract-types-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.8
+  evidence: '"Get Contract Type List" and "Get Intake Form Questionnaire Details"'
+  reason: Contract type taxonomy and intake questionnaires drive contract request and drafting workflows
+    — Contract Management.
+- tag: V2.1 Clickwrap
+  spec_file: spotdraft-v2-1-clickwrap-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.8
+  evidence: '"Create Clickwrap Contract", "Get Consent Status", "Preview Clickwrap Agreement"'
+  reason: Clickwrap agreement presentation, consent capture and contract creation — formation and execution
+    of contracts, i.e. contract lifecycle management.
+- tag: V2.1 Contract Activity
+  spec_file: spotdraft-v2-1-contract-activity-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.8
+  evidence: '"Get Comments in Contract Activity Log.", "Add Comment to Contract Activity Log."'
+  reason: Commenting/activity log on contracts supports collaborative negotiation within the contract
+    lifecycle.
+- tag: V1 Obligation Types
+  spec_file: spotdraft-v1-obligation-types-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.78
+  evidence: GET /api/v1/public/obligations/types/ — "Get Active Obligation Type List"
+  reason: Obligation types are contractual obligation classifications tracked post-signature in a CLM
+    platform; this is part of the contract lifecycle from drafting to closure, so Legal Management / Contract
+    Management fits.
+- tag: V2.1 Contract Metadata Values
+  spec_file: spotdraft-v2-1-contract-metadata-values-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.78
+  evidence: '"Get Contract Metadata Values" / "Bulk Update Contract Metadata Values"'
+  reason: Reads and maintains the key contract data points (key pointers) on contract records — core contract
+    lifecycle data management.
+- tag: V2 Contract Activity
+  spec_file: spotdraft-v2-contract-activity-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.75
+  evidence: '"Get Comments in Contract Activity Log." / "Add Comment to Contract Activity Log."'
+  reason: Commenting and activity logging on contracts is part of the contract negotiation/collaboration
+    lifecycle in this CLM platform.
+- tag: V2 Counterparties
+  spec_file: spotdraft-v2-counterparties-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.75
+  evidence: '"Create Counterparty", "List Counterparty Addresses", "Create Counterparty Contact"'
+  reason: Counterparty master records (addresses, contacts) exist to support the contract lifecycle in
+    this CLM product; it is contracting party data rather than generic CRM customer data.
+- tag: V2 Templates
+  spec_file: spotdraft-v2-templates-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.75
+  evidence: '"Get Template List", "Get Template Details", "Update Template Data", schema CounterPartyKindEnum'
+  reason: Contract templates used for drafting agreements in a CLM platform, supporting the contract drafting
+    stage of contract lifecycle management.
+- tag: V2.1 Contract External Metadata
+  spec_file: spotdraft-v2-1-contract-external-metadata-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.75
+  evidence: POST /api/v2.1/public/contracts/{contract_id}/external_metadata  "Create or Update Contract
+    External Metadata"
+  reason: CLM vendor; operations attach and retrieve metadata on contract records, part of the contract
+    lifecycle record-keeping rather than generic technical plumbing.
+- tag: V2.1 Contract Types
+  spec_file: spotdraft-v2-1-contract-types-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.75
+  evidence: '"Get Contract Type List", "Get Intake Form Questionnaire Details"'
+  reason: Contract type taxonomy and intake questionnaires that drive contract request/creation workflows
+    in the CLM.
+- tag: V2.1 Recipients
+  spec_file: spotdraft-v2-1-recipients-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.75
+  evidence: '"Get Contract Recipients" and "Get Recipient Link", schema PublicSignRecipientWithStatusListResponse'
+  reason: Signature recipient status and signing links — the execution/signing stage of the contract lifecycle.
+- tag: V2 Contract Metadata Definitions
+  spec_file: spotdraft-v2-contract-metadata-definitions-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.72
+  evidence: GET /api/v2/public/key_pointers/ "List Contract Metadata Definitions"
+  reason: Defines the contract data fields (key pointers) captured across the contract repository — configuration
+    supporting Contract Management.
+- tag: V2 Contract Notes
+  spec_file: spotdraft-v2-contract-notes-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.72
+  evidence: '"Get Contract Notes" / "Update Contract Note", schema ContractNoteMinimalResponse'
+  reason: Notes attached to contract records are part of contract record stewardship in the CLM lifecycle.
+- tag: V2 Users
+  spec_file: spotdraft-v2-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: '"Get Active Roles", "Add Role Member", "Delete Role Member", "Get User List" under /public/auth/'
+  reason: Role and user membership administration — access management plumbing, best mapped to Identity
+    & Access Management rather than any contract business capability.
+- tag: V2.1 Contract Metadata Definitions
+  spec_file: spotdraft-v2-1-contract-metadata-definitions-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.72
+  evidence: '"List Contract Metadata Definitions" and "Map Template Fields to Contract Metadata"'
+  reason: Defines the contract data model / template field mapping used in contract creation and repository
+    management in a CLM platform.
+- tag: V2.1 Contract Notes
+  spec_file: spotdraft-v2-1-contract-notes-api-openapi.yml
+  capability_id: BC-150.10
+  capability_id_l1: BC-150
+  capability_name: Contract Management
+  confidence: 0.7
+  evidence: '"Get Contract Notes" / "Update Contract Note"'
+  reason: Annotation of contract records during negotiation/review within the CLM lifecycle.
+- tag: V2.1 Users
+  spec_file: spotdraft-v2-1-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: GET /api/v2.1/public/auth/roles/ 'Get Active Roles'; POST 'Add Role Member'; POST /api/v2.1/public/auth/users/
+    'Create and Invite User'; 'Get Contract Authorized Users List'
+  reason: Operations administer user accounts, invitations, roles and role membership plus authorised
+    access to contracts — application identity and access administration. Could alternatively be seen
+    as tenant user lifecycle, so not maximal confidence.
