@@ -717,6 +717,160 @@ components:
         custom_fields:
           vendor_id: '1234'
           gst_number: 22AAAAA0000A1Z5
+    CounterPartyContactResponse:
+      title: CounterPartyContactResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of this contact. Globally Unique.
+          type: integer
+        name:
+          title: Name
+          description: The name of this contact.
+          type: string
+        email:
+          title: Email
+          description: The email of this contact.
+          type: string
+        is_primary:
+          title: Is Primary
+          description: Defines if this contact is the primary contact for the associated counterparty.
+          type: boolean
+      required:
+      - id
+      - name
+      - email
+      - is_primary
+      examples:
+      - id: 100
+        name: Susan Ervin
+        email: dummy@email.com
+        is_primary: false
+    PatchedExternalCounterpartyAddressUpdateRequest:
+      title: ExternalCounterpartyAddressUpdateRequest
+      type: object
+      properties:
+        city_name:
+          title: City Name
+          description: The updated city name of the address
+          minLength: 1
+          type: string
+        state_name:
+          title: State Name
+          description: The updated state name of the address
+          minLength: 1
+          type: string
+        country_iso_code:
+          title: Country Iso Code
+          description: The ISO-3166-1 Alpha-2 code of the country associated with this counterparty address. Any value passed here is overrides `country`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
+          minLength: 1
+          type: string
+        zipcode:
+          title: Zipcode
+          description: The updated zipcode of the address
+          minLength: 1
+          type: string
+        line_one:
+          title: Line One
+          description: The updated line one of the address, It is the first line of address. Usually the apartment, floor, and street information.
+          minLength: 1
+          type: string
+        is_primary:
+          title: Is Primary
+          description: Whether the address needs to be set as the primary address.
+          type: boolean
+      examples:
+      - city_name: Cincinnati
+        state_name: Ohio
+        country_iso_code: IN
+        zipcode: '513'
+        line_one: 'st: 3, block: 2, Jenkins Road'
+        is_primary: false
+    CreateCounterPartyAddressRequest:
+      title: CreateCounterPartyAddressRequest
+      type: object
+      properties:
+        line_one:
+          title: Line One
+          description: The first line of the address. Usually the apartment, floor, and street information.
+          type: string
+        city_name:
+          title: City Name
+          description: The city name for this address.
+          type: string
+        state_name:
+          title: State Name
+          description: The state name for this address.
+          default: ''
+          type: string
+        zipcode:
+          title: Zipcode
+          description: The zip/pin/postal code for this address.
+          default: ''
+          type: string
+        email:
+          title: Email
+          description: The email address associated with this counterparty address (if any).
+          type: string
+        phone:
+          title: Phone
+          description: The phone number associated with this counterparty address (if any).
+          type: string
+        country_name:
+          title: Country Name
+          description: The name of the country associated with this counterparty address. Any value passed here is ignored if `country_iso_code` is passed. Valid values are defined internally. Please ask help@spotdraft.com for more information.
+          type: string
+        country_iso_code:
+          title: Country Iso Code
+          description: The ISO-3166-1 Alpha-2 code of the country associated with this counterparty address. Any value passed here is overrides `country`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
+          type: string
+      required:
+      - line_one
+      - city_name
+      - country_name
+      examples:
+      - line_one: 'st: 3, block: 2, Jenkins Road'
+        city_name: Cincinnati
+        state_name: Ohio
+        zipcode: '513'
+        country_name: USA
+        email: test@yopmail.com
+        phone: '1234567890'
+        country_iso_code: US
+    ExternalCounterpartyContactBulkUpdateResponse:
+      title: ExternalCounterpartyContactBulkUpdateResponse
+      type: array
+      items:
+        title: CounterPartyContactResponse
+        type: object
+        properties:
+          id:
+            title: Id
+            description: The ID of this contact. Globally Unique.
+            type: integer
+          name:
+            title: Name
+            description: The name of this contact.
+            type: string
+          email:
+            title: Email
+            description: The email of this contact.
+            type: string
+          is_primary:
+            title: Is Primary
+            description: Defines if this contact is the primary contact for the associated counterparty.
+            type: boolean
+        required:
+        - id
+        - name
+        - email
+        - is_primary
+        examples:
+        - id: 100
+          name: Susan Ervin
+          email: dummy@email.com
+          is_primary: false
     CounterPartyAddressResponse:
       title: CounterPartyAddressResponse
       type: object
@@ -795,130 +949,6 @@ components:
       - name: Susan Ervin
         email: dummy@email.com
         is_primary: false
-    CreateCounterPartyAPIRequest:
-      title: CreateCounterPartyAPIRequest
-      type: object
-      properties:
-        is_individual:
-          title: Is Individual
-          description: Defines if this Counterparty is an individual or an organization like a company. When `true`, `contact_name` and `contact_email` are required. When `false`, `organization_name` is required.
-          type: boolean
-        organization_type:
-          title: Organization Type
-          description: The type of the counterparty if it is an organization. Expects values like LLC, LLP, etc. Please ask help@spotdraft.com for valid values.
-          type: string
-        organization_name:
-          title: Organization Name
-          description: The name of the counterparty if it is an organization. Expects the name of the company/entity that is the counterparty. Required when `is_individual=false`.
-          type: string
-        contact_name:
-          title: Contact Name
-          description: The name of the counterparty in case of an individual, and the name of the Point of Contact in case of organizations. Required together with `contact_email` when `is_individual=true`.
-          type: string
-        contact_email:
-          title: Contact Email
-          description: The email of the counterparty in case of an individual, and the email of the Point of Contact in case of organizations. Required together with `contact_name` when `is_individual=true`.
-          type: string
-        brand_name:
-          title: Brand Name
-          description: The brand name of the counterparty. This is typically used for display purposes and contract templates.
-          type: string
-        primary_address:
-          title: Primary Address
-          type: object
-          properties:
-            line_one:
-              title: Line One
-              description: The first line of the address. Usually the apartment, floor, and street information.
-              type: string
-            city_name:
-              title: City Name
-              description: The city name for this address.
-              type: string
-            state_name:
-              title: State Name
-              description: The state name for this address.
-              default: ''
-              type: string
-            zipcode:
-              title: Zipcode
-              description: The zip/pin/postal code for this address.
-              default: ''
-              type: string
-            email:
-              title: Email
-              description: The email address associated with this counterparty address (if any).
-              type: string
-            phone:
-              title: Phone
-              description: The phone number associated with this counterparty address (if any).
-              type: string
-            country_name:
-              title: Country Name
-              description: The name of the country associated with this counterparty address. Any value passed here is ignored if `country_iso_code` is passed. Valid values are defined internally. Please ask help@spotdraft.com for more information.
-              type: string
-            country_iso_code:
-              title: Country Iso Code
-              description: The ISO-3166-1 Alpha-2 code of the country associated with this counterparty address. Any value passed here is overrides `country`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
-              type: string
-          required:
-          - line_one
-          - city_name
-          - country_name
-          examples:
-          - line_one: 'st: 3, block: 2, Jenkins Road'
-            city_name: Cincinnati
-            state_name: Ohio
-            zipcode: '513'
-            country_name: USA
-            email: test@yopmail.com
-            phone: '1234567890'
-            country_iso_code: US
-          description: The address details of the counterparty. Used to render the address in the contract templates.
-        custom_fields:
-          title: Custom Fields
-          description: 'Custom field values for the counterparty. Note: The custom_fields feature is available only upon request. To enable this feature, please contact help@spotdraft.com'
-          type: object
-      required:
-      - is_individual
-      examples:
-      - is_individual: false
-        organization_type: Private Limited
-        organization_name: Acme Corporation
-        contact_name: Mike Reed
-        contact_email: Mike_reed@yahoo.com
-        brand_name: Acme Corporation
-        primary_address:
-          city_name: Cincinnati
-          state_name: Ohio
-          country_name: USA
-          zipcode: '513'
-          line_one: 'st: 3, block: 2, Jenkins Road'
-        custom_fields:
-          vendor_id: '1234'
-          gst_number: 22AAAAA0000A1Z5
-    PatchedExternalCounterpartyContactUpdateRequest:
-      title: ExternalCounterpartyContactUpdateRequest
-      type: object
-      properties:
-        name:
-          title: Name
-          description: The updated name of the Contact
-          minLength: 1
-          type: string
-        email:
-          title: Email
-          description: The updated email of the Contact
-          type: string
-          format: email
-        is_primary:
-          title: Is Primary
-          description: Whether the contact needs to be set as the primary contact.
-          type: boolean
-      examples:
-      - name: Susan Ervin
-        email: dummy@email.com
-        is_primary: false
     CounterPartyContactsListAPIResponse:
       title: CounterPartyContactsListAPIResponse
       type: object
@@ -975,387 +1005,6 @@ components:
         limit: 10
         total_results: 1
         results:
-        - id: 100
-          name: Susan Ervin
-          email: dummy@email.com
-          is_primary: false
-    CreateCounterPartyAddressRequest:
-      title: CreateCounterPartyAddressRequest
-      type: object
-      properties:
-        line_one:
-          title: Line One
-          description: The first line of the address. Usually the apartment, floor, and street information.
-          type: string
-        city_name:
-          title: City Name
-          description: The city name for this address.
-          type: string
-        state_name:
-          title: State Name
-          description: The state name for this address.
-          default: ''
-          type: string
-        zipcode:
-          title: Zipcode
-          description: The zip/pin/postal code for this address.
-          default: ''
-          type: string
-        email:
-          title: Email
-          description: The email address associated with this counterparty address (if any).
-          type: string
-        phone:
-          title: Phone
-          description: The phone number associated with this counterparty address (if any).
-          type: string
-        country_name:
-          title: Country Name
-          description: The name of the country associated with this counterparty address. Any value passed here is ignored if `country_iso_code` is passed. Valid values are defined internally. Please ask help@spotdraft.com for more information.
-          type: string
-        country_iso_code:
-          title: Country Iso Code
-          description: The ISO-3166-1 Alpha-2 code of the country associated with this counterparty address. Any value passed here is overrides `country`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
-          type: string
-      required:
-      - line_one
-      - city_name
-      - country_name
-      examples:
-      - line_one: 'st: 3, block: 2, Jenkins Road'
-        city_name: Cincinnati
-        state_name: Ohio
-        zipcode: '513'
-        country_name: USA
-        email: test@yopmail.com
-        phone: '1234567890'
-        country_iso_code: US
-    CounterpartyListAddressResponse:
-      title: CounterpartyListAddressResponse
-      type: object
-      properties:
-        page:
-          title: Page
-          type: integer
-        limit:
-          title: Limit
-          type: integer
-        total_results:
-          title: Total Results
-          type: integer
-        results:
-          title: Results
-          type: array
-          items:
-            title: CounterPartyAddressResponse
-            type: object
-            properties:
-              id:
-                title: Id
-                description: The ID of this address. Globally Unique.
-                type: integer
-              line_one:
-                title: Line One
-                description: The first line of the address. Usually the apartment, floor, and street information.
-                type: string
-              city_name:
-                title: City Name
-                description: The city name for this address.
-                type: string
-              state_name:
-                title: State Name
-                description: The state name for this address.
-                type: string
-              zipcode:
-                title: Zipcode
-                description: The zip/pin/postal code for this address.
-                type: string
-              country_name:
-                title: Country Name
-                description: The name of the country associated with this counterparty address.
-                type: string
-              email:
-                title: Email
-                description: The email address associated with this counterparty address (if any).
-                type: string
-              phone:
-                title: Phone
-                description: The phone number associated with this counterparty address (if any).
-                type: string
-            required:
-            - id
-            - line_one
-            - city_name
-            - state_name
-            - zipcode
-            - country_name
-            examples:
-            - id: 100
-              line_one: 'st: 3, block: 2, Jenkins Road'
-              city_name: Cincinnati
-              state_name: Ohio
-              zipcode: '513'
-              country_name: USA
-              email: john.doe@gmail.com
-              phone: (415) 555-0198
-      required:
-      - page
-      - limit
-      - total_results
-      - results
-      examples:
-      - page: 1
-        limit: 10
-        total_results: 50
-        results:
-        - id: 100
-          line_one: 'st: 3, block: 2, Jenkins Road'
-          city_name: Cincinnati
-          state_name: Ohio
-          zipcode: '513'
-          country_name: USA
-          email: john.doe@gmail.com
-          phone: (415) 555-0198
-    CounterPartyContactResponse:
-      title: CounterPartyContactResponse
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of this contact. Globally Unique.
-          type: integer
-        name:
-          title: Name
-          description: The name of this contact.
-          type: string
-        email:
-          title: Email
-          description: The email of this contact.
-          type: string
-        is_primary:
-          title: Is Primary
-          description: Defines if this contact is the primary contact for the associated counterparty.
-          type: boolean
-      required:
-      - id
-      - name
-      - email
-      - is_primary
-      examples:
-      - id: 100
-        name: Susan Ervin
-        email: dummy@email.com
-        is_primary: false
-    CounterPartyAPIResponseStatusEnum:
-      enum:
-      - ACTIVE
-      - ARCHIVED
-      - MIGRATING
-      type: string
-    PatchedExternalCounterpartyContactBulkUpdateListRequest:
-      title: ExternalCounterpartyContactBulkUpdateListRequest
-      type: object
-      properties:
-        contacts:
-          title: Contacts
-          description: List of contacts to be updated. Maximum 50 contacts per request.
-          type: array
-          items:
-            title: ExternalCounterpartyContactBulkUpdateRequest
-            type: object
-            properties:
-              name:
-                title: Name
-                description: The updated name of the Contact
-                minLength: 1
-                type: string
-              email:
-                title: Email
-                description: The updated email of the Contact
-                type: string
-                format: email
-              is_primary:
-                title: Is Primary
-                description: Whether the contact needs to be set as the primary contact.
-                type: boolean
-              id:
-                title: Id
-                description: ID of the Counterparty contact to be updated.
-                type: integer
-            required:
-            - id
-            examples:
-            - id: 100
-              name: Susan Ervin
-              email: dummy@email.com
-              is_primary: false
-      required:
-      - contacts
-      examples:
-      - contacts:
-        - id: 100
-          name: Susan Ervin
-          email: dummy@email.com
-          is_primary: false
-    CounterPartyAPIResponse:
-      title: CounterPartyAPIResponse
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of this Counterparty. Globally Unique.
-          type: integer
-        name:
-          title: Name
-          description: The name of this Counterparty. Unique within a workspace.
-          type: string
-        is_individual:
-          title: Is Individual
-          description: Defines if this Counterparty is an individual or an organization like a company.
-          type: boolean
-        contacts:
-          title: Contacts
-          description: The list of contacts associated with this counterparty.
-          type: array
-          items:
-            title: ContactResponse
-            type: object
-            properties:
-              id:
-                title: Id
-                description: The id of the contact.
-                type: integer
-              name:
-                title: Name
-                description: The name of the contact.
-                type: string
-              email:
-                title: Email
-                description: The email of the contact.
-                type: string
-            required:
-            - id
-            - name
-            - email
-        primary_address:
-          title: Primary Address
-          type: object
-          properties:
-            id:
-              title: Id
-              description: The ID of this address. Globally Unique.
-              type: integer
-            line_one:
-              title: Line One
-              description: The first line of the address. Usually the apartment, floor, and street information.
-              type: string
-            city_name:
-              title: City Name
-              description: The city name for this address.
-              type: string
-            state_name:
-              title: State Name
-              description: The state name for this address.
-              type: string
-            zipcode:
-              title: Zipcode
-              description: The zip/pin/postal code for this address.
-              type: string
-            country_name:
-              title: Country Name
-              description: The name of the country associated with this counterparty address.
-              type: string
-            email:
-              title: Email
-              description: The email address associated with this counterparty address (if any).
-              type: string
-            phone:
-              title: Phone
-              description: The phone number associated with this counterparty address (if any).
-              type: string
-          required:
-          - id
-          - line_one
-          - city_name
-          - state_name
-          - zipcode
-          - country_name
-          examples:
-          - id: 100
-            line_one: 'st: 3, block: 2, Jenkins Road'
-            city_name: Cincinnati
-            state_name: Ohio
-            zipcode: '513'
-            country_name: USA
-            email: john.doe@gmail.com
-            phone: (415) 555-0198
-          description: The address details of the counterparty. Used to render the address in the contract templates.
-        status:
-          allOf:
-          - $ref: '#/components/schemas/CounterPartyAPIResponseStatusEnum'
-          title: OrganizationStatus
-          description: Status of the Counterparty. Valid values are ACTIVE and ARCHIVED.
-        custom_fields:
-          title: Custom Fields
-          description: Custom field values for the Counterparty
-          type: object
-        brand_name:
-          title: Brand Name
-          description: The brand name of the counterparty. This is typically used for display purposes and contract templates.
-          type: string
-      required:
-      - id
-      - name
-      - is_individual
-      - contacts
-      - status
-      examples:
-      - id: 102
-        name: Mike Reed
-        is_individual: false
-        contacts:
-        - id: 100
-          name: Susan Ervin
-          email: SueErvin@yahoo.com
-        primary_address:
-          city_name: Cincinnati
-          state_name: Ohio
-          country_name: USA
-          zipcode: '513'
-          line_one: 'st: 3, block: 2, Jenkins Road'
-        status: ACTIVE
-        custom_fields:
-          vendor_id: '1234'
-          gst_number: 22AAAAA0000A1Z5
-    ExternalCounterpartyContactBulkUpdateResponse:
-      title: ExternalCounterpartyContactBulkUpdateResponse
-      type: array
-      items:
-        title: CounterPartyContactResponse
-        type: object
-        properties:
-          id:
-            title: Id
-            description: The ID of this contact. Globally Unique.
-            type: integer
-          name:
-            title: Name
-            description: The name of this contact.
-            type: string
-          email:
-            title: Email
-            description: The email of this contact.
-            type: string
-          is_primary:
-            title: Is Primary
-            description: Defines if this contact is the primary contact for the associated counterparty.
-            type: boolean
-        required:
-        - id
-        - name
-        - email
-        - is_primary
-        examples:
         - id: 100
           name: Susan Ervin
           email: dummy@email.com
@@ -1536,46 +1185,397 @@ components:
           custom_fields:
             vendor_id: '1234'
             gst_number: 22AAAAA0000A1Z5
-    PatchedExternalCounterpartyAddressUpdateRequest:
-      title: ExternalCounterpartyAddressUpdateRequest
+    CounterPartyAPIResponseStatusEnum:
+      enum:
+      - ACTIVE
+      - ARCHIVED
+      - MIGRATING
+      type: string
+    CounterpartyListAddressResponse:
+      title: CounterpartyListAddressResponse
       type: object
       properties:
-        city_name:
-          title: City Name
-          description: The updated city name of the address
+        page:
+          title: Page
+          type: integer
+        limit:
+          title: Limit
+          type: integer
+        total_results:
+          title: Total Results
+          type: integer
+        results:
+          title: Results
+          type: array
+          items:
+            title: CounterPartyAddressResponse
+            type: object
+            properties:
+              id:
+                title: Id
+                description: The ID of this address. Globally Unique.
+                type: integer
+              line_one:
+                title: Line One
+                description: The first line of the address. Usually the apartment, floor, and street information.
+                type: string
+              city_name:
+                title: City Name
+                description: The city name for this address.
+                type: string
+              state_name:
+                title: State Name
+                description: The state name for this address.
+                type: string
+              zipcode:
+                title: Zipcode
+                description: The zip/pin/postal code for this address.
+                type: string
+              country_name:
+                title: Country Name
+                description: The name of the country associated with this counterparty address.
+                type: string
+              email:
+                title: Email
+                description: The email address associated with this counterparty address (if any).
+                type: string
+              phone:
+                title: Phone
+                description: The phone number associated with this counterparty address (if any).
+                type: string
+            required:
+            - id
+            - line_one
+            - city_name
+            - state_name
+            - zipcode
+            - country_name
+            examples:
+            - id: 100
+              line_one: 'st: 3, block: 2, Jenkins Road'
+              city_name: Cincinnati
+              state_name: Ohio
+              zipcode: '513'
+              country_name: USA
+              email: john.doe@gmail.com
+              phone: (415) 555-0198
+      required:
+      - page
+      - limit
+      - total_results
+      - results
+      examples:
+      - page: 1
+        limit: 10
+        total_results: 50
+        results:
+        - id: 100
+          line_one: 'st: 3, block: 2, Jenkins Road'
+          city_name: Cincinnati
+          state_name: Ohio
+          zipcode: '513'
+          country_name: USA
+          email: john.doe@gmail.com
+          phone: (415) 555-0198
+    PatchedExternalCounterpartyContactUpdateRequest:
+      title: ExternalCounterpartyContactUpdateRequest
+      type: object
+      properties:
+        name:
+          title: Name
+          description: The updated name of the Contact
           minLength: 1
           type: string
-        state_name:
-          title: State Name
-          description: The updated state name of the address
-          minLength: 1
+        email:
+          title: Email
+          description: The updated email of the Contact
           type: string
-        country_iso_code:
-          title: Country Iso Code
-          description: The ISO-3166-1 Alpha-2 code of the country associated with this counterparty address. Any value passed here is overrides `country`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
-          minLength: 1
-          type: string
-        zipcode:
-          title: Zipcode
-          description: The updated zipcode of the address
-          minLength: 1
-          type: string
-        line_one:
-          title: Line One
-          description: The updated line one of the address, It is the first line of address. Usually the apartment, floor, and street information.
-          minLength: 1
-          type: string
+          format: email
         is_primary:
           title: Is Primary
-          description: Whether the address needs to be set as the primary address.
+          description: Whether the contact needs to be set as the primary contact.
           type: boolean
       examples:
-      - city_name: Cincinnati
-        state_name: Ohio
-        country_iso_code: IN
-        zipcode: '513'
-        line_one: 'st: 3, block: 2, Jenkins Road'
+      - name: Susan Ervin
+        email: dummy@email.com
         is_primary: false
+    PatchedExternalCounterpartyContactBulkUpdateListRequest:
+      title: ExternalCounterpartyContactBulkUpdateListRequest
+      type: object
+      properties:
+        contacts:
+          title: Contacts
+          description: List of contacts to be updated. Maximum 50 contacts per request.
+          type: array
+          items:
+            title: ExternalCounterpartyContactBulkUpdateRequest
+            type: object
+            properties:
+              name:
+                title: Name
+                description: The updated name of the Contact
+                minLength: 1
+                type: string
+              email:
+                title: Email
+                description: The updated email of the Contact
+                type: string
+                format: email
+              is_primary:
+                title: Is Primary
+                description: Whether the contact needs to be set as the primary contact.
+                type: boolean
+              id:
+                title: Id
+                description: ID of the Counterparty contact to be updated.
+                type: integer
+            required:
+            - id
+            examples:
+            - id: 100
+              name: Susan Ervin
+              email: dummy@email.com
+              is_primary: false
+      required:
+      - contacts
+      examples:
+      - contacts:
+        - id: 100
+          name: Susan Ervin
+          email: dummy@email.com
+          is_primary: false
+    CounterPartyAPIResponse:
+      title: CounterPartyAPIResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of this Counterparty. Globally Unique.
+          type: integer
+        name:
+          title: Name
+          description: The name of this Counterparty. Unique within a workspace.
+          type: string
+        is_individual:
+          title: Is Individual
+          description: Defines if this Counterparty is an individual or an organization like a company.
+          type: boolean
+        contacts:
+          title: Contacts
+          description: The list of contacts associated with this counterparty.
+          type: array
+          items:
+            title: ContactResponse
+            type: object
+            properties:
+              id:
+                title: Id
+                description: The id of the contact.
+                type: integer
+              name:
+                title: Name
+                description: The name of the contact.
+                type: string
+              email:
+                title: Email
+                description: The email of the contact.
+                type: string
+            required:
+            - id
+            - name
+            - email
+        primary_address:
+          title: Primary Address
+          type: object
+          properties:
+            id:
+              title: Id
+              description: The ID of this address. Globally Unique.
+              type: integer
+            line_one:
+              title: Line One
+              description: The first line of the address. Usually the apartment, floor, and street information.
+              type: string
+            city_name:
+              title: City Name
+              description: The city name for this address.
+              type: string
+            state_name:
+              title: State Name
+              description: The state name for this address.
+              type: string
+            zipcode:
+              title: Zipcode
+              description: The zip/pin/postal code for this address.
+              type: string
+            country_name:
+              title: Country Name
+              description: The name of the country associated with this counterparty address.
+              type: string
+            email:
+              title: Email
+              description: The email address associated with this counterparty address (if any).
+              type: string
+            phone:
+              title: Phone
+              description: The phone number associated with this counterparty address (if any).
+              type: string
+          required:
+          - id
+          - line_one
+          - city_name
+          - state_name
+          - zipcode
+          - country_name
+          examples:
+          - id: 100
+            line_one: 'st: 3, block: 2, Jenkins Road'
+            city_name: Cincinnati
+            state_name: Ohio
+            zipcode: '513'
+            country_name: USA
+            email: john.doe@gmail.com
+            phone: (415) 555-0198
+          description: The address details of the counterparty. Used to render the address in the contract templates.
+        status:
+          allOf:
+          - $ref: '#/components/schemas/CounterPartyAPIResponseStatusEnum'
+          title: OrganizationStatus
+          description: Status of the Counterparty. Valid values are ACTIVE and ARCHIVED.
+        custom_fields:
+          title: Custom Fields
+          description: Custom field values for the Counterparty
+          type: object
+        brand_name:
+          title: Brand Name
+          description: The brand name of the counterparty. This is typically used for display purposes and contract templates.
+          type: string
+      required:
+      - id
+      - name
+      - is_individual
+      - contacts
+      - status
+      examples:
+      - id: 102
+        name: Mike Reed
+        is_individual: false
+        contacts:
+        - id: 100
+          name: Susan Ervin
+          email: SueErvin@yahoo.com
+        primary_address:
+          city_name: Cincinnati
+          state_name: Ohio
+          country_name: USA
+          zipcode: '513'
+          line_one: 'st: 3, block: 2, Jenkins Road'
+        status: ACTIVE
+        custom_fields:
+          vendor_id: '1234'
+          gst_number: 22AAAAA0000A1Z5
+    CreateCounterPartyAPIRequest:
+      title: CreateCounterPartyAPIRequest
+      type: object
+      properties:
+        is_individual:
+          title: Is Individual
+          description: Defines if this Counterparty is an individual or an organization like a company. When `true`, `contact_name` and `contact_email` are required. When `false`, `organization_name` is required.
+          type: boolean
+        organization_type:
+          title: Organization Type
+          description: The type of the counterparty if it is an organization. Expects values like LLC, LLP, etc. Please ask help@spotdraft.com for valid values.
+          type: string
+        organization_name:
+          title: Organization Name
+          description: The name of the counterparty if it is an organization. Expects the name of the company/entity that is the counterparty. Required when `is_individual=false`.
+          type: string
+        contact_name:
+          title: Contact Name
+          description: The name of the counterparty in case of an individual, and the name of the Point of Contact in case of organizations. Required together with `contact_email` when `is_individual=true`.
+          type: string
+        contact_email:
+          title: Contact Email
+          description: The email of the counterparty in case of an individual, and the email of the Point of Contact in case of organizations. Required together with `contact_name` when `is_individual=true`.
+          type: string
+        brand_name:
+          title: Brand Name
+          description: The brand name of the counterparty. This is typically used for display purposes and contract templates.
+          type: string
+        primary_address:
+          title: Primary Address
+          type: object
+          properties:
+            line_one:
+              title: Line One
+              description: The first line of the address. Usually the apartment, floor, and street information.
+              type: string
+            city_name:
+              title: City Name
+              description: The city name for this address.
+              type: string
+            state_name:
+              title: State Name
+              description: The state name for this address.
+              default: ''
+              type: string
+            zipcode:
+              title: Zipcode
+              description: The zip/pin/postal code for this address.
+              default: ''
+              type: string
+            email:
+              title: Email
+              description: The email address associated with this counterparty address (if any).
+              type: string
+            phone:
+              title: Phone
+              description: The phone number associated with this counterparty address (if any).
+              type: string
+            country_name:
+              title: Country Name
+              description: The name of the country associated with this counterparty address. Any value passed here is ignored if `country_iso_code` is passed. Valid values are defined internally. Please ask help@spotdraft.com for more information.
+              type: string
+            country_iso_code:
+              title: Country Iso Code
+              description: The ISO-3166-1 Alpha-2 code of the country associated with this counterparty address. Any value passed here is overrides `country`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
+              type: string
+          required:
+          - line_one
+          - city_name
+          - country_name
+          examples:
+          - line_one: 'st: 3, block: 2, Jenkins Road'
+            city_name: Cincinnati
+            state_name: Ohio
+            zipcode: '513'
+            country_name: USA
+            email: test@yopmail.com
+            phone: '1234567890'
+            country_iso_code: US
+          description: The address details of the counterparty. Used to render the address in the contract templates.
+        custom_fields:
+          title: Custom Fields
+          description: 'Custom field values for the counterparty. Note: The custom_fields feature is available only upon request. To enable this feature, please contact help@spotdraft.com'
+          type: object
+      required:
+      - is_individual
+      examples:
+      - is_individual: false
+        organization_type: Private Limited
+        organization_name: Acme Corporation
+        contact_name: Mike Reed
+        contact_email: Mike_reed@yahoo.com
+        brand_name: Acme Corporation
+        primary_address:
+          city_name: Cincinnati
+          state_name: Ohio
+          country_name: USA
+          zipcode: '513'
+          line_one: 'st: 3, block: 2, Jenkins Road'
+        custom_fields:
+          vendor_id: '1234'
+          gst_number: 22AAAAA0000A1Z5
   securitySchemes:
     ClickwrapId:
       type: apiKey

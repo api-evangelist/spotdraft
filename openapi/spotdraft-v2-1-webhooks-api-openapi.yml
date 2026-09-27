@@ -214,55 +214,6 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
-    PublicWebhookResponseStatusEnum:
-      enum:
-      - ACTIVE
-      - DISABLED_BY_USER
-      - DISABLED_BY_ERROR
-      type: string
-    PublicWebhookCreateRequest:
-      title: PublicWebhookCreateRequest
-      type: object
-      properties:
-        title:
-          title: Title
-          description: The title of this webhook
-          minLength: 1
-          type: string
-        description:
-          title: Description
-          description: The description for the webhook
-          type: string
-        custom_headers:
-          title: Custom Headers
-          description: Custom headers to be included in the webhook call. Header names are trimmed before validation. Use custom header names only; standard HTTP headers are rejected. Header names should start with `X-` and must not start with X-Google-, X-Goog-, X-GFE-, X-Amz-, X-MS-, X-DD-, X-Datadog-, X-B3-, X-SD- and X-SPOTDRAFT-.
-          type: object
-        only_for_activities:
-          description: Webhook activity types for which to trigger this webhook. The list cannot be empty.
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/OnlyForActivitiesEnum'
-            title: ContractWebhookActivityType
-            description: An enumeration.
-        url:
-          title: Url
-          description: The HTTPS URL that should receive this event. Non-HTTPS URLs are rejected.
-          minLength: 1
-          type: string
-      required:
-      - title
-      - only_for_activities
-      - url
-      examples:
-      - title: Contract Created webhook
-        only_for_activities:
-        - CONTRACT_CREATED
-        url: https://yourdomain.com/webhooks/event-handler
-        description: Created for contract create webhook
-        custom_headers:
-          X-ABC-ACCESS-KEY: example-access-key
-          X-CLIENT-SIGNATURE: example-client-signature
     PublicWebhookResponse:
       title: PublicWebhookResponse
       type: object
@@ -347,6 +298,12 @@ components:
           X-ABC-ACCESS-KEY: example-access-key
           DEF-ACCESS-KEY: example-secondary-access-key
         status: ACTIVE
+    PublicWebhookResponseStatusEnum:
+      enum:
+      - ACTIVE
+      - DISABLED_BY_USER
+      - DISABLED_BY_ERROR
+      type: string
     WebhookSecretKeyResponse:
       title: WebhookSecretKeyResponse
       type: object
@@ -400,6 +357,49 @@ components:
       - CONTRACT_EXTERNAL_METADATA_UPDATED
       - CONTRACT_ENTITY_UPDATED
       type: string
+    PublicWebhookCreateRequest:
+      title: PublicWebhookCreateRequest
+      type: object
+      properties:
+        title:
+          title: Title
+          description: The title of this webhook
+          minLength: 1
+          type: string
+        description:
+          title: Description
+          description: The description for the webhook
+          type: string
+        custom_headers:
+          title: Custom Headers
+          description: Custom headers to be included in the webhook call. Header names are trimmed before validation. Use custom header names only; standard HTTP headers are rejected. Header names should start with `X-` and must not start with X-Google-, X-Goog-, X-GFE-, X-Amz-, X-MS-, X-DD-, X-Datadog-, X-B3-, X-SD- and X-SPOTDRAFT-.
+          type: object
+        only_for_activities:
+          description: Webhook activity types for which to trigger this webhook. The list cannot be empty.
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/OnlyForActivitiesEnum'
+            title: ContractWebhookActivityType
+            description: An enumeration.
+        url:
+          title: Url
+          description: The HTTPS URL that should receive this event. Non-HTTPS URLs are rejected.
+          minLength: 1
+          type: string
+      required:
+      - title
+      - only_for_activities
+      - url
+      examples:
+      - title: Contract Created webhook
+        only_for_activities:
+        - CONTRACT_CREATED
+        url: https://yourdomain.com/webhooks/event-handler
+        description: Created for contract create webhook
+        custom_headers:
+          X-ABC-ACCESS-KEY: example-access-key
+          X-CLIENT-SIGNATURE: example-client-signature
   securitySchemes:
     ClickwrapId:
       type: apiKey

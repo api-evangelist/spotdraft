@@ -236,6 +236,19 @@ paths:
       x-tagGroup: Sidebar
 components:
   schemas:
+    SidebarFileUploadAcceptedResponse:
+      type: object
+      properties:
+        file_id:
+          type: string
+          format: uuid
+          description: ID of the uploaded file.
+        status:
+          type: string
+          description: Always `accepted` when processing will continue in the background and the terminal file result will be delivered via webhook.
+      required:
+      - file_id
+      - status
     UploadSourceEnum:
       enum:
       - chat
@@ -305,6 +318,77 @@ components:
           description: Optional agent to use for this question.
       required:
       - user_input
+    SidebarSources:
+      type: object
+      properties:
+        web:
+          $ref: '#/components/schemas/SidebarWebSources'
+        law:
+          $ref: '#/components/schemas/SidebarLawSources'
+        clm_connector:
+          type: boolean
+          default: false
+          description: Let Sidebar use your connected SpotDraft contract data.
+    SidebarSearchResult:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of a source used in the answer.
+        url:
+          type: string
+          format: uri
+          description: Link to a source used in the answer.
+        source_id:
+          type:
+          - string
+          - 'null'
+          description: Optional source identifier.
+      required:
+      - title
+      - url
+    SidebarTableContext:
+      type: object
+      properties:
+        table_id:
+          type: string
+          description: ID of a table that Sidebar should use.
+        table_name:
+          type: string
+          description: Name of the table, to help you identify it.
+      required:
+      - table_id
+      - table_name
+    SidebarQueryResponse:
+      type: object
+      properties:
+        chat_id:
+          type: string
+          format: uuid
+          description: Conversation ID for the created or reused Sidebar chat.
+        response:
+          type: string
+          description: Sidebar's answer.
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SidebarSearchResult'
+          description: Sources referenced in the answer.
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message if the request failed.
+      required:
+      - chat_id
+      - response
+    SidebarLawSources:
+      type: object
+      properties:
+        us:
+          type: boolean
+          default: false
+          description: Let Sidebar use US legal materials.
     SidebarContractContext:
       type: object
       properties:
@@ -335,47 +419,6 @@ components:
       required:
       - file_id
       - file_name
-    SidebarSearchResult:
-      type: object
-      properties:
-        title:
-          type: string
-          description: Title of a source used in the answer.
-        url:
-          type: string
-          format: uri
-          description: Link to a source used in the answer.
-        source_id:
-          type:
-          - string
-          - 'null'
-          description: Optional source identifier.
-      required:
-      - title
-      - url
-    SidebarSources:
-      type: object
-      properties:
-        web:
-          $ref: '#/components/schemas/SidebarWebSources'
-        law:
-          $ref: '#/components/schemas/SidebarLawSources'
-        clm_connector:
-          type: boolean
-          default: false
-          description: Let Sidebar use your connected SpotDraft contract data.
-    SidebarTableContext:
-      type: object
-      properties:
-        table_id:
-          type: string
-          description: ID of a table that Sidebar should use.
-        table_name:
-          type: string
-          description: Name of the table, to help you identify it.
-      required:
-      - table_id
-      - table_name
     SidebarWebSources:
       type: object
       properties:
@@ -395,24 +438,6 @@ components:
           type: boolean
           default: false
           description: Let Sidebar search US legal and government websites.
-    SidebarFileUploadResponse:
-      type: object
-      properties:
-        file_id:
-          type: string
-          format: uuid
-          description: ID of the uploaded file.
-        status:
-          type: string
-          description: Final file status. `created` means the file is ready.
-        error:
-          type:
-          - string
-          - 'null'
-          description: Error message if processing failed.
-      required:
-      - file_id
-      - status
     SidebarFileUploadRequest:
       type: object
       properties:
@@ -448,36 +473,6 @@ components:
       - entity_id
       - file
       - upload_source
-    SidebarLawSources:
-      type: object
-      properties:
-        us:
-          type: boolean
-          default: false
-          description: Let Sidebar use US legal materials.
-    SidebarQueryResponse:
-      type: object
-      properties:
-        chat_id:
-          type: string
-          format: uuid
-          description: Conversation ID for the created or reused Sidebar chat.
-        response:
-          type: string
-          description: Sidebar's answer.
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/SidebarSearchResult'
-          description: Sources referenced in the answer.
-        error:
-          type:
-          - string
-          - 'null'
-          description: Error message if the request failed.
-      required:
-      - chat_id
-      - response
     SidebarQueryAcceptedResponse:
       type: object
       properties:
@@ -491,7 +486,7 @@ components:
       required:
       - chat_id
       - status
-    SidebarFileUploadAcceptedResponse:
+    SidebarFileUploadResponse:
       type: object
       properties:
         file_id:
@@ -500,7 +495,12 @@ components:
           description: ID of the uploaded file.
         status:
           type: string
-          description: Always `accepted` when processing will continue in the background and the terminal file result will be delivered via webhook.
+          description: Final file status. `created` means the file is ready.
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message if processing failed.
       required:
       - file_id
       - status

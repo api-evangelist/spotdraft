@@ -99,55 +99,6 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
-    PublicBulkTagCreateRequest:
-      description: Request body for bulk tag creation.
-      examples:
-      - tags:
-        - colour_code: '#FF5733'
-          name: NDA
-        - name: MSA
-        - colour_code: '#3498DB'
-          name: SOW
-          tag_entity_type: Contract
-      properties:
-        tags:
-          description: List of tags to create. Each tag requires at minimum a 'name' field.
-          items:
-            $ref: '#/components/schemas/PublicTagCreateRequest'
-          minItems: 1
-          title: Tags
-          type: array
-      required:
-      - tags
-      title: PublicBulkTagCreateRequest
-      type: object
-    PublicTagCreateRequest:
-      description: Request model for a single tag to be created.
-      examples:
-      - colour_code: '#FF5733'
-        name: NDA
-        tag_entity_type: Contract
-      properties:
-        name:
-          description: Name of the tag to create (1–100 characters, not empty or whitespace-only).
-          maxLength: 100
-          minLength: 1
-          title: Name
-          type: string
-        colour_code:
-          default: ''
-          description: Colour code for the tag (e.g. '#FF5733'); up to 10 characters. Defaults to an empty string.
-          maxLength: 10
-          title: Colour Code
-          type: string
-        tag_entity_type:
-          $ref: '#/components/schemas/TagEntityType'
-          default: Contract
-          description: Entity type the tag applies to. One of 'Contract' or 'Clause'. Defaults to 'Contract'.
-      required:
-      - name
-      title: PublicTagCreateRequest
-      type: object
     PublicBulkTagCreateResponse:
       description: Response body for bulk tag creation.
       examples:
@@ -210,6 +161,55 @@ components:
       - colour_code
       - tag_entity_type
       title: PublicTagResponse
+      type: object
+    PublicBulkTagCreateRequest:
+      description: Request body for bulk tag creation.
+      examples:
+      - tags:
+        - colour_code: '#FF5733'
+          name: NDA
+        - name: MSA
+        - colour_code: '#3498DB'
+          name: SOW
+          tag_entity_type: Contract
+      properties:
+        tags:
+          description: List of tags to create. Each tag requires at minimum a 'name' field.
+          items:
+            $ref: '#/components/schemas/PublicTagCreateRequest'
+          minItems: 1
+          title: Tags
+          type: array
+      required:
+      - tags
+      title: PublicBulkTagCreateRequest
+      type: object
+    PublicTagCreateRequest:
+      description: Request model for a single tag to be created.
+      examples:
+      - colour_code: '#FF5733'
+        name: NDA
+        tag_entity_type: Contract
+      properties:
+        name:
+          description: Name of the tag to create (1–100 characters, not empty or whitespace-only).
+          maxLength: 100
+          minLength: 1
+          title: Name
+          type: string
+        colour_code:
+          default: ''
+          description: Colour code for the tag (e.g. '#FF5733'); up to 10 characters. Defaults to an empty string.
+          maxLength: 10
+          title: Colour Code
+          type: string
+        tag_entity_type:
+          $ref: '#/components/schemas/TagEntityType'
+          default: Contract
+          description: Entity type the tag applies to. One of 'Contract' or 'Clause'. Defaults to 'Contract'.
+      required:
+      - name
+      title: PublicTagCreateRequest
       type: object
   securitySchemes:
     ClickwrapId:

@@ -403,6 +403,51 @@ components:
         source_datatype:
           title: Source Datatype
           type: string
+    ContractKeyPointerMinimalResponse:
+      title: ContractKeyPointerMinimalResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        value:
+          title: Value
+          description: Value of the key pointer
+          anyOf:
+          - type: number
+          - type: integer
+          - type: string
+          - type: array
+            items: {}
+          - type: object
+          - type: boolean
+        label:
+          title: Label
+          type: string
+        field_name:
+          title: Field Name
+          type: string
+        data_type:
+          title: Data Type
+          type: string
+        format_option:
+          title: Format Option
+          type: object
+      required:
+      - id
+      - value
+      - label
+      - field_name
+      - data_type
+      - format_option
+      examples:
+      - id: 1
+        value: sample
+        label: Sample Label
+        filed_name: sample_field_name
+        data_type: string
+        format_option:
+          data: sample format option
     ContractKeyPointerMinimalListResponse:
       title: ContractKeyPointerMinimalListResponse
       type: array
@@ -451,51 +496,6 @@ components:
           data_type: string
           format_option:
             data: sample format option
-    ContractKeyPointerMinimalResponse:
-      title: ContractKeyPointerMinimalResponse
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        value:
-          title: Value
-          description: Value of the key pointer
-          anyOf:
-          - type: number
-          - type: integer
-          - type: string
-          - type: array
-            items: {}
-          - type: object
-          - type: boolean
-        label:
-          title: Label
-          type: string
-        field_name:
-          title: Field Name
-          type: string
-        data_type:
-          title: Data Type
-          type: string
-        format_option:
-          title: Format Option
-          type: object
-      required:
-      - id
-      - value
-      - label
-      - field_name
-      - data_type
-      - format_option
-      examples:
-      - id: 1
-        value: sample
-        label: Sample Label
-        filed_name: sample_field_name
-        data_type: string
-        format_option:
-          data: sample format option
   securitySchemes:
     ClickwrapId:
       type: apiKey

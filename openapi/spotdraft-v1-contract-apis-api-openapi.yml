@@ -474,6 +474,167 @@ paths:
       x-tagGroup: Contracts
 components:
   schemas:
+    OrganizationDetails:
+      type: object
+      description: Defines structure for organization details
+      properties:
+        jurisdiction:
+          type: string
+        address:
+          $ref: '#/components/schemas/OrganizationAddress'
+    WorkflowConfig:
+      type: object
+      properties:
+        auto_send_to_counterparty:
+          type: boolean
+          default: false
+        api_only_contract_edits:
+          type: boolean
+          default: false
+        skip_cp_info_collection:
+          type: boolean
+          default: false
+        skip_creator_info_collection:
+          type: boolean
+          default: false
+    ExternalCounterPartyDetails:
+      type: object
+      description: Defines the data required for contract counterpartydetails
+      properties:
+        is_individual:
+          type: boolean
+        organization_type:
+          type: string
+        organization_name:
+          type: string
+          description: The legal name of the organization. Required if `is_individual` is False.
+        poc_details:
+          allOf:
+          - $ref: '#/components/schemas/ExternalPOCDetails'
+          description: Details of the primary point of contact for this counterparty. Required for both individuals and organizations.
+        organization_details:
+          $ref: '#/components/schemas/OrganizationDetails'
+        party_role_identifier:
+          type: string
+          minLength: 1
+      required:
+      - is_individual
+      - poc_details
+    EditableDocumentDownloadFormat:
+      enum:
+      - PDF
+      - DOCX
+      - DOCX_WITH_FALLBACK_TO_PDF
+      title: EditableDocumentDownloadFormat
+      type: string
+    DownloadUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL from which this contract can be downloaded.
+        file_name:
+          type: string
+          description: The file name of the contract.
+        current_version_id:
+          type: integer
+          description: The ID of the current version of the contract.
+      required:
+      - file_name
+      - url
+    OrganizationAddress:
+      type: object
+      description: Defines structure for organization address
+      properties:
+        city:
+          type: string
+        state:
+          type: string
+          default: ''
+        country:
+          type: string
+        zipcode:
+          type: string
+          default: ''
+        line_one:
+          type: string
+        line_two:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        gst_number:
+          type: string
+        tax_id:
+          type: string
+        country_iso_code:
+          type: string
+      required:
+      - city
+      - country
+      - line_one
+    DownloadLinkRequest:
+      description: Request body for Get Contract Download Link API. Optional; defaults to PDF if omitted.
+      properties:
+        format:
+          anyOf:
+          - $ref: '#/components/schemas/EditableDocumentDownloadFormat'
+          - type: 'null'
+          default: PDF
+          description: Download format for the contract file. Defaults to `PDF` when omitted.
+      title: DownloadLinkRequest
+      type: object
+    ExternalPOCDetails:
+      type: object
+      description: Defines the data required in poc details
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+          default: ''
+        email:
+          type: string
+      required:
+      - email
+      - first_name
+    SendToCounterparty:
+      type: object
+      properties:
+        to_emails:
+          type: array
+          items:
+            type: string
+          description: Optional list of primary recipient email addresses. If omitted, SpotDraft uses the configured counterparty recipients for the contract.
+        cc_emails:
+          type: array
+          items:
+            type: string
+          description: Optional list of email addresses to copy on the outbound contract email.
+        bcc_emails:
+          type: array
+          items:
+            type: string
+          description: Optional list of blind-copy email addresses for the outbound contract email.
+        attachment_formats:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentFormatsEnum'
+          description: At least one attachment format is required. Allowed values come from the ContractEmailFormat enum.
+        extra_attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailBase64Attachment'
+          description: Optional additional attachments to send with the contract email.
+        custom_message:
+          type: string
+          description: Optional custom message to include in the contract email body.
+        subject:
+          type: string
+          description: Optional custom email subject line.
+      required:
+      - attachment_formats
     ExternalContractV3:
       type: object
       description: Defines the data required to be shown affter contract creation
@@ -539,40 +700,74 @@ components:
       - external_metadata
       - id
       - reference_id
-    DownloadLinkRequest:
-      description: Request body for Get Contract Download Link API. Optional; defaults to PDF if omitted.
-      properties:
-        format:
-          anyOf:
-          - $ref: '#/components/schemas/EditableDocumentDownloadFormat'
-          - type: 'null'
-          default: PDF
-          description: Download format for the contract file. Defaults to `PDF` when omitted.
-      title: DownloadLinkRequest
+    ExternalContractV3List:
       type: object
-    ExternalCounterPartyDetails:
-      type: object
-      description: Defines the data required for contract counterpartydetails
       properties:
-        is_individual:
-          type: boolean
-        organization_type:
-          type: string
-        organization_name:
-          type: string
-          description: The legal name of the organization. Required if `is_individual` is False.
-        poc_details:
-          allOf:
-          - $ref: '#/components/schemas/ExternalPOCDetails'
-          description: Details of the primary point of contact for this counterparty. Required for both individuals and organizations.
-        organization_details:
-          $ref: '#/components/schemas/OrganizationDetails'
-        party_role_identifier:
-          type: string
-          minLength: 1
+        total_results:
+          type: integer
+          description: Total number of items in the result set.
+        page:
+          type: integer
+          description: The current page number. Page numbers start at 1.
+        limit:
+          type: integer
+          description: The number of items returned per page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalContractV3'
+          description: The list of Contracts
       required:
-      - is_individual
-      - poc_details
+      - limit
+      - page
+      - results
+      - total_results
+    ContractDisplayStatusEnum:
+      enum:
+      - DRAFT
+      - REDLINING
+      - SIGN
+      - EXECUTED
+      - ON_HOLD
+      - VOIDED
+      type: string
+    EmailBase64Attachment:
+      type: object
+      properties:
+        file_name:
+          type: string
+        mime_type:
+          type: string
+        content_base64:
+          type: string
+      required:
+      - content_base64
+      - file_name
+      - mime_type
+    ExternalCreateContractSignatory:
+      type: object
+      description: Defines the data that is required for create contract signatory
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        title:
+          type: string
+        is_counterparty_signatory:
+          type: boolean
+          description: Set this as True if the signatory belongs to a counterparty. Else set it as False.
+        counterparty_name:
+          type: string
+          description: Required if `is_counterparty_signatory` is True. Must match the name of one of the counterparties in `counter_party_details`. If the counterparty `is_individual` is True, this should be the concatenation of the `first_name` and `last_name` from `poc_details` (e.g., 'John Doe'). If `is_individual` is False, this should match the `organization_name` of the counterparty.  If `is_counterparty_signatory` is False, leave this field blank.
+        sign_order:
+          type: integer
+        note:
+          type: string
+      required:
+      - email
+      - is_counterparty_signatory
+      - name
     ExternalCreateContract:
       type: object
       description: Defines the data that is required for contract creation
@@ -644,20 +839,17 @@ components:
       - contract_data
       - contract_template_id
       - counter_party_details
-    ExternalPOCDetails:
-      type: object
-      description: Defines the data required in poc details
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-          default: ''
-        email:
-          type: string
-      required:
-      - email
-      - first_name
+    AttachmentFormatsEnum:
+      enum:
+      - DOCX
+      - PDF
+      - TEMPLATE
+      type: string
+      description: '* `DOCX` - DOCX
+
+        * `PDF` - PDF
+
+        * `TEMPLATE` - TEMPLATE'
     ExternalContractStatus:
       type: object
       description: Defines the data that is required to show the status of a contract
@@ -685,198 +877,6 @@ components:
       required:
       - contract_name
       - contract_status
-    ExternalCreateContractSignatory:
-      type: object
-      description: Defines the data that is required for create contract signatory
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        title:
-          type: string
-        is_counterparty_signatory:
-          type: boolean
-          description: Set this as True if the signatory belongs to a counterparty. Else set it as False.
-        counterparty_name:
-          type: string
-          description: Required if `is_counterparty_signatory` is True. Must match the name of one of the counterparties in `counter_party_details`. If the counterparty `is_individual` is True, this should be the concatenation of the `first_name` and `last_name` from `poc_details` (e.g., 'John Doe'). If `is_individual` is False, this should match the `organization_name` of the counterparty.  If `is_counterparty_signatory` is False, leave this field blank.
-        sign_order:
-          type: integer
-        note:
-          type: string
-      required:
-      - email
-      - is_counterparty_signatory
-      - name
-    WorkflowConfig:
-      type: object
-      properties:
-        auto_send_to_counterparty:
-          type: boolean
-          default: false
-        api_only_contract_edits:
-          type: boolean
-          default: false
-        skip_cp_info_collection:
-          type: boolean
-          default: false
-        skip_creator_info_collection:
-          type: boolean
-          default: false
-    EmailBase64Attachment:
-      type: object
-      properties:
-        file_name:
-          type: string
-        mime_type:
-          type: string
-        content_base64:
-          type: string
-      required:
-      - content_base64
-      - file_name
-      - mime_type
-    SendToCounterparty:
-      type: object
-      properties:
-        to_emails:
-          type: array
-          items:
-            type: string
-          description: Optional list of primary recipient email addresses. If omitted, SpotDraft uses the configured counterparty recipients for the contract.
-        cc_emails:
-          type: array
-          items:
-            type: string
-          description: Optional list of email addresses to copy on the outbound contract email.
-        bcc_emails:
-          type: array
-          items:
-            type: string
-          description: Optional list of blind-copy email addresses for the outbound contract email.
-        attachment_formats:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentFormatsEnum'
-          description: At least one attachment format is required. Allowed values come from the ContractEmailFormat enum.
-        extra_attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmailBase64Attachment'
-          description: Optional additional attachments to send with the contract email.
-        custom_message:
-          type: string
-          description: Optional custom message to include in the contract email body.
-        subject:
-          type: string
-          description: Optional custom email subject line.
-      required:
-      - attachment_formats
-    ContractDisplayStatusEnum:
-      enum:
-      - DRAFT
-      - REDLINING
-      - SIGN
-      - EXECUTED
-      - ON_HOLD
-      - VOIDED
-      type: string
-    DownloadUrl:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The URL from which this contract can be downloaded.
-        file_name:
-          type: string
-          description: The file name of the contract.
-        current_version_id:
-          type: integer
-          description: The ID of the current version of the contract.
-      required:
-      - file_name
-      - url
-    OrganizationAddress:
-      type: object
-      description: Defines structure for organization address
-      properties:
-        city:
-          type: string
-        state:
-          type: string
-          default: ''
-        country:
-          type: string
-        zipcode:
-          type: string
-          default: ''
-        line_one:
-          type: string
-        line_two:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-        gst_number:
-          type: string
-        tax_id:
-          type: string
-        country_iso_code:
-          type: string
-      required:
-      - city
-      - country
-      - line_one
-    EditableDocumentDownloadFormat:
-      enum:
-      - PDF
-      - DOCX
-      - DOCX_WITH_FALLBACK_TO_PDF
-      title: EditableDocumentDownloadFormat
-      type: string
-    AttachmentFormatsEnum:
-      enum:
-      - DOCX
-      - PDF
-      - TEMPLATE
-      type: string
-      description: '* `DOCX` - DOCX
-
-        * `PDF` - PDF
-
-        * `TEMPLATE` - TEMPLATE'
-    ExternalContractV3List:
-      type: object
-      properties:
-        total_results:
-          type: integer
-          description: Total number of items in the result set.
-        page:
-          type: integer
-          description: The current page number. Page numbers start at 1.
-        limit:
-          type: integer
-          description: The number of items returned per page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalContractV3'
-          description: The list of Contracts
-      required:
-      - limit
-      - page
-      - results
-      - total_results
-    OrganizationDetails:
-      type: object
-      description: Defines structure for organization details
-      properties:
-        jurisdiction:
-          type: string
-        address:
-          $ref: '#/components/schemas/OrganizationAddress'
   securitySchemes:
     ClickwrapId:
       type: apiKey

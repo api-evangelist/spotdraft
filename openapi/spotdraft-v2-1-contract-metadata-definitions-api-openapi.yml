@@ -89,94 +89,6 @@ paths:
       x-tagGroup: Workflow
 components:
   schemas:
-    ListFieldNameMappingViewRequest:
-      title: ListFieldNameMappingViewRequest
-      type: object
-      properties:
-        contract_id:
-          title: Contract Id
-          description: Optional contract id to scope the mapping lookup to a specific contract instance.
-          type: integer
-        contract_type_id:
-          title: Contract Type Id
-          description: Optional contract type id to scope the mapping lookup to a specific workflow or template family.
-          type: integer
-        old_field_names:
-          title: Old Field Names
-          description: Optional list of legacy template field names to translate into current contract metadata labels.
-          type: array
-          items:
-            type: string
-        new_field_names:
-          title: New Field Names
-          description: Optional list of current template field names to map back to existing contract metadata labels.
-          type: array
-          items:
-            type: string
-    FieldNameMappingDomainModel:
-      description: Domain model for field name mapping.
-      properties:
-        id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          default: null
-          description: The ID of the field name mapping
-          title: Id
-        old_field_name:
-          description: The original template field name
-          title: Old Field Name
-          type: string
-        new_field_name:
-          description: The new template field name
-          title: New Field Name
-          type: string
-        tenant_workspace_id:
-          description: The workspace ID this mapping belongs to
-          title: Tenant Workspace Id
-          type: integer
-        contract_type_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          default: null
-          description: The contract type ID this mapping belongs to
-          title: Contract Type Id
-        created:
-          anyOf:
-          - format: date-time
-            type: string
-          - type: 'null'
-          default: null
-          description: Creation timestamp
-          title: Created
-        modified:
-          anyOf:
-          - format: date-time
-            type: string
-          - type: 'null'
-          default: null
-          description: Last modification timestamp
-          title: Modified
-        data_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          description: The data type of the key pointer which was linked to the old_field_name attribute
-          title: Data Type
-        new_field_name_label:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          title: New Field Name Label
-      required:
-      - old_field_name
-      - new_field_name
-      - tenant_workspace_id
-      title: FieldNameMappingDomainModel
-      type: object
     FieldNameMappingListDomainModel:
       description: Domain model for list of field name mappings.
       properties:
@@ -394,6 +306,94 @@ components:
         - id
         - descriptors
         - section
+    FieldNameMappingDomainModel:
+      description: Domain model for field name mapping.
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: null
+          description: The ID of the field name mapping
+          title: Id
+        old_field_name:
+          description: The original template field name
+          title: Old Field Name
+          type: string
+        new_field_name:
+          description: The new template field name
+          title: New Field Name
+          type: string
+        tenant_workspace_id:
+          description: The workspace ID this mapping belongs to
+          title: Tenant Workspace Id
+          type: integer
+        contract_type_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: null
+          description: The contract type ID this mapping belongs to
+          title: Contract Type Id
+        created:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          default: null
+          description: Creation timestamp
+          title: Created
+        modified:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          default: null
+          description: Last modification timestamp
+          title: Modified
+        data_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: The data type of the key pointer which was linked to the old_field_name attribute
+          title: Data Type
+        new_field_name_label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          title: New Field Name Label
+      required:
+      - old_field_name
+      - new_field_name
+      - tenant_workspace_id
+      title: FieldNameMappingDomainModel
+      type: object
+    ListFieldNameMappingViewRequest:
+      title: ListFieldNameMappingViewRequest
+      type: object
+      properties:
+        contract_id:
+          title: Contract Id
+          description: Optional contract id to scope the mapping lookup to a specific contract instance.
+          type: integer
+        contract_type_id:
+          title: Contract Type Id
+          description: Optional contract type id to scope the mapping lookup to a specific workflow or template family.
+          type: integer
+        old_field_names:
+          title: Old Field Names
+          description: Optional list of legacy template field names to translate into current contract metadata labels.
+          type: array
+          items:
+            type: string
+        new_field_names:
+          title: New Field Names
+          description: Optional list of current template field names to map back to existing contract metadata labels.
+          type: array
+          items:
+            type: string
   securitySchemes:
     ClickwrapId:
       type: apiKey

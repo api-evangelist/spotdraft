@@ -163,6 +163,580 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
+    TaskCategoryEnum:
+      enum:
+      - USER_TASK
+      - OBLIGATION_TASK
+      - INTAKE_TASK
+      type: string
+    UserTaskPublicResponse:
+      title: UserTaskPublicResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: ID of the Task
+          type: integer
+        title:
+          title: Title
+          description: Title of the Task
+          type: string
+        notes:
+          title: Notes
+          description: Notes for the Task
+          type: string
+        contract:
+          title: Contract
+          description: The Details of the Contract
+          type: object
+          properties:
+            id:
+              title: Id
+              type: integer
+            public_id:
+              title: Public Id
+              type: string
+            contract_name:
+              title: Contract Name
+              type: string
+            contract_type_id:
+              title: Contract Type Id
+              type: integer
+            contract_template_id:
+              title: Contract Template Id
+              type: integer
+            status:
+              title: Status
+              type: string
+            display_status:
+              title: ContractDisplayStatus
+              description: An enumeration.
+              enum:
+              - DRAFT
+              - REDLINING
+              - SIGN
+              - EXECUTED
+              - ON_HOLD
+              - VOIDED
+              type: string
+            display_status_without_on_hold_check:
+              title: ContractDisplayStatus
+              description: An enumeration.
+              enum:
+              - DRAFT
+              - REDLINING
+              - SIGN
+              - EXECUTED
+              - ON_HOLD
+              - VOIDED
+              type: string
+            workflow_status:
+              title: ContractWorkflowStatus
+              description: An enumeration.
+              enum:
+              - DRAFT
+              - INVITE_CLIENT
+              - INFO_COLLECTION
+              - CONTRACT_APPROVAL
+              - CONTRACT_DRAFT_APPROVAL
+              - CONTRACT_APPROVAL_REJECTED
+              - REVIEW
+              - SIGN
+              - COMPLETING
+              - COMPLETED
+              - TEMPLATE_PRE_SIGN_APPROVAL
+              type: string
+            contract_kind:
+              title: ContractKind
+              description: An enumeration.
+              enum:
+              - TEMPLATE
+              - TEMPLATE_EDITABLE
+              - UPLOAD_EDITABLE
+              - UPLOAD_SIGN
+              - UPLOAD_EXECUTED
+              - EXPRESS_TEMPLATE
+              - CLICKWRAP
+              - HISTORICAL_CLICKWRAP
+              type: string
+            campaign_id:
+              title: Campaign Id
+              type: integer
+            campaign_v3_id:
+              title: Campaign V3 Id
+              type: integer
+            express_template_id:
+              title: Express Template Id
+              type: integer
+            contract_data_id:
+              title: Contract Data Id
+              type: integer
+            contract_editable_document_id:
+              title: Contract Editable Document Id
+              type: integer
+            created:
+              title: Created
+              type: string
+              format: date-time
+            created_by_workspace_id:
+              title: Created By Workspace Id
+              type: integer
+            editor_client:
+              title: ContractEditorClient
+              description: An enumeration.
+              enum:
+              - ONLY_OFFICE_NATIVE
+              - WOPI
+              - UNSET
+              type: string
+            execution_date:
+              title: Execution Date
+              type: string
+              format: date-time
+            frozen_template_id:
+              title: Frozen Template Id
+              type: integer
+            workflow_id:
+              title: Workflow Id
+              type: string
+            workflow_name:
+              title: Workflow Name
+              type: string
+          required:
+          - id
+          - public_id
+          - contract_name
+          - contract_type_id
+          - status
+          - display_status
+          - display_status_without_on_hold_check
+          - contract_kind
+          - created
+          - created_by_workspace_id
+          - editor_client
+          - workflow_id
+        created_by_org_user:
+          title: Created By Org User
+          type: object
+          properties:
+            id:
+              title: Id
+              type: integer
+            first_name:
+              title: First Name
+              default: ''
+              type: string
+            last_name:
+              title: Last Name
+              default: ''
+              type: string
+            name:
+              title: Name
+              type: string
+            designation:
+              title: Designation
+              type: string
+            email:
+              title: Email
+              type: string
+            auth_user_id:
+              title: Auth User Id
+              type: integer
+            is_deleted:
+              title: Is Deleted
+              type: boolean
+            is_active:
+              title: Is Active
+              type: boolean
+            is_primary:
+              title: Is Primary
+              type: boolean
+            organization_id:
+              title: Organization Id
+              type: integer
+            invite_accepted:
+              title: Invite Accepted
+              type: boolean
+            phone_number:
+              title: Phone Number
+              type: object
+            identity_id:
+              title: Identity Id
+              type: string
+              format: uuid
+          required:
+          - id
+          - name
+          - email
+          - is_primary
+          - identity_id
+          description: The Details of the Org User who created the Task
+        completed_by_org_user:
+          title: Completed By Org User
+          type: object
+          properties:
+            id:
+              title: Id
+              type: integer
+            first_name:
+              title: First Name
+              default: ''
+              type: string
+            last_name:
+              title: Last Name
+              default: ''
+              type: string
+            name:
+              title: Name
+              type: string
+            designation:
+              title: Designation
+              type: string
+            email:
+              title: Email
+              type: string
+            auth_user_id:
+              title: Auth User Id
+              type: integer
+            is_deleted:
+              title: Is Deleted
+              type: boolean
+            is_active:
+              title: Is Active
+              type: boolean
+            is_primary:
+              title: Is Primary
+              type: boolean
+            organization_id:
+              title: Organization Id
+              type: integer
+            invite_accepted:
+              title: Invite Accepted
+              type: boolean
+            phone_number:
+              title: Phone Number
+              type: object
+            identity_id:
+              title: Identity Id
+              type: string
+              format: uuid
+          required:
+          - id
+          - name
+          - email
+          - is_primary
+          - identity_id
+          description: The Details of the Org User who completed the Task
+        completed_at:
+          title: Completed At
+          description: The date and time when the Task got completed
+          type: string
+          format: date-time
+        absolute_due_date:
+          title: Absolute Due Date
+          description: The date and time when the Task is due for completion
+          type: string
+          format: date-time
+        created:
+          title: Created
+          description: The date and time when the task got created
+          type: string
+          format: date-time
+        created_by_workspace:
+          title: Created By Workspace
+          type: object
+          properties:
+            id:
+              title: Id
+              type: integer
+            owner_id:
+              title: Owner Id
+              type: integer
+            name:
+              title: Name
+              type: string
+            is_individual_org:
+              title: Is Individual Org
+              type: boolean
+            show_workspace_migration:
+              title: Show Workspace Migration
+              type: boolean
+            short_hand_notation:
+              title: Short Hand Notation
+              type: string
+            company_email_domains:
+              title: Company Email Domains
+              type: array
+              items:
+                type: string
+            brand_name:
+              title: Brand Name
+              type: string
+          required:
+          - id
+          - name
+          - is_individual_org
+          - show_workspace_migration
+          description: The Details of the Workspace who created the Task
+        assignees:
+          title: Assignees
+          description: The Details of Assignees for the Task
+          type: array
+          items:
+            title: TaskAssigneeDomainModel
+            type: object
+            properties:
+              id:
+                title: Id
+                type: integer
+              user_task_id:
+                title: User Task Id
+                type: integer
+              assignee_org_user:
+                title: Assignee Org User
+                type: object
+                properties:
+                  id:
+                    title: Id
+                    type: integer
+                  first_name:
+                    title: First Name
+                    default: ''
+                    type: string
+                  last_name:
+                    title: Last Name
+                    default: ''
+                    type: string
+                  name:
+                    title: Name
+                    type: string
+                  designation:
+                    title: Designation
+                    type: string
+                  email:
+                    title: Email
+                    type: string
+                  auth_user_id:
+                    title: Auth User Id
+                    type: integer
+                  is_deleted:
+                    title: Is Deleted
+                    type: boolean
+                  is_active:
+                    title: Is Active
+                    type: boolean
+                  is_primary:
+                    title: Is Primary
+                    type: boolean
+                  organization_id:
+                    title: Organization Id
+                    type: integer
+                  invite_accepted:
+                    title: Invite Accepted
+                    type: boolean
+                  phone_number:
+                    title: Phone Number
+                    type: object
+                  identity_id:
+                    title: Identity Id
+                    type: string
+                    format: uuid
+                required:
+                - id
+                - name
+                - email
+                - is_primary
+                - identity_id
+                description: The Details of the Assignee Org User
+              assignee_role:
+                title: Assignee Role
+                type: object
+                properties:
+                  id:
+                    title: Id
+                    type: integer
+                  name:
+                    title: Name
+                    type: string
+                  description:
+                    title: Description
+                    type: string
+                  created:
+                    title: Created
+                    type: string
+                    format: date-time
+                  point_of_contact:
+                    title: OrganizationUserResponse
+                    type: object
+                    properties:
+                      id:
+                        title: Id
+                        type: integer
+                      first_name:
+                        title: First Name
+                        default: ''
+                        type: string
+                      last_name:
+                        title: Last Name
+                        default: ''
+                        type: string
+                      name:
+                        title: Name
+                        type: string
+                      designation:
+                        title: Designation
+                        type: string
+                      email:
+                        title: Email
+                        type: string
+                      auth_user_id:
+                        title: Auth User Id
+                        type: integer
+                      is_deleted:
+                        title: Is Deleted
+                        type: boolean
+                      is_active:
+                        title: Is Active
+                        type: boolean
+                      is_primary:
+                        title: Is Primary
+                        type: boolean
+                      organization_id:
+                        title: Organization Id
+                        type: integer
+                      invite_accepted:
+                        title: Invite Accepted
+                        type: boolean
+                      phone_number:
+                        title: Phone Number
+                        type: object
+                      identity_id:
+                        title: Identity Id
+                        type: string
+                        format: uuid
+                    required:
+                    - id
+                    - name
+                    - email
+                    - is_primary
+                    - identity_id
+                required:
+                - id
+                - name
+                - description
+                - created
+                description: The Details of the Role assigned to Assignee
+              last_manual_reminder_sent_at:
+                title: Last Manual Reminder Sent At
+                type: string
+                format: date-time
+            required:
+            - id
+            - user_task_id
+        status:
+          allOf:
+          - $ref: '#/components/schemas/UserTaskPublicResponseStatusEnum'
+          title: UserTaskStatus
+          description: An enumeration.
+          default: NO_DATE
+        deleted_at:
+          title: Deleted At
+          description: The date and time when the task got deleted
+          type: string
+          format: date-time
+        task_category:
+          allOf:
+          - $ref: '#/components/schemas/TaskCategoryEnum'
+          title: TaskCategory
+          description: The category of the task
+          default: USER_TASK
+        task_associations:
+          title: Task Associations
+          description: List of Task Associations for the Task
+          type: array
+          items:
+            title: TaskAssociationPublicResponse
+            type: object
+            properties:
+              entity_id:
+                title: Entity Id
+                description: Entity id of the task association
+                type: string
+              entity_type:
+                title: TaskAssociationEntityType
+                description: Entity type of the task association
+                enum:
+                - OBLIGATION
+                - LEGAL_INTAKE
+                type: string
+              association_type:
+                title: TaskAssociationType
+                description: Association type of the task association
+                enum:
+                - PRIMARY
+                - SECONDARY
+                type: string
+            required:
+            - entity_id
+            - entity_type
+            - association_type
+        due_date_key_pointer_id:
+          title: Due Date Key Pointer Id
+          description: The ID of the key pointer that has the due date for the task
+          type: integer
+        reminders:
+          title: Reminders
+          description: List of Reminders for the Task
+          default: ''
+          type: array
+          items:
+            title: ReminderDomainModel
+            type: object
+            properties:
+              id:
+                title: Id
+                type: integer
+              user_task_id:
+                title: User Task Id
+                type: integer
+              relative_time:
+                title: ReminderRelativeTime
+                type: object
+                properties:
+                  value:
+                    title: Value
+                    description: The value of the reminder relative time
+                    type: integer
+                  type:
+                    title: DurationKind
+                    description: The type of the reminder relative time
+                    enum:
+                    - DAYS
+                    - WEEKS
+                    - MONTHS
+                    - YEARS
+                    default: DAYS
+                  days:
+                    title: Days
+                    description: The number of days for the reminder relative time
+                    type: integer
+                required:
+                - value
+                - days
+              absolute_time:
+                title: Absolute Time
+                type: string
+                format: date-time
+            required:
+            - id
+            - user_task_id
+            - relative_time
+      required:
+      - id
+      - title
+      - created_by_org_user
+      - created_by_workspace
+      - assignees
     UserTaskPublicResponseList:
       title: UserTaskPublicResponseList
       type: array
@@ -866,6 +1440,27 @@ components:
         reminders:
         - value: 10
           type: DAYS
+    PriorityEnum:
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      type: string
+    IntakeTaskStatusEnum:
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - BLOCKED
+      - COMPLETED
+      - DISCARDED
+      type: string
+    UserTaskPublicResponseStatusEnum:
+      enum:
+      - COMPLETED
+      - UPCOMING
+      - OVERDUE
+      - NO_DATE
+      type: string
     UserTaskCreateRequestList:
       title: UserTaskCreateRequestList
       description: List of tasks
@@ -1006,601 +1601,6 @@ components:
           reminders:
           - value: 10
             type: DAYS
-    IntakeTaskStatusEnum:
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - BLOCKED
-      - COMPLETED
-      - DISCARDED
-      type: string
-    UserTaskPublicResponseStatusEnum:
-      enum:
-      - COMPLETED
-      - UPCOMING
-      - OVERDUE
-      - NO_DATE
-      type: string
-    TaskCategoryEnum:
-      enum:
-      - USER_TASK
-      - OBLIGATION_TASK
-      - INTAKE_TASK
-      type: string
-    UserTaskPublicResponse:
-      title: UserTaskPublicResponse
-      type: object
-      properties:
-        id:
-          title: Id
-          description: ID of the Task
-          type: integer
-        title:
-          title: Title
-          description: Title of the Task
-          type: string
-        notes:
-          title: Notes
-          description: Notes for the Task
-          type: string
-        contract:
-          title: Contract
-          description: The Details of the Contract
-          type: object
-          properties:
-            id:
-              title: Id
-              type: integer
-            public_id:
-              title: Public Id
-              type: string
-            contract_name:
-              title: Contract Name
-              type: string
-            contract_type_id:
-              title: Contract Type Id
-              type: integer
-            contract_template_id:
-              title: Contract Template Id
-              type: integer
-            status:
-              title: Status
-              type: string
-            display_status:
-              title: ContractDisplayStatus
-              description: An enumeration.
-              enum:
-              - DRAFT
-              - REDLINING
-              - SIGN
-              - EXECUTED
-              - ON_HOLD
-              - VOIDED
-              type: string
-            display_status_without_on_hold_check:
-              title: ContractDisplayStatus
-              description: An enumeration.
-              enum:
-              - DRAFT
-              - REDLINING
-              - SIGN
-              - EXECUTED
-              - ON_HOLD
-              - VOIDED
-              type: string
-            workflow_status:
-              title: ContractWorkflowStatus
-              description: An enumeration.
-              enum:
-              - DRAFT
-              - INVITE_CLIENT
-              - INFO_COLLECTION
-              - CONTRACT_APPROVAL
-              - CONTRACT_DRAFT_APPROVAL
-              - CONTRACT_APPROVAL_REJECTED
-              - REVIEW
-              - SIGN
-              - COMPLETING
-              - COMPLETED
-              - TEMPLATE_PRE_SIGN_APPROVAL
-              type: string
-            contract_kind:
-              title: ContractKind
-              description: An enumeration.
-              enum:
-              - TEMPLATE
-              - TEMPLATE_EDITABLE
-              - UPLOAD_EDITABLE
-              - UPLOAD_SIGN
-              - UPLOAD_EXECUTED
-              - EXPRESS_TEMPLATE
-              - CLICKWRAP
-              - HISTORICAL_CLICKWRAP
-              type: string
-            campaign_id:
-              title: Campaign Id
-              type: integer
-            campaign_v3_id:
-              title: Campaign V3 Id
-              type: integer
-            express_template_id:
-              title: Express Template Id
-              type: integer
-            contract_data_id:
-              title: Contract Data Id
-              type: integer
-            contract_editable_document_id:
-              title: Contract Editable Document Id
-              type: integer
-            created:
-              title: Created
-              type: string
-              format: date-time
-            created_by_workspace_id:
-              title: Created By Workspace Id
-              type: integer
-            editor_client:
-              title: ContractEditorClient
-              description: An enumeration.
-              enum:
-              - ONLY_OFFICE_NATIVE
-              - WOPI
-              - UNSET
-              type: string
-            execution_date:
-              title: Execution Date
-              type: string
-              format: date-time
-            frozen_template_id:
-              title: Frozen Template Id
-              type: integer
-            workflow_id:
-              title: Workflow Id
-              type: string
-            workflow_name:
-              title: Workflow Name
-              type: string
-          required:
-          - id
-          - public_id
-          - contract_name
-          - contract_type_id
-          - status
-          - display_status
-          - display_status_without_on_hold_check
-          - contract_kind
-          - created
-          - created_by_workspace_id
-          - editor_client
-          - workflow_id
-        created_by_org_user:
-          title: Created By Org User
-          type: object
-          properties:
-            id:
-              title: Id
-              type: integer
-            first_name:
-              title: First Name
-              default: ''
-              type: string
-            last_name:
-              title: Last Name
-              default: ''
-              type: string
-            name:
-              title: Name
-              type: string
-            designation:
-              title: Designation
-              type: string
-            email:
-              title: Email
-              type: string
-            auth_user_id:
-              title: Auth User Id
-              type: integer
-            is_deleted:
-              title: Is Deleted
-              type: boolean
-            is_active:
-              title: Is Active
-              type: boolean
-            is_primary:
-              title: Is Primary
-              type: boolean
-            organization_id:
-              title: Organization Id
-              type: integer
-            invite_accepted:
-              title: Invite Accepted
-              type: boolean
-            phone_number:
-              title: Phone Number
-              type: object
-            identity_id:
-              title: Identity Id
-              type: string
-              format: uuid
-          required:
-          - id
-          - name
-          - email
-          - is_primary
-          - identity_id
-          description: The Details of the Org User who created the Task
-        completed_by_org_user:
-          title: Completed By Org User
-          type: object
-          properties:
-            id:
-              title: Id
-              type: integer
-            first_name:
-              title: First Name
-              default: ''
-              type: string
-            last_name:
-              title: Last Name
-              default: ''
-              type: string
-            name:
-              title: Name
-              type: string
-            designation:
-              title: Designation
-              type: string
-            email:
-              title: Email
-              type: string
-            auth_user_id:
-              title: Auth User Id
-              type: integer
-            is_deleted:
-              title: Is Deleted
-              type: boolean
-            is_active:
-              title: Is Active
-              type: boolean
-            is_primary:
-              title: Is Primary
-              type: boolean
-            organization_id:
-              title: Organization Id
-              type: integer
-            invite_accepted:
-              title: Invite Accepted
-              type: boolean
-            phone_number:
-              title: Phone Number
-              type: object
-            identity_id:
-              title: Identity Id
-              type: string
-              format: uuid
-          required:
-          - id
-          - name
-          - email
-          - is_primary
-          - identity_id
-          description: The Details of the Org User who completed the Task
-        completed_at:
-          title: Completed At
-          description: The date and time when the Task got completed
-          type: string
-          format: date-time
-        absolute_due_date:
-          title: Absolute Due Date
-          description: The date and time when the Task is due for completion
-          type: string
-          format: date-time
-        created:
-          title: Created
-          description: The date and time when the task got created
-          type: string
-          format: date-time
-        created_by_workspace:
-          title: Created By Workspace
-          type: object
-          properties:
-            id:
-              title: Id
-              type: integer
-            owner_id:
-              title: Owner Id
-              type: integer
-            name:
-              title: Name
-              type: string
-            is_individual_org:
-              title: Is Individual Org
-              type: boolean
-            show_workspace_migration:
-              title: Show Workspace Migration
-              type: boolean
-            short_hand_notation:
-              title: Short Hand Notation
-              type: string
-            company_email_domains:
-              title: Company Email Domains
-              type: array
-              items:
-                type: string
-            brand_name:
-              title: Brand Name
-              type: string
-          required:
-          - id
-          - name
-          - is_individual_org
-          - show_workspace_migration
-          description: The Details of the Workspace who created the Task
-        assignees:
-          title: Assignees
-          description: The Details of Assignees for the Task
-          type: array
-          items:
-            title: TaskAssigneeDomainModel
-            type: object
-            properties:
-              id:
-                title: Id
-                type: integer
-              user_task_id:
-                title: User Task Id
-                type: integer
-              assignee_org_user:
-                title: Assignee Org User
-                type: object
-                properties:
-                  id:
-                    title: Id
-                    type: integer
-                  first_name:
-                    title: First Name
-                    default: ''
-                    type: string
-                  last_name:
-                    title: Last Name
-                    default: ''
-                    type: string
-                  name:
-                    title: Name
-                    type: string
-                  designation:
-                    title: Designation
-                    type: string
-                  email:
-                    title: Email
-                    type: string
-                  auth_user_id:
-                    title: Auth User Id
-                    type: integer
-                  is_deleted:
-                    title: Is Deleted
-                    type: boolean
-                  is_active:
-                    title: Is Active
-                    type: boolean
-                  is_primary:
-                    title: Is Primary
-                    type: boolean
-                  organization_id:
-                    title: Organization Id
-                    type: integer
-                  invite_accepted:
-                    title: Invite Accepted
-                    type: boolean
-                  phone_number:
-                    title: Phone Number
-                    type: object
-                  identity_id:
-                    title: Identity Id
-                    type: string
-                    format: uuid
-                required:
-                - id
-                - name
-                - email
-                - is_primary
-                - identity_id
-                description: The Details of the Assignee Org User
-              assignee_role:
-                title: Assignee Role
-                type: object
-                properties:
-                  id:
-                    title: Id
-                    type: integer
-                  name:
-                    title: Name
-                    type: string
-                  description:
-                    title: Description
-                    type: string
-                  created:
-                    title: Created
-                    type: string
-                    format: date-time
-                  point_of_contact:
-                    title: OrganizationUserResponse
-                    type: object
-                    properties:
-                      id:
-                        title: Id
-                        type: integer
-                      first_name:
-                        title: First Name
-                        default: ''
-                        type: string
-                      last_name:
-                        title: Last Name
-                        default: ''
-                        type: string
-                      name:
-                        title: Name
-                        type: string
-                      designation:
-                        title: Designation
-                        type: string
-                      email:
-                        title: Email
-                        type: string
-                      auth_user_id:
-                        title: Auth User Id
-                        type: integer
-                      is_deleted:
-                        title: Is Deleted
-                        type: boolean
-                      is_active:
-                        title: Is Active
-                        type: boolean
-                      is_primary:
-                        title: Is Primary
-                        type: boolean
-                      organization_id:
-                        title: Organization Id
-                        type: integer
-                      invite_accepted:
-                        title: Invite Accepted
-                        type: boolean
-                      phone_number:
-                        title: Phone Number
-                        type: object
-                      identity_id:
-                        title: Identity Id
-                        type: string
-                        format: uuid
-                    required:
-                    - id
-                    - name
-                    - email
-                    - is_primary
-                    - identity_id
-                required:
-                - id
-                - name
-                - description
-                - created
-                description: The Details of the Role assigned to Assignee
-              last_manual_reminder_sent_at:
-                title: Last Manual Reminder Sent At
-                type: string
-                format: date-time
-            required:
-            - id
-            - user_task_id
-        status:
-          allOf:
-          - $ref: '#/components/schemas/UserTaskPublicResponseStatusEnum'
-          title: UserTaskStatus
-          description: An enumeration.
-          default: NO_DATE
-        deleted_at:
-          title: Deleted At
-          description: The date and time when the task got deleted
-          type: string
-          format: date-time
-        task_category:
-          allOf:
-          - $ref: '#/components/schemas/TaskCategoryEnum'
-          title: TaskCategory
-          description: The category of the task
-          default: USER_TASK
-        task_associations:
-          title: Task Associations
-          description: List of Task Associations for the Task
-          type: array
-          items:
-            title: TaskAssociationPublicResponse
-            type: object
-            properties:
-              entity_id:
-                title: Entity Id
-                description: Entity id of the task association
-                type: string
-              entity_type:
-                title: TaskAssociationEntityType
-                description: Entity type of the task association
-                enum:
-                - OBLIGATION
-                - LEGAL_INTAKE
-                type: string
-              association_type:
-                title: TaskAssociationType
-                description: Association type of the task association
-                enum:
-                - PRIMARY
-                - SECONDARY
-                type: string
-            required:
-            - entity_id
-            - entity_type
-            - association_type
-        due_date_key_pointer_id:
-          title: Due Date Key Pointer Id
-          description: The ID of the key pointer that has the due date for the task
-          type: integer
-        reminders:
-          title: Reminders
-          description: List of Reminders for the Task
-          default: ''
-          type: array
-          items:
-            title: ReminderDomainModel
-            type: object
-            properties:
-              id:
-                title: Id
-                type: integer
-              user_task_id:
-                title: User Task Id
-                type: integer
-              relative_time:
-                title: ReminderRelativeTime
-                type: object
-                properties:
-                  value:
-                    title: Value
-                    description: The value of the reminder relative time
-                    type: integer
-                  type:
-                    title: DurationKind
-                    description: The type of the reminder relative time
-                    enum:
-                    - DAYS
-                    - WEEKS
-                    - MONTHS
-                    - YEARS
-                    default: DAYS
-                  days:
-                    title: Days
-                    description: The number of days for the reminder relative time
-                    type: integer
-                required:
-                - value
-                - days
-              absolute_time:
-                title: Absolute Time
-                type: string
-                format: date-time
-            required:
-            - id
-            - user_task_id
-            - relative_time
-      required:
-      - id
-      - title
-      - created_by_org_user
-      - created_by_workspace
-      - assignees
-    PriorityEnum:
-      enum:
-      - LOW
-      - MEDIUM
-      - HIGH
-      type: string
   securitySchemes:
     ClickwrapId:
       type: apiKey

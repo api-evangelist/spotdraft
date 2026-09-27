@@ -75,10 +75,6 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
-    IntegrationSolutionEntityIdEnum:
-      enum:
-      - COUPA_CREATE_CONTRACT
-      type: string
     CreateContractsForCoupaIntegrationRequest:
       title: CreateContractsForCoupaIntegrationRequest
       type: object
@@ -99,6 +95,10 @@ components:
       required:
       - record_id
       - coupa_approval_id
+    IntegrationSolutionEntityIdEnum:
+      enum:
+      - COUPA_CREATE_CONTRACT
+      type: string
   securitySchemes:
     ClickwrapId:
       type: apiKey

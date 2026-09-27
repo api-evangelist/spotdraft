@@ -165,20 +165,91 @@ paths:
       x-tagGroup: Workflow
 components:
   schemas:
-    ContractTypeAccessControlListAPIRequest:
-      title: ContractTypeAccessControlListAPIRequest
-      type: object
-      properties:
-        permission_filter_list:
-          description: List of permission types to filter on. Provide one or more permission enum values.
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/PermissionFilterListEnum'
-            title: ExternalContractInvitePermissionType
-            description: An enumeration.
-      required:
-      - permission_filter_list
+    ExternalContractTypeEntityListResponse:
+      title: ExternalContractTypeEntityListResponse
+      description: The list of entities for the contract type
+      type: array
+      items:
+        title: ExternalContractTypeEntityResponse
+        type: object
+        properties:
+          entity_id:
+            title: Entity Id
+            description: The id of the entity
+            type: integer
+          entity_name:
+            title: Entity Name
+            description: The name of the entity
+            type: string
+          entity_type:
+            title: Entity Type
+            description: The type of the entity
+            type: string
+          jurisdiction_of_incorporation:
+            title: Jurisdiction Of Incorporation
+            description: The jurisdiction of incorporation
+            type: string
+          address:
+            title: Address
+            type: object
+            properties:
+              city:
+                title: City
+                description: The city name for this address.
+                type: string
+              state:
+                title: State
+                description: The state name for this address.
+                default: ''
+                type: string
+              country:
+                title: Country
+                description: The name of the country associated with this entity address.
+                type: string
+              zipcode:
+                title: Zipcode
+                description: The zip/pin/postal code for this address.
+                default: ''
+                type: string
+              line_one:
+                title: Line One
+                description: The first line of the address. Usually the apartment, floor, and street information.
+                type: string
+            required:
+            - city
+            - country
+            - line_one
+            examples:
+            - address:
+                city_name: Cincinnati
+                state_name: Ohio
+                country_name: USA
+                zipcode: '513'
+                line_one: 'st: 3, block: 2, Jenkins Road'
+            description: The address of the entity
+          is_primary:
+            title: Is Primary
+            description: Defines if this is the primary entity
+            type: boolean
+        required:
+        - entity_id
+        - entity_name
+        - entity_type
+        - jurisdiction_of_incorporation
+        - address
+        - is_primary
+        examples:
+        - entity_id: 100
+          entity_name: ABC Services
+          entity_type: Private Company
+          jurisdiction_of_incorporation: United Arab Emirates
+          address:
+            city_name: Cincinnati
+            state_name: Ohio
+            country_name: USA
+            zipcode: '513'
+            line_one: 'st: 3, block: 2, Jenkins Road'
+          is_primary: true
     IntakeFormQuestionnairePublicResponse:
       title: IntakeFormQuestionnairePublicResponse
       description: The list of attributes for this contract template.
@@ -447,91 +518,6 @@ components:
       examples:
       - - id: 100
           name: General
-    ExternalContractTypeEntityListResponse:
-      title: ExternalContractTypeEntityListResponse
-      description: The list of entities for the contract type
-      type: array
-      items:
-        title: ExternalContractTypeEntityResponse
-        type: object
-        properties:
-          entity_id:
-            title: Entity Id
-            description: The id of the entity
-            type: integer
-          entity_name:
-            title: Entity Name
-            description: The name of the entity
-            type: string
-          entity_type:
-            title: Entity Type
-            description: The type of the entity
-            type: string
-          jurisdiction_of_incorporation:
-            title: Jurisdiction Of Incorporation
-            description: The jurisdiction of incorporation
-            type: string
-          address:
-            title: Address
-            type: object
-            properties:
-              city:
-                title: City
-                description: The city name for this address.
-                type: string
-              state:
-                title: State
-                description: The state name for this address.
-                default: ''
-                type: string
-              country:
-                title: Country
-                description: The name of the country associated with this entity address.
-                type: string
-              zipcode:
-                title: Zipcode
-                description: The zip/pin/postal code for this address.
-                default: ''
-                type: string
-              line_one:
-                title: Line One
-                description: The first line of the address. Usually the apartment, floor, and street information.
-                type: string
-            required:
-            - city
-            - country
-            - line_one
-            examples:
-            - address:
-                city_name: Cincinnati
-                state_name: Ohio
-                country_name: USA
-                zipcode: '513'
-                line_one: 'st: 3, block: 2, Jenkins Road'
-            description: The address of the entity
-          is_primary:
-            title: Is Primary
-            description: Defines if this is the primary entity
-            type: boolean
-        required:
-        - entity_id
-        - entity_name
-        - entity_type
-        - jurisdiction_of_incorporation
-        - address
-        - is_primary
-        examples:
-        - entity_id: 100
-          entity_name: ABC Services
-          entity_type: Private Company
-          jurisdiction_of_incorporation: United Arab Emirates
-          address:
-            city_name: Cincinnati
-            state_name: Ohio
-            country_name: USA
-            zipcode: '513'
-            line_one: 'st: 3, block: 2, Jenkins Road'
-          is_primary: true
     PermissionFilterListEnum:
       enum:
       - READ
@@ -540,6 +526,20 @@ components:
       - SIGN
       - CREATE
       type: string
+    ContractTypeAccessControlListAPIRequest:
+      title: ContractTypeAccessControlListAPIRequest
+      type: object
+      properties:
+        permission_filter_list:
+          description: List of permission types to filter on. Provide one or more permission enum values.
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/PermissionFilterListEnum'
+            title: ExternalContractInvitePermissionType
+            description: An enumeration.
+      required:
+      - permission_filter_list
   securitySchemes:
     ClickwrapId:
       type: apiKey

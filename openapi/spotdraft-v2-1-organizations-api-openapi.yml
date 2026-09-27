@@ -303,6 +303,87 @@ components:
             name: United States
             iso_code: US
         is_primary: true
+    CreateOrganizationEntityRequest:
+      title: CreateOrganizationEntityRequest
+      type: object
+      properties:
+        name:
+          title: Name
+          description: The name of the entity.
+          minLength: 1
+          type: string
+        reference_id:
+          title: Reference Id
+          description: The caller-defined reference ID of the entity. Use a value that is unique within your integration so you can map the SpotDraft entity back to your source system.
+          type: string
+        jurisdiction_iso_code:
+          title: Jurisdiction Iso Code
+          description: The ISO-3166-1 Alpha-2 code of the country which is the jurisdiction for this organization entity. Any value passed here is overrides `jurisdiction`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
+          type: string
+        organization_type_id:
+          title: Organization Type Id
+          description: The ID of the type of this entity. This identifies the company type. For example LLP vs LLC vs S Corp in the US. Check [Get Organization Types](#tag/v2-organizations/GET/api/v2/public/organizations/types/) to get the ID of organization type.
+          type: integer
+        is_primary:
+          title: Is Primary
+          description: To set the entity as the primary entity. If set to `TRUE`, this will replace the existing entity as the primary entity.
+          type: boolean
+        primary_address:
+          title: Primary Address
+          type: object
+          properties:
+            line_one:
+              title: Line One
+              description: The first line of the address. Usually the apartment, floor, and street information.
+              type: string
+            city_name:
+              title: City Name
+              description: The city name for this address.
+              type: string
+            state_name:
+              title: State Name
+              description: The state name for this address.
+              type: string
+            zipcode:
+              title: Zipcode
+              description: The zip/pin/postal code for this address.
+              type: string
+            country_iso_code:
+              title: Country Iso Code
+              description: The ISO-3166-1 Alpha-2 code of the country associated with this organization entity address. Any value passed here is overrides `country`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
+              type: string
+          required:
+          - line_one
+          - city_name
+          - state_name
+          - zipcode
+          - country_iso_code
+          examples:
+          - city_name: Houston
+            state_name: Texas
+            zipcode: '77020'
+            line_one: 3659 Burwell Heights Road
+            country_iso_code: US
+          description: The primary address for the entity.
+      required:
+      - name
+      - reference_id
+      - jurisdiction_iso_code
+      - organization_type_id
+      - is_primary
+      - primary_address
+      examples:
+      - name: Acme Inc.
+        reference_id: US1
+        jurisdiction_iso_code: US
+        organization_type_id: 1
+        primary_address:
+          city_name: Houston
+          state_name: Texas
+          zipcode: '77020'
+          line_one: 3659 Burwell Heights Road
+          country_iso_code: US
+        is_primary: false
     OrganizationTypeListDomainModel:
       title: OrganizationTypeListDomainModel
       type: array
@@ -498,87 +579,6 @@ components:
               name: United States
               iso_code: US
           is_primary: true
-    CreateOrganizationEntityRequest:
-      title: CreateOrganizationEntityRequest
-      type: object
-      properties:
-        name:
-          title: Name
-          description: The name of the entity.
-          minLength: 1
-          type: string
-        reference_id:
-          title: Reference Id
-          description: The caller-defined reference ID of the entity. Use a value that is unique within your integration so you can map the SpotDraft entity back to your source system.
-          type: string
-        jurisdiction_iso_code:
-          title: Jurisdiction Iso Code
-          description: The ISO-3166-1 Alpha-2 code of the country which is the jurisdiction for this organization entity. Any value passed here is overrides `jurisdiction`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
-          type: string
-        organization_type_id:
-          title: Organization Type Id
-          description: The ID of the type of this entity. This identifies the company type. For example LLP vs LLC vs S Corp in the US. Check [Get Organization Types](#tag/v2-organizations/GET/api/v2/public/organizations/types/) to get the ID of organization type.
-          type: integer
-        is_primary:
-          title: Is Primary
-          description: To set the entity as the primary entity. If set to `TRUE`, this will replace the existing entity as the primary entity.
-          type: boolean
-        primary_address:
-          title: Primary Address
-          type: object
-          properties:
-            line_one:
-              title: Line One
-              description: The first line of the address. Usually the apartment, floor, and street information.
-              type: string
-            city_name:
-              title: City Name
-              description: The city name for this address.
-              type: string
-            state_name:
-              title: State Name
-              description: The state name for this address.
-              type: string
-            zipcode:
-              title: Zipcode
-              description: The zip/pin/postal code for this address.
-              type: string
-            country_iso_code:
-              title: Country Iso Code
-              description: The ISO-3166-1 Alpha-2 code of the country associated with this organization entity address. Any value passed here is overrides `country`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
-              type: string
-          required:
-          - line_one
-          - city_name
-          - state_name
-          - zipcode
-          - country_iso_code
-          examples:
-          - city_name: Houston
-            state_name: Texas
-            zipcode: '77020'
-            line_one: 3659 Burwell Heights Road
-            country_iso_code: US
-          description: The primary address for the entity.
-      required:
-      - name
-      - reference_id
-      - jurisdiction_iso_code
-      - organization_type_id
-      - is_primary
-      - primary_address
-      examples:
-      - name: Acme Inc.
-        reference_id: US1
-        jurisdiction_iso_code: US
-        organization_type_id: 1
-        primary_address:
-          city_name: Houston
-          state_name: Texas
-          zipcode: '77020'
-          line_one: 3659 Burwell Heights Road
-          country_iso_code: US
-        is_primary: false
   securitySchemes:
     ClickwrapId:
       type: apiKey
