@@ -190,16 +190,6 @@ paths:
       x-tagGroup: Contracts
 components:
   schemas:
-    ExternalGetRecipientLinkResponse:
-      title: ExternalGetRecipientLinkResponse
-      type: object
-      properties:
-        link:
-          title: Link
-          description: Link that can be used by the recipient to take an action like signing, approval, etc.
-          type: string
-      required:
-      - link
     PublicSignRecipientWithStatusListResponse:
       title: PublicSignRecipientWithStatusListResponse
       type: object
@@ -372,6 +362,16 @@ components:
             last_sent_for_signature_at: null
           recipient_action: null
           status: IN_PROGRESS
+    ExternalGetRecipientLinkResponse:
+      title: ExternalGetRecipientLinkResponse
+      type: object
+      properties:
+        link:
+          title: Link
+          description: Link that can be used by the recipient to take an action like signing, approval, etc.
+          type: string
+      required:
+      - link
   securitySchemes:
     ClickwrapId:
       type: apiKey

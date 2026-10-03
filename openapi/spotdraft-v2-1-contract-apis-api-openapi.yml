@@ -3020,112 +3020,72 @@ paths:
       x-tagGroup: Contracts
 components:
   schemas:
-    ExternalRelatedContractListResponse:
-      title: ExternalRelatedContractListResponse
+    SupportedDocumentResponse:
+      title: SupportedDocumentResponse
       type: object
       properties:
-        page:
-          title: Page
-          description: Current page number
+        id:
+          title: Id
+          description: Id of supported document
           type: integer
-        limit:
-          title: Limit
-          description: Number of results per page
-          type: integer
-        total_results:
-          title: Total Results
-          description: Total number of related contracts
-          type: integer
-        results:
-          title: Results
-          description: List of related contracts
-          type: array
-          items:
-            title: ExternalRelatedContractResponse
-            type: object
-            properties:
-              id:
-                title: Id
-                description: Contract Relation ID
-                type: integer
-              contract:
-                title: Contract
-                type: object
-                properties:
-                  id:
-                    title: Id
-                    description: ID of the related contract
-                    type: integer
-                  name:
-                    title: Name
-                    description: Name of the related contract
-                    type: string
-                  counter_party_list:
-                    title: Counter Party List
-                    description: List of counterparty names associated with the contract
-                    type: array
-                    items:
-                      type: string
-                  display_status:
-                    title: ContractDisplayStatus
-                    description: Current display status of the contract
-                    enum:
-                    - DRAFT
-                    - REDLINING
-                    - SIGN
-                    - EXECUTED
-                    - ON_HOLD
-                    - VOIDED
-                    type: string
-                required:
-                - id
-                - name
-                - counter_party_list
-                - display_status
-                description: Details of the related contract
-              relation_type:
-                title: Relation Type
-                description: Type of relationship (CHILD, ADDENDUM, AMENDMENT, PARENT)
-                type: string
-            required:
-            - id
-            - contract
-            - relation_type
-            examples:
-            - id: 1000
-              contract:
-                id: 1234
-                name: Acme Corporation NDA
-                counter_party_list:
-                - Acme Corp
-                display_status: EXECUTED
-              relation_type: CHILD
+        name:
+          title: Name
+          description: Name of the document
+          type: string
+        created:
+          title: Created
+          description: Datetime when document was created
+          type: string
+          format: date-time
       required:
-      - page
-      - limit
-      - total_results
-      - results
+      - id
+      - name
+      - created
       examples:
-      - page: 1
-        limit: 10
-        total_results: 2
-        results:
-        - id: 1000
-          contract:
-            id: 1234
-            name: Acme Corporation NDA
-            counter_party_list:
-            - Acme Corp
-            display_status: EXECUTED
-          relation_type: CHILD
-        - id: 1001
-          contract:
-            id: 5678
-            name: Acme Corporation MSA
-            counter_party_list:
-            - Acme Corp
-            display_status: DRAFT
-          relation_type: AMENDMENT
+      - id: '199'
+        name: Acme Corporation Related Document
+        created: '2022-10-10'
+    EditableDocumentDownloadFormat:
+      enum:
+      - PDF
+      - DOCX
+      - DOCX_WITH_FALLBACK_TO_PDF
+      title: EditableDocumentDownloadFormat
+      type: string
+    PatchedContractDataUpdateRequest:
+      title: ContractDataUpdateRequest
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Contract data keyed by template field name. Values must match the field types configured on the contract template.
+          type: object
+      required:
+      - data
+      examples:
+      - data:
+          term:
+            days: 180
+            type: MONTHS
+            value: 6
+          notes: Not Applicable
+          capacity: 15
+          setup_fee:
+            type: INR
+            value: 30000.0
+          start_date: '2019-11-29'
+          yes_discounts: false
+          payment_method: '1'
+          suggestions: No suggestions
+    ContractDisplayStatusEnum:
+      enum:
+      - DRAFT
+      - REDLINING
+      - SIGN
+      - EXECUTED
+      - ON_HOLD
+      - VOIDED
+      type: string
     OrganizationAddressSerializerV2_1:
       type: object
       description: Defines structure for organization address for API v2.1
@@ -3158,325 +3118,150 @@ components:
       - city
       - country_iso_code
       - line_one
-    RelationTypeEnum:
-      enum:
-      - CHILD
-      - ADDENDUM
-      - AMENDMENT
-      - PARENT
-      type: string
-    ContractUploadForReviewRequest:
-      title: ContractUploadForReviewRequest
+    ExternalContractStatus:
       type: object
+      description: Defines the data that is required to show the status of a contract
       properties:
-        contract_name:
-          title: Contract Name
-          description: The name of the uploaded contract that is visible to users.
-          type: string
-        contract_type_id:
-          title: Contract Type Id
-          description: The ID of the contract type for this uploaded contract. Use the [Get Contract Types](#tag/V2.1-Contract-Type-APIs/operation/v2.1_public_contract_types_list) API to get this ID.
-          type: integer
-        file_name:
-          title: File Name
-          description: The name of the file being uploaded. This is used when the file is downloaded. Expected to be a fully qualified file name with an extension.
-          type: string
-        file_base64:
-          title: File Base64
-          description: The contents of the file as a base64 encoded string.
-          type: string
-        creator_organization_entity_id:
-          title: Creator Organization Entity Id
-          description: The ID of the organization entity for the creator party of the uploaded contract. Use the [Get Organization Entities](#tag/V2.1-Organization-APIs/operation/v2.1_public_organizations_entities_list) API to get this ID.
-          type: integer
-        external_metadata:
-          title: External Metadata
-          type: object
-          properties:
-            id:
-              title: Id
-              description: Identifier of the record in the external system.
-            integration_name:
-              title: Integration Name
-              description: Name of the external integration, for example Salesforce.
-              type: string
-            record_type:
-              title: Record Type
-              description: External record type, for example Opportunity or Account.
-              type: string
-            record_data:
-              title: Record Data
-              description: Arbitrary metadata payload from the external system.
-              type: object
-            object_configuration_id:
-              title: Object Configuration Id
-              description: Optional public identifier for a native integration object configuration. When provided, also send `record_type`. The API resolves and stores the corresponding internal entity reference.
-              type: string
-              format: uuid
-          description: Optional external system metadata to associate with the uploaded contract.
-        reviewer:
-          title: Reviewer
-          type: object
-          properties:
-            org_user_email:
-              title: Org User Email
-              description: Email of the reviewer
-              type: string
-            role_id:
-              title: Role Id
-              description: Role id of reviewer
-              type: integer
-            description:
-              title: Description
-              description: Note to the reviewer
-              default: ''
-              type: string
-          description: Used to set reviewer for contract being uploaded
-        counterparty_workspace_id:
-          title: Counterparty Workspace Id
-          description: workspace_id of counterparty organization. Either this field or `counterparty_organization_name` is required.
-          type: integer
-        counterparty_organization_name:
-          title: Counterparty Organization Name
-          description: The name of the counter party's organization. Either this field or `counterparty_workspace_id` is required.
-          type: string
-        counterparty_is_individual:
-          title: Counterparty Is Individual
-          description: Defines if this Counterparty is an individual or an organization like a company.When not provided organization like company is created.
-          type: boolean
-        counterparty_poc_details:
-          title: Counterparty Poc Details
-          type: object
-          properties:
-            first_name:
-              title: First Name
-              description: The first name of the Point of Contact
-              type: string
-            last_name:
-              title: Last Name
-              description: The last name of the Point of Contact
-              type: string
-            email:
-              title: Email
-              description: The email address of the Point of Contact
-              type: string
-          required:
-          - first_name
-          - last_name
-          - email
-          description: Point of Contact details for this counterparty. Should be the details of the individual for `counterparty_is_individual=True` and the details of the contact at the counterparty organization in case of `counterparty_is_individual=False`.
-        intake_form_data:
-          title: Intake Form Data
-          description: A key-value object keyed by intake-form questionnaire field name. Values must match the question type configured on the upload workflow. Use the Intake Form Questionnaire API to discover the allowed field names and expected value shapes.
-          type: object
-        business_user_email:
-          title: Business User Email
-          description: The email address of the business user for the Upload for Sign contract.
-          type: string
-          format: email
-        creator_signatories:
-          title: Creator Signatories
-          description: Details of the signatories on the creator party side.
-          type: array
-          items:
-            title: CreatorPartySignatoryRequest
-            type: object
-            properties:
-              email:
-                title: Email
-                description: Email of the signatory on the creator party side.
-                type: string
-                format: email
-              title:
-                title: Title
-                description: Title of the signatory.
-                default: ''
-                type: string
-              note:
-                title: Note
-                description: Note for the signatory
-                type: string
-            required:
-            - email
-      required:
-      - contract_name
-      - contract_type_id
-      - file_name
-      - file_base64
-      examples:
-      - contract_name: Acme Vendor Paper
-        contract_type_id: 1
-        file_name: vendor-paper.pdf
-        file_base64: base64 encoded string of the PDF file
-        creator_organization_entity_id: 1
-        counterparty_organization_name: Acme Corporation
-        counterparty_is_individual: false
-        counterparty_poc_details:
-          first_name: Avery
-          last_name: Stone
-          email: legal@acme.example
-        reviewer:
-          org_user_email: reviewer@spotdraft.example
-          description: Please review the indemnity clause and payment terms.
-        intake_form_data:
-          term:
-            days: 180
-            type: MONTHS
-            value: 6
-          notes: Customer requested revised indemnity clause.
-          capacity: 15
-          setup_fee:
-            type: USD
-            value: 30000.0
-          start_date: '2026-04-01'
-          payment_method: annual_invoice
-    ExternalPOCDetails:
-      type: object
-      description: Defines the data required in poc details
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-          default: ''
-        email:
-          type: string
-      required:
-      - email
-      - first_name
-    ExternalContractV3:
-      type: object
-      description: Defines the data required to be shown affter contract creation
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        created:
-          type: string
-          format: date-time
-          description: The timestamp at which this contract was first created.
-        contract_name:
-          type: string
-          description: The name of the contract. Might be defaulted from the template or edited by the user.
-        contract_link:
-          type: string
-          readOnly: true
-          description: The link to the SpotDraft app where this contract can be viewed. The user will need to log in (and have view access) to be able to view the contract.
         contract_status:
           allOf:
           - $ref: '#/components/schemas/ContractDisplayStatusEnum'
-          description: The status of this contract.
-          readOnly: true
-        created_by:
+          description: 'The status of this contract.
+
+
+            * `DRAFT` - DRAFT
+
+            * `REDLINING` - REDLINING
+
+            * `SIGN` - SIGN
+
+            * `EXECUTED` - EXECUTED
+
+            * `ON_HOLD` - ON_HOLD
+
+            * `VOIDED` - VOIDED'
+        contract_name:
           type: string
-          readOnly: true
-          description: The email address of the user who created this contract.
-        counter_party_name:
-          type: string
-          readOnly: true
-          description: The name of the Counter Party for this contract.
-        contract_type_name:
-          type: string
-          readOnly: true
-          description: The type of Contract. The types are as defined by the Client.
-        contract_type_id:
-          type: integer
-          readOnly: true
-          description: The ID of the Contract Type.
-        created_by_workspace:
-          type: integer
-          readOnly: true
-          description: The workspace ID of the user who created or uploaded the executed contract on to SpotDraft's platform.
-        external_metadata:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The external metadata associated with this contract.
-        reference_id:
-          type: string
-          readOnly: true
-          description: The reference id of the contract.
+          description: The name of the contract that is visible to users.
       required:
-      - contract_link
       - contract_name
       - contract_status
-      - contract_type_id
-      - contract_type_name
-      - counter_party_name
-      - created
-      - created_by
-      - created_by_workspace
-      - external_metadata
-      - id
-      - reference_id
-    TypeEnum:
-      enum:
-      - BUSINESS
-      - LEGAL
-      - CP_POC
-      - LEGAL_POC
-      - SIGNATORY
-      type: string
-    ExternalContractRelationCreateRequest:
-      title: ExternalContractRelationCreateRequest
+    ContractListResponseV2:
+      title: ContractListResponseV2
       type: object
       properties:
-        related_contract_id:
-          title: Related Contract Id
-          description: ID of the contract that is being related.
+        page:
+          title: Page
           type: integer
-        relation_type:
-          allOf:
-          - $ref: '#/components/schemas/RelationTypeEnum'
-          title: ContractRelationType
-          description: Type of relationship established with the related contract.
+        limit:
+          title: Limit
+          type: integer
+        total_results:
+          title: Total Results
+          type: integer
+        results:
+          title: Results
+          type: array
+          items:
+            title: ContractResponseV2
+            description: Must be kept in sync with ExternalContractV3Serializer
+            type: object
+            properties:
+              id:
+                title: Id
+                description: The Id of the contract on SpotDraft's Platform.
+                type: string
+              created:
+                title: Created
+                description: The date and time at which the contract was created or uploaded on SpotDraft's platform.
+                type: string
+                format: date-time
+              contract_name:
+                title: Contract Name
+                description: The name of the contract that is visible to users.
+                type: string
+              contract_link:
+                title: Contract Link
+                description: The Url to view the contract.
+                type: string
+              contract_status:
+                title: Contract Status
+                description: The status of the contract.
+                type: string
+              created_by:
+                title: Created By
+                description: The full name of user who created or uploaded the executed contract on to SpotDraft's platform.
+                type: string
+              counter_party_name:
+                title: Counter Party Name
+                description: The full name of the counter party involved in the contract.
+                type: string
+              contract_type_name:
+                title: Contract Type Name
+                description: The type of the contract.
+                type: string
+              contract_type_id:
+                title: Contract Type Id
+                description: The ID of the contract type.
+                type: integer
+              external_metadata:
+                title: External Metadata
+                type: object
+              reference_id:
+                title: Reference Id
+                type: string
+              created_by_user_name:
+                title: Created By User Name
+                description: The full name of user who created or uploaded the executed contract on to SpotDraft's platform.
+                type: string
+              created_by_user_email:
+                title: Created By User Email
+                description: The email of user who created or uploaded the executed contract on to SpotDraft's platform.
+                type: string
+              created_by_workspace:
+                title: Created By Workspace
+                description: The workspace ID of the user who created or uploaded the executed contract on to SpotDraft's platform.
+                type: integer
+            required:
+            - id
+            - created
+            - contract_name
+            - contract_link
+            - contract_status
+            - created_by
+            - counter_party_name
+            - contract_type_name
+            - contract_type_id
+            - created_by_workspace
+            examples:
+            - id: T-1234
+              created: '2021-05-20T04:52:04Z'
+              contract_name: Acme Corporation NDA
+              contract_link: https://app.spotdraft.com/contracts/v2/4322
+              contract_status: EXECUTED
+              created_by: Morgan Freeman
+              counter_party_name: Mike Reed
+              contract_type_name: Historic
+              contract_type_id: 103
+              external_metadata: {}
+              created_by_user_name: Elena Kagan
+              created_by_user_email: elena@acme.com
+              created_by_workspace: 1
       required:
-      - related_contract_id
-      - relation_type
-      examples:
-      - related_contract_id: 1234
-        relation_type: CHILD
-    EmailBase64Attachment:
-      type: object
+      - page
+      - limit
+      - total_results
+      - results
+    DownloadLinkRequest:
+      description: Request body for Get Contract Download Link API. Optional; defaults to PDF if omitted.
       properties:
-        file_name:
-          type: string
-        mime_type:
-          type: string
-        content_base64:
-          type: string
-      required:
-      - content_base64
-      - file_name
-      - mime_type
-    OrganizationDetailsSerializerV2_1:
+        format:
+          anyOf:
+          - $ref: '#/components/schemas/EditableDocumentDownloadFormat'
+          - type: 'null'
+          default: PDF
+          description: Download format for the contract file. Defaults to `PDF` when omitted.
+      title: DownloadLinkRequest
       type: object
-      description: Defines structure for organization details for API v2.1
-      properties:
-        jurisdiction:
-          type: string
-        address:
-          $ref: '#/components/schemas/OrganizationAddressSerializerV2_1'
-        jurisdiction_iso_code:
-          type: string
-    ReviewRequestCreateRequest:
-      title: ReviewRequestCreateRequest
-      type: object
-      properties:
-        description:
-          title: Description
-          description: Description of the review request. Visible to the reviewer
-          default: ''
-          minLength: 1
-          type: string
-        assignee_user_id:
-          title: Assignee User Id
-          description: The ID of the org user to whom the review request should be assigned. Either `assignee_user_id` or `assignee_role_id` must be set, but not both.
-          type: integer
-        assignee_role_id:
-          title: Assignee Role Id
-          description: The ID of the role to which the review request should be assigned. Either `assignee_user_id` or `assignee_role_id` must be set, but not both.
-          type: integer
     PatchedExternalUpdateContractBusinessUserRequest:
       title: ExternalUpdateContractBusinessUserRequest
       type: object
@@ -3495,66 +3280,47 @@ components:
       examples:
       - user_id: 1234
         update_user_task_on_bu_update: true
-    ContractContentResponse:
-      title: ContractContentResponse
+    TypeEnum:
+      enum:
+      - BUSINESS
+      - LEGAL
+      - CP_POC
+      - LEGAL_POC
+      - SIGNATORY
+      type: string
+    ContractUnMarkForExecutionRequest:
+      title: ContractUnMarkForExecutionRequest
       type: object
       properties:
-        contract_id:
-          title: Contract Id
-          description: The contract ID
+        note:
+          title: Note
+          description: Optional note explaining the reason for un-marking the contract for execution.
           type: string
-        content_format:
-          allOf:
-          - $ref: '#/components/schemas/ContentFormatEnum'
-          title: ContractContentFormatType
-          description: Format of the returned content
-        content:
-          title: Content
-          description: Full contract text content (when format=text)
-          type: string
-        segments:
-          title: Segments
-          description: Text segments with metadata (when format=segments)
-          type: array
-          items:
-            title: TextSegmentedResponse
-            type: object
-            properties:
-              segment_text:
-                title: Segment Text
-                type: string
-            required:
-            - segment_text
-        extraction_status:
-          allOf:
-          - $ref: '#/components/schemas/ExtractionStatusEnum'
-          title: ContractContentExtractionStatus
-          description: Status of the content extraction process
-        last_updated:
-          title: Last Updated
-          description: Timestamp when content was last extracted
-          type: string
-          format: date-time
-      required:
-      - contract_id
-      - content_format
-      - extraction_status
       examples:
-      - contract_id: T-12345
-        content_format: text
-        content: This Agreement is entered into between...
-        segments: null
-        extraction_status: completed
-        last_updated: '2024-01-15T10:30:00Z'
-      - contract_id: T-12345
-        content_format: segments
-        content: null
-        segments:
-        - segment_text: This Agreement is entered into...
-          page_number: 1
-          position: 1
-        extraction_status: completed
-        last_updated: '2024-01-15T10:30:00Z'
+      - note: Client requested some edits to the contract
+    ExternalCounterPartyDetailsSerializerV2_1:
+      type: object
+      description: Defines the data required for contract counterpartydetails for API V2.1
+      properties:
+        is_individual:
+          type: boolean
+        organization_type:
+          type: string
+        organization_name:
+          type: string
+          description: The legal name of the organization. Required if `is_individual` is False.
+        poc_details:
+          allOf:
+          - $ref: '#/components/schemas/ExternalPOCDetails'
+          description: Details of the primary point of contact for this counterparty. Required for both individuals and organizations.
+        organization_details:
+          $ref: '#/components/schemas/OrganizationDetailsSerializerV2_1'
+        party_role_identifier:
+          type: string
+          minLength: 1
+      required:
+      - is_individual
+      - poc_details
     ContractUploadForSignatureRequest:
       title: ContractUploadForSignatureRequest
       type: object
@@ -3706,21 +3472,13 @@ components:
           start_date: '2026-04-01'
           payment_method: annual_invoice
         business_user_email: owner@spotdraft.example
-    DownloadUrl:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The URL from which this contract can be downloaded.
-        file_name:
-          type: string
-          description: The file name of the contract.
-        current_version_id:
-          type: integer
-          description: The ID of the current version of the contract.
-      required:
-      - file_name
-      - url
+    RelationTypeEnum:
+      enum:
+      - CHILD
+      - ADDENDUM
+      - AMENDMENT
+      - PARENT
+      type: string
     ContractResponseV2:
       title: ContractResponseV2
       description: Must be kept in sync with ExternalContractV3Serializer
@@ -3806,62 +3564,6 @@ components:
         created_by_user_name: Elena Kagan
         created_by_user_email: elena@acme.com
         created_by_workspace: 1
-    ExternalContractQuestionnairePublicResponse:
-      title: ExternalContractQuestionnairePublicResponse
-      type: object
-      properties:
-        questionnaire_response_data:
-          title: Questionnaire Response Data
-          description: Questionnaire response data for the contract.
-          type: object
-        respondents:
-          title: Respondents
-          description: List of users who answered the questionnaire.
-          type: array
-          items:
-            title: ExternalContractQuestionnaireRespondentPublicData
-            description: Respondent data for contract questionnaire responses
-            type: object
-            properties:
-              created_at:
-                title: Created At
-                description: Time when the respondent filled the questionnaire for the contract
-                type: string
-                format: date-time
-              created_by:
-                title: Created By
-                description: Respondent name who filled questionnaire for the contract
-                type: string
-              org_name:
-                title: Org Name
-                description: Name of the organization to which respondent belongs to.
-                type: string
-      required:
-      - questionnaire_response_data
-      examples:
-      - questionnaire_response_data:
-          department: product
-        respondents:
-        - created_at: '2023-06-14T10:46:15.205587Z'
-          created_by: Mike Reed
-          org_name: Acme Inc.
-    PatchedIntakeFormData:
-      title: IntakeFormData
-      description: A key-value object keyed by intake-form question field name. Values must match the question type configured on the contract type questionnaire.
-      type: object
-      additionalProperties: false
-      examples:
-      - term:
-          days: 180
-          type: MONTHS
-          value: 6
-        notes: Customer requested revised indemnity clause.
-        capacity: 15
-        setup_fee:
-          type: USD
-          value: 30000.0
-        start_date: '2026-04-01'
-        payment_method: annual_invoice
     ExternalCreateContractSerializerV2_1:
       type: object
       description: Defines the data that is required for contract creation for API V2.1
@@ -3933,263 +3635,6 @@ components:
       - contract_data
       - contract_template_id
       - counter_party_details
-    ExternalCreateContractSignatory:
-      type: object
-      description: Defines the data that is required for create contract signatory
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        title:
-          type: string
-        is_counterparty_signatory:
-          type: boolean
-          description: Set this as True if the signatory belongs to a counterparty. Else set it as False.
-        counterparty_name:
-          type: string
-          description: Required if `is_counterparty_signatory` is True. Must match the name of one of the counterparties in `counter_party_details`. If the counterparty `is_individual` is True, this should be the concatenation of the `first_name` and `last_name` from `poc_details` (e.g., 'John Doe'). If `is_individual` is False, this should match the `organization_name` of the counterparty.  If `is_counterparty_signatory` is False, leave this field blank.
-        sign_order:
-          type: integer
-        note:
-          type: string
-      required:
-      - email
-      - is_counterparty_signatory
-      - name
-    AttachmentFormatsEnum:
-      enum:
-      - DOCX
-      - PDF
-      - TEMPLATE
-      type: string
-      description: '* `DOCX` - DOCX
-
-        * `PDF` - PDF
-
-        * `TEMPLATE` - TEMPLATE'
-    ExternalContractRelationResponse:
-      title: ExternalContractRelationResponse
-      type: object
-      properties:
-        id:
-          title: Id
-          description: Contract Relation ID
-          type: integer
-        related_contract_id:
-          title: Related Contract Id
-          description: ID of the contract that is being related.
-          type: integer
-        relation_type:
-          allOf:
-          - $ref: '#/components/schemas/RelationTypeEnum'
-          title: ContractRelationType
-          description: Type of relationship established with the related contract.
-        created:
-          title: Created
-          description: The date and time at which the contract relation was created
-          type: string
-          format: date-time
-      required:
-      - id
-      - related_contract_id
-      - relation_type
-      - created
-      examples:
-      - id: 1000
-        related_contract_id: 1234
-        relation_type: CHILD
-        created: '2021-05-20T04:52:04Z'
-    ExternalContractStatus:
-      type: object
-      description: Defines the data that is required to show the status of a contract
-      properties:
-        contract_status:
-          allOf:
-          - $ref: '#/components/schemas/ContractDisplayStatusEnum'
-          description: 'The status of this contract.
-
-
-            * `DRAFT` - DRAFT
-
-            * `REDLINING` - REDLINING
-
-            * `SIGN` - SIGN
-
-            * `EXECUTED` - EXECUTED
-
-            * `ON_HOLD` - ON_HOLD
-
-            * `VOIDED` - VOIDED'
-        contract_name:
-          type: string
-          description: The name of the contract that is visible to users.
-      required:
-      - contract_name
-      - contract_status
-    EditableDocumentDownloadFormat:
-      enum:
-      - PDF
-      - DOCX
-      - DOCX_WITH_FALLBACK_TO_PDF
-      title: EditableDocumentDownloadFormat
-      type: string
-    ContractListResponseV2:
-      title: ContractListResponseV2
-      type: object
-      properties:
-        page:
-          title: Page
-          type: integer
-        limit:
-          title: Limit
-          type: integer
-        total_results:
-          title: Total Results
-          type: integer
-        results:
-          title: Results
-          type: array
-          items:
-            title: ContractResponseV2
-            description: Must be kept in sync with ExternalContractV3Serializer
-            type: object
-            properties:
-              id:
-                title: Id
-                description: The Id of the contract on SpotDraft's Platform.
-                type: string
-              created:
-                title: Created
-                description: The date and time at which the contract was created or uploaded on SpotDraft's platform.
-                type: string
-                format: date-time
-              contract_name:
-                title: Contract Name
-                description: The name of the contract that is visible to users.
-                type: string
-              contract_link:
-                title: Contract Link
-                description: The Url to view the contract.
-                type: string
-              contract_status:
-                title: Contract Status
-                description: The status of the contract.
-                type: string
-              created_by:
-                title: Created By
-                description: The full name of user who created or uploaded the executed contract on to SpotDraft's platform.
-                type: string
-              counter_party_name:
-                title: Counter Party Name
-                description: The full name of the counter party involved in the contract.
-                type: string
-              contract_type_name:
-                title: Contract Type Name
-                description: The type of the contract.
-                type: string
-              contract_type_id:
-                title: Contract Type Id
-                description: The ID of the contract type.
-                type: integer
-              external_metadata:
-                title: External Metadata
-                type: object
-              reference_id:
-                title: Reference Id
-                type: string
-              created_by_user_name:
-                title: Created By User Name
-                description: The full name of user who created or uploaded the executed contract on to SpotDraft's platform.
-                type: string
-              created_by_user_email:
-                title: Created By User Email
-                description: The email of user who created or uploaded the executed contract on to SpotDraft's platform.
-                type: string
-              created_by_workspace:
-                title: Created By Workspace
-                description: The workspace ID of the user who created or uploaded the executed contract on to SpotDraft's platform.
-                type: integer
-            required:
-            - id
-            - created
-            - contract_name
-            - contract_link
-            - contract_status
-            - created_by
-            - counter_party_name
-            - contract_type_name
-            - contract_type_id
-            - created_by_workspace
-            examples:
-            - id: T-1234
-              created: '2021-05-20T04:52:04Z'
-              contract_name: Acme Corporation NDA
-              contract_link: https://app.spotdraft.com/contracts/v2/4322
-              contract_status: EXECUTED
-              created_by: Morgan Freeman
-              counter_party_name: Mike Reed
-              contract_type_name: Historic
-              contract_type_id: 103
-              external_metadata: {}
-              created_by_user_name: Elena Kagan
-              created_by_user_email: elena@acme.com
-              created_by_workspace: 1
-      required:
-      - page
-      - limit
-      - total_results
-      - results
-    PatchedContractDataUpdateRequest:
-      title: ContractDataUpdateRequest
-      type: object
-      properties:
-        data:
-          title: Data
-          description: Contract data keyed by template field name. Values must match the field types configured on the contract template.
-          type: object
-      required:
-      - data
-      examples:
-      - data:
-          term:
-            days: 180
-            type: MONTHS
-            value: 6
-          notes: Not Applicable
-          capacity: 15
-          setup_fee:
-            type: INR
-            value: 30000.0
-          start_date: '2019-11-29'
-          yes_discounts: false
-          payment_method: '1'
-          suggestions: No suggestions
-    SupportedDocumentResponse:
-      title: SupportedDocumentResponse
-      type: object
-      properties:
-        id:
-          title: Id
-          description: Id of supported document
-          type: integer
-        name:
-          title: Name
-          description: Name of the document
-          type: string
-        created:
-          title: Created
-          description: Datetime when document was created
-          type: string
-          format: date-time
-      required:
-      - id
-      - name
-      - created
-      examples:
-      - id: '199'
-        name: Acme Corporation Related Document
-        created: '2022-10-10'
     ExternalCreateContractResponse:
       type: object
       description: Response schema for v2/v2.1 create contract APIs.
@@ -4259,166 +3704,6 @@ components:
       - external_metadata
       - id
       - reference_id
-    RetriggerLatestWebhooksRequest:
-      title: RetriggerLatestWebhooksRequest
-      type: object
-      properties:
-        contract_ids:
-          title: Contract Ids
-          description: The list of contract ids whose latest webhook calls need to be re-triggered. Provide one or more contract ids.
-          type: array
-          items:
-            type: integer
-      required:
-      - contract_ids
-      examples:
-      - contract_ids:
-        - 1
-        - 2
-        - 3
-    ScannedContractContentResponse:
-      title: ScannedContractContentResponse
-      type: object
-      properties:
-        contract_id:
-          title: Contract Id
-          description: The contract ID
-          type: string
-        content:
-          title: Content
-          description: Extracted full text content from the scanned PDF
-          type: string
-      required:
-      - contract_id
-      - content
-      examples:
-      - contract_id: 1090393
-        content: This Agreement is entered into between...
-    SendToCounterparty:
-      type: object
-      properties:
-        to_emails:
-          type: array
-          items:
-            type: string
-          description: Optional list of primary recipient email addresses. If omitted, SpotDraft uses the configured counterparty recipients for the contract.
-        cc_emails:
-          type: array
-          items:
-            type: string
-          description: Optional list of email addresses to copy on the outbound contract email.
-        bcc_emails:
-          type: array
-          items:
-            type: string
-          description: Optional list of blind-copy email addresses for the outbound contract email.
-        attachment_formats:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentFormatsEnum'
-          description: At least one attachment format is required. Allowed values come from the ContractEmailFormat enum.
-        extra_attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmailBase64Attachment'
-          description: Optional additional attachments to send with the contract email.
-        custom_message:
-          type: string
-          description: Optional custom message to include in the contract email body.
-        subject:
-          type: string
-          description: Optional custom email subject line.
-      required:
-      - attachment_formats
-    CreateSignatoryResendEmailAPIRequest:
-      title: CreateSignatoryResendEmailAPIRequest
-      type: object
-      properties:
-        email_id:
-          title: Email Id
-          description: The Email Address of the signatory to whom email should be resent to.
-          type: string
-      required:
-      - email_id
-      examples:
-      - email_id: mike_reed@yahoo.com
-    PublicDownloadContractDocxRequest:
-      title: PublicDownloadContractDocxRequest
-      type: object
-      properties:
-        fallback_to_last_available_docx:
-          title: Fallback To Last Available Docx
-          description: 'Whether to fallback to last available DOCX version if current contract version is not in DOCX format. Note: This might return an outdated DOCX version if the current version which is being used is in a different format (e.g., PDF). The returned DOCX may not reflect recent changes made in the current version.'
-          default: false
-          type: boolean
-    ContractDisplayStatusEnum:
-      enum:
-      - DRAFT
-      - REDLINING
-      - SIGN
-      - EXECUTED
-      - ON_HOLD
-      - VOIDED
-      type: string
-    ContentFormatEnum:
-      enum:
-      - text
-      - segments
-      type: string
-    ContractUnMarkForExecutionRequest:
-      title: ContractUnMarkForExecutionRequest
-      type: object
-      properties:
-        note:
-          title: Note
-          description: Optional note explaining the reason for un-marking the contract for execution.
-          type: string
-      examples:
-      - note: Client requested some edits to the contract
-    ExternalCounterPartyDetailsSerializerV2_1:
-      type: object
-      description: Defines the data required for contract counterpartydetails for API V2.1
-      properties:
-        is_individual:
-          type: boolean
-        organization_type:
-          type: string
-        organization_name:
-          type: string
-          description: The legal name of the organization. Required if `is_individual` is False.
-        poc_details:
-          allOf:
-          - $ref: '#/components/schemas/ExternalPOCDetails'
-          description: Details of the primary point of contact for this counterparty. Required for both individuals and organizations.
-        organization_details:
-          $ref: '#/components/schemas/OrganizationDetailsSerializerV2_1'
-        party_role_identifier:
-          type: string
-          minLength: 1
-      required:
-      - is_individual
-      - poc_details
-    PendingWithEnum:
-      enum:
-      - CREATOR_PARTY
-      - COUNTER_PARTY
-      - BOTH
-      type: string
-    WorkflowConfig:
-      type: object
-      properties:
-        auto_send_to_counterparty:
-          type: boolean
-          default: false
-        api_only_contract_edits:
-          type: boolean
-          default: false
-        skip_cp_info_collection:
-          type: boolean
-          default: false
-        skip_creator_info_collection:
-          type: boolean
-          default: false
     PublicSupportedDocumentCreateAPIRequest:
       title: PublicSupportedDocumentCreateAPIRequest
       type: object
@@ -4443,414 +3728,47 @@ components:
       - name: Acme Corporation Related Document
         file_name: Acme Related Document.pdf
         file_base64: base64 encoded string of the file content
-    ExtractionStatusEnum:
-      enum:
-      - completed
-      - pending
-      - failed
-      - not_available
-      type: string
-    DownloadLinkRequest:
-      description: Request body for Get Contract Download Link API. Optional; defaults to PDF if omitted.
-      properties:
-        format:
-          anyOf:
-          - $ref: '#/components/schemas/EditableDocumentDownloadFormat'
-          - type: 'null'
-          default: PDF
-          description: Download format for the contract file. Defaults to `PDF` when omitted.
-      title: DownloadLinkRequest
-      type: object
-    ExternalQuestionnaireResponseDomainModel:
-      title: ExternalQuestionnaireResponseDomainModel
+    PublicDownloadContractDocxRequest:
+      title: PublicDownloadContractDocxRequest
       type: object
       properties:
-        data:
-          title: Data
-          description: The intake form questionnaire
-          type: object
+        fallback_to_last_available_docx:
+          title: Fallback To Last Available Docx
+          description: 'Whether to fallback to last available DOCX version if current contract version is not in DOCX format. Note: This might return an outdated DOCX version if the current version which is being used is in a different format (e.g., PDF). The returned DOCX may not reflect recent changes made in the current version.'
+          default: false
+          type: boolean
+    ExternalContractRelationResponse:
+      title: ExternalContractRelationResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: Contract Relation ID
+          type: integer
+        related_contract_id:
+          title: Related Contract Id
+          description: ID of the contract that is being related.
+          type: integer
+        relation_type:
+          allOf:
+          - $ref: '#/components/schemas/RelationTypeEnum'
+          title: ContractRelationType
+          description: Type of relationship established with the related contract.
         created:
           title: Created
-          description: The ISO timestamp when the intake form questionnaire was edited
+          description: The date and time at which the contract relation was created
           type: string
           format: date-time
       required:
-      - data
+      - id
+      - related_contract_id
+      - relation_type
       - created
-      additionalProperties: false
       examples:
-      - data:
-          name: Admin
-          is_individual: false
-        created: '2009-08-06T00:00:00Z'
-    ContractProcessMetricResponse:
-      title: ContractProcessMetricResponse
-      type: object
-      properties:
-        contract_id:
-          title: Contract Id
-          description: Id of the contract that this data belongs to
-          type: integer
-        contract_sent_to_cp_datetime:
-          title: Contract Sent To Cp Datetime
-          description: Date and time when the contract was first sent to Counterparty
-          type: string
-          format: date-time
-        cp_added_info_initial_datetime:
-          title: Cp Added Info Initial Datetime
-          description: Date and time when the Counterparty updated contract data for the first time
-          type: string
-          format: date-time
-        cp_added_info_latest_datetime:
-          title: Cp Added Info Latest Datetime
-          description: Date and time when the Counterparty updated contract data
-          type: string
-          format: date-time
-        cp_opened_review_email_datetime:
-          title: Cp Opened Review Email Datetime
-          description: Date and time when the Counterparty opened the contract review email for the first time
-          type: string
-          format: date-time
-        contract_signed_by_signatory_list:
-          title: Contract Signed By Signatory List
-          description: List of signatories along with the date and time of signature.
-          type: array
-          items:
-            title: SignatoryData
-            type: object
-            properties:
-              is_creator_party:
-                title: Is Creator Party
-                type: boolean
-              signed_datetime:
-                title: Signed Datetime
-                type: string
-                format: date-time
-              signatory_email:
-                title: Signatory Email
-                type: string
-            required:
-            - is_creator_party
-            - signed_datetime
-            - signatory_email
-        contract_turns:
-          title: ContractTurnsData
-          type: object
-          properties:
-            manual_override_reason:
-              title: Manual Override Reason
-              description: Reason for contract pending with counterparty having a manual override.
-              type: string
-            last_turn_change_datetime:
-              title: Last Turn Change Datetime
-              description: Date and time when the contract turn was last changed.
-              type: string
-              format: date-time
-            last_turn_change_org_user_email:
-              title: Last Turn Change Org User Email
-              description: User that caused the last turn change to happen.
-              type: string
-            no_of_turns:
-              title: No Of Turns
-              description: Number of turns recorded on this contract.
-              default: 0
-              type: integer
-        contract_executed_datetime:
-          title: Contract Executed Datetime
-          description: Date and time when the contract was executed.
-          type: string
-          format: date-time
-        type_of_workflow:
-          title: Type Of Workflow
-          description: Contract kind.
-          type: string
-        contract_status:
-          title: Contract Status
-          description: Current status of contract.
-          type: string
-        marked_for_signature_datetime:
-          title: Marked For Signature Datetime
-          description: Date and time when the contract was made ready to accept signatures.
-          type: string
-          format: date-time
-        pending_with:
-          allOf:
-          - $ref: '#/components/schemas/PendingWithEnum'
-          title: ContractPendingWith
-          description: Contract pending with party.
-      required:
-      - contract_id
-      - contract_turns
-      examples:
-      - contract_id: 1234
-        contract_sent_to_cp_datetime: '2019-08-24T14:15:22Z'
-        cp_added_info_initial_datetime: '2019-08-24T14:15:22Z'
-        cp_added_info_latest_datetime: '2019-08-24T14:15:22Z'
-        cp_opened_review_email_datetime: '2019-08-24T14:15:22Z'
-        contract_signed_by_signatory_list:
-        - is_creator_party: true
-          signed_datetime: '2019-08-24T14:15:22Z'
-          signatory_email: Mike_reed@yahoo.com
-        contract_turns:
-          manual_override_reason: Reason for manual override
-          last_turn_change_datetime: '2019-08-24T14:15:22Z'
-          last_turn_change_org_user_email: johndoe@example.com
-          no_of_turns: 2
-        contract_executed_datetime: '2019-08-24T14:15:22Z'
-        type_of_workflow: UPLOAD_SIGN
-        contract_status: COMPLETED
-        marked_for_signature_datetime: '2019-08-24T14:15:22Z'
-        pending_with: COUNTER_PARTY
-    CreateExecutedContractAPIRequest:
-      title: CreateExecutedContractAPIRequest
-      type: object
-      properties:
-        contract_name:
-          title: Contract Name
-          description: The display name of the executed contract that is visible to users. This is caller-provided metadata and is not inferred from file contents.
-          type: string
-        file_name:
-          title: File Name
-          description: The name of the file being uploaded. This is used when the file is downloaded. Expected to be a fully qualified file name with an extension. Only `.pdf` files are accepted.
-          type: string
-        file_content:
-          title: File Content
-          description: The contents of the file as a base64 encoded string. The decoded file must be a valid PDF.
-          type: string
-        contract_type_id:
-          title: Contract Type Id
-          description: 'The ID of the contract type for this executed contract. Use the [Get Contract Types](#tag/v2-contract-types/GET/api/v2/public/contract_types/) API to get this ID. '
-          type: integer
-        organization_entity_id:
-          title: Organization Entity Id
-          description: 'The ID of the organization entity for this executed contract. Use the [Get Organization Entity](#tag/v21-organizations/GET/api/v2.1/public/organizations/entities/) API to get this ID. '
-          type: integer
-        counterparty_details:
-          title: Counterparty Details
-          description: The list of counterparties involved in the executed contract. Counterparty naming values are caller-provided and used for display/association metadata.
-          type: array
-          items:
-            title: CounterPartyDetails
-            type: object
-            properties:
-              is_individual:
-                title: Is Individual
-                description: Defines if this Counterparty is an individual or an organization like a company
-                type: boolean
-              organization_type:
-                title: Organization Type
-                description: The type of the counterparty if it is an organization. Expects values like LLC, LLP, etc. Please ask help@spotdraft.com for valid values.
-                type: string
-              organization_name:
-                title: Organization Name
-                description: The name of the counterparty if it is an organization. Expects the name of the company/entity that is the counterparty. Required when `is_individual=false`.
-                type: string
-              organization_details:
-                title: Organization Details
-                type: object
-                properties:
-                  jurisdiction:
-                    title: Jurisdiction
-                    description: The jurisdiction to which this organization belongs. Valid values are defined internally. Please reach out to help@spotdraft.com for a list.
-                    type: string
-                  address:
-                    title: Address
-                    type: object
-                    properties:
-                      city:
-                        title: City
-                        description: The city name for this address.
-                        type: string
-                      state:
-                        title: State
-                        description: The state name for this address.
-                        default: ''
-                        type: string
-                      country:
-                        title: Country
-                        description: The name of the country associated with this counterparty address. Any value passed here is ignored if `country_iso_code` is passed. Valid values are defined internally. Please ask help@spotdraft.com for more information.
-                        type: string
-                      zipcode:
-                        title: Zipcode
-                        description: The zip/pin/postal code for this address.
-                        default: ''
-                        type: string
-                      line_one:
-                        title: Line One
-                        description: The first line of the address. Usually the apartment, floor, and street information.
-                        type: string
-                      line_two:
-                        title: Line Two
-                        description: The second address line (if any).
-                        type: string
-                      email:
-                        title: Email
-                        description: The email address associated with this counterparty address (if any).
-                        type: string
-                      phone:
-                        title: Phone
-                        description: The phone number associated with this counterparty address (if any).
-                        type: string
-                      gst_number:
-                        title: Gst Number
-                        description: The GST Number for this Organization. Can be unset if not available or applicable.
-                        type: string
-                      tax_id:
-                        title: Tax Id
-                        description: The VAT/GST/Sales Tax/etc ID for this Organization.
-                        type: string
-                      country_iso_code:
-                        title: Country Iso Code
-                        description: The ISO-3166-1 Alpha-2 code of the country associated with this counterparty address. Any value passed here is overrides `country`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
-                        type: string
-                    required:
-                    - city
-                    - country
-                    - line_one
-                    description: The primary address for this organization (if any)
-                description: Additional details for an organization. Should be set if `is_individual=False`
-              poc_details:
-                title: Poc Details
-                type: object
-                properties:
-                  first_name:
-                    title: First Name
-                    description: The first name of the Point of Contact
-                    type: string
-                  last_name:
-                    title: Last Name
-                    description: The last name of the Point of Contact
-                    type: string
-                  email:
-                    title: Email
-                    description: The email address of the Point of Contact
-                    type: string
-                required:
-                - first_name
-                - last_name
-                - email
-                description: Point of Contact details for this counterparty. Should be the details of the individual for `is_individual=True` and the details of the contact at the counterparty organization in case of `is_individual=False`.
-              party_role_identifier:
-                title: Party Role Identifier
-                description: The unique identifier of the party this counterparty should be assigned to.
-                minLength: 1
-                type: string
-            required:
-            - is_individual
-            - poc_details
-            examples:
-            - is_individual: true
-              organization_type: Private Limited
-              organization_name: Acme Corporation
-              organization_details: {}
-              poc_details:
-                first_name: Mike
-                last_name: Reed
-                email: Mike_reed@yahoo.com
-              primary_address:
-                city_name: Cincinnati
-                state_name: Ohio
-                country_name: USA
-                zipcode: '513'
-                line_one: 'st: 3, block: 2, Jenkins Road'
-        external_metadata:
-          title: External Metadata
-          type: object
-          properties:
-            id:
-              title: Id
-              description: Identifier of the record in the external system.
-            integration_name:
-              title: Integration Name
-              description: Name of the external integration, for example Salesforce.
-              type: string
-            record_type:
-              title: Record Type
-              description: External record type, for example Opportunity or Account.
-              type: string
-            record_data:
-              title: Record Data
-              description: Arbitrary metadata payload from the external system.
-              type: object
-            object_configuration_id:
-              title: Object Configuration Id
-              description: Optional public identifier for a native integration object configuration. When provided, also send `record_type`. The API resolves and stores the corresponding internal entity reference.
-              type: string
-              format: uuid
-          description: Optional external system metadata to associate with the executed contract.
-      required:
-      - contract_name
-      - file_name
-      - file_content
-      - contract_type_id
-      - organization_entity_id
-      examples:
-      - contract_name: Acme Corporation NDA
-        file_name: Acme_nda.pdf
-        file_content: base64 encoded string of the file content
-        contract_type_id: 103
-        organization_entity_id: 78
-        external_metadata: {}
-        counterparty_details:
-        - is_individual: true
-          organization_type: Private Limited
-          organization_name: Acme Corporation
-          organization_details: {}
-          poc_details:
-            first_name: Mike
-            last_name: Reed
-            email: Mike_reed@yahoo.com
-          primary_address:
-            city_name: Cincinnati
-            state_name: Ohio
-            country_name: USA
-            zipcode: '513'
-            line_one: 'st: 3, block: 2, Jenkins Road'
-    CounterPartyEmbeddedUrlResponse:
-      title: CounterPartyEmbeddedUrlResponse
-      type: object
-      properties:
-        url:
-          title: Url
-          type: string
-      required:
-      - url
-    VoidContractRequestData:
-      title: VoidContractRequestData
-      type: object
-      properties:
-        note:
-          title: Note
-          description: Reason shown in SpotDraft when the contract is voided.
-          minLength: 1
-          type: string
-      required:
-      - note
-    ExternalContractUserResponse:
-      title: ExternalContractUserResponse
-      type: object
-      properties:
-        user_id:
-          title: User Id
-          description: The Org User Id of user who is one users for the contract
-          type: integer
-        contract_id:
-          title: Contract Id
-          description: The contract id for which business user was updated
-          type: integer
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeEnum'
-          title: ContractUserType
-          description: Type of contract user
-      required:
-      - user_id
-      - contract_id
-      - type
-      examples:
-      - user_id: 1234
-        type: BUSINESS
-        contract_id: 1234
+      - id: 1000
+        related_contract_id: 1234
+        relation_type: CHILD
+        created: '2021-05-20T04:52:04Z'
     MarkForExecutionRequest:
       title: MarkForExecutionRequest
       type: object
@@ -4859,6 +3777,17 @@ components:
           title: Affix Stamp Documents
           description: Whether stamp documents should be affixed as part of marking the contract for execution, when stamping is configured for the workflow.
           type: boolean
+    AttachmentFormatsEnum:
+      enum:
+      - DOCX
+      - PDF
+      - TEMPLATE
+      type: string
+      description: '* `DOCX` - DOCX
+
+        * `PDF` - PDF
+
+        * `TEMPLATE` - TEMPLATE'
     GenerateContractPreviewRequest:
       title: GenerateContractPreviewRequest
       type: object
@@ -5080,6 +4009,1077 @@ components:
             first_name: Avery
             last_name: Stone
             email: legal@acme.example
+    WorkflowConfig:
+      type: object
+      properties:
+        auto_send_to_counterparty:
+          type: boolean
+          default: false
+        api_only_contract_edits:
+          type: boolean
+          default: false
+        skip_cp_info_collection:
+          type: boolean
+          default: false
+        skip_creator_info_collection:
+          type: boolean
+          default: false
+    PendingWithEnum:
+      enum:
+      - CREATOR_PARTY
+      - COUNTER_PARTY
+      - BOTH
+      type: string
+    ExtractionStatusEnum:
+      enum:
+      - completed
+      - pending
+      - failed
+      - not_available
+      type: string
+    VoidContractRequestData:
+      title: VoidContractRequestData
+      type: object
+      properties:
+        note:
+          title: Note
+          description: Reason shown in SpotDraft when the contract is voided.
+          minLength: 1
+          type: string
+      required:
+      - note
+    ReviewRequestCreateRequest:
+      title: ReviewRequestCreateRequest
+      type: object
+      properties:
+        description:
+          title: Description
+          description: Description of the review request. Visible to the reviewer
+          default: ''
+          minLength: 1
+          type: string
+        assignee_user_id:
+          title: Assignee User Id
+          description: The ID of the org user to whom the review request should be assigned. Either `assignee_user_id` or `assignee_role_id` must be set, but not both.
+          type: integer
+        assignee_role_id:
+          title: Assignee Role Id
+          description: The ID of the role to which the review request should be assigned. Either `assignee_user_id` or `assignee_role_id` must be set, but not both.
+          type: integer
+    ContentFormatEnum:
+      enum:
+      - text
+      - segments
+      type: string
+    ExternalQuestionnaireResponseDomainModel:
+      title: ExternalQuestionnaireResponseDomainModel
+      type: object
+      properties:
+        data:
+          title: Data
+          description: The intake form questionnaire
+          type: object
+        created:
+          title: Created
+          description: The ISO timestamp when the intake form questionnaire was edited
+          type: string
+          format: date-time
+      required:
+      - data
+      - created
+      additionalProperties: false
+      examples:
+      - data:
+          name: Admin
+          is_individual: false
+        created: '2009-08-06T00:00:00Z'
+    OrganizationDetailsSerializerV2_1:
+      type: object
+      description: Defines structure for organization details for API v2.1
+      properties:
+        jurisdiction:
+          type: string
+        address:
+          $ref: '#/components/schemas/OrganizationAddressSerializerV2_1'
+        jurisdiction_iso_code:
+          type: string
+    ExternalContractUserResponse:
+      title: ExternalContractUserResponse
+      type: object
+      properties:
+        user_id:
+          title: User Id
+          description: The Org User Id of user who is one users for the contract
+          type: integer
+        contract_id:
+          title: Contract Id
+          description: The contract id for which business user was updated
+          type: integer
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeEnum'
+          title: ContractUserType
+          description: Type of contract user
+      required:
+      - user_id
+      - contract_id
+      - type
+      examples:
+      - user_id: 1234
+        type: BUSINESS
+        contract_id: 1234
+    CreateSignatoryResendEmailAPIRequest:
+      title: CreateSignatoryResendEmailAPIRequest
+      type: object
+      properties:
+        email_id:
+          title: Email Id
+          description: The Email Address of the signatory to whom email should be resent to.
+          type: string
+      required:
+      - email_id
+      examples:
+      - email_id: mike_reed@yahoo.com
+    CreateExecutedContractAPIRequest:
+      title: CreateExecutedContractAPIRequest
+      type: object
+      properties:
+        contract_name:
+          title: Contract Name
+          description: The display name of the executed contract that is visible to users. This is caller-provided metadata and is not inferred from file contents.
+          type: string
+        file_name:
+          title: File Name
+          description: The name of the file being uploaded. This is used when the file is downloaded. Expected to be a fully qualified file name with an extension. Only `.pdf` files are accepted.
+          type: string
+        file_content:
+          title: File Content
+          description: The contents of the file as a base64 encoded string. The decoded file must be a valid PDF.
+          type: string
+        contract_type_id:
+          title: Contract Type Id
+          description: 'The ID of the contract type for this executed contract. Use the [Get Contract Types](#tag/v2-contract-types/GET/api/v2/public/contract_types/) API to get this ID. '
+          type: integer
+        organization_entity_id:
+          title: Organization Entity Id
+          description: 'The ID of the organization entity for this executed contract. Use the [Get Organization Entity](#tag/v21-organizations/GET/api/v2.1/public/organizations/entities/) API to get this ID. '
+          type: integer
+        counterparty_details:
+          title: Counterparty Details
+          description: The list of counterparties involved in the executed contract. Counterparty naming values are caller-provided and used for display/association metadata.
+          type: array
+          items:
+            title: CounterPartyDetails
+            type: object
+            properties:
+              is_individual:
+                title: Is Individual
+                description: Defines if this Counterparty is an individual or an organization like a company
+                type: boolean
+              organization_type:
+                title: Organization Type
+                description: The type of the counterparty if it is an organization. Expects values like LLC, LLP, etc. Please ask help@spotdraft.com for valid values.
+                type: string
+              organization_name:
+                title: Organization Name
+                description: The name of the counterparty if it is an organization. Expects the name of the company/entity that is the counterparty. Required when `is_individual=false`.
+                type: string
+              organization_details:
+                title: Organization Details
+                type: object
+                properties:
+                  jurisdiction:
+                    title: Jurisdiction
+                    description: The jurisdiction to which this organization belongs. Valid values are defined internally. Please reach out to help@spotdraft.com for a list.
+                    type: string
+                  address:
+                    title: Address
+                    type: object
+                    properties:
+                      city:
+                        title: City
+                        description: The city name for this address.
+                        type: string
+                      state:
+                        title: State
+                        description: The state name for this address.
+                        default: ''
+                        type: string
+                      country:
+                        title: Country
+                        description: The name of the country associated with this counterparty address. Any value passed here is ignored if `country_iso_code` is passed. Valid values are defined internally. Please ask help@spotdraft.com for more information.
+                        type: string
+                      zipcode:
+                        title: Zipcode
+                        description: The zip/pin/postal code for this address.
+                        default: ''
+                        type: string
+                      line_one:
+                        title: Line One
+                        description: The first line of the address. Usually the apartment, floor, and street information.
+                        type: string
+                      line_two:
+                        title: Line Two
+                        description: The second address line (if any).
+                        type: string
+                      email:
+                        title: Email
+                        description: The email address associated with this counterparty address (if any).
+                        type: string
+                      phone:
+                        title: Phone
+                        description: The phone number associated with this counterparty address (if any).
+                        type: string
+                      gst_number:
+                        title: Gst Number
+                        description: The GST Number for this Organization. Can be unset if not available or applicable.
+                        type: string
+                      tax_id:
+                        title: Tax Id
+                        description: The VAT/GST/Sales Tax/etc ID for this Organization.
+                        type: string
+                      country_iso_code:
+                        title: Country Iso Code
+                        description: The ISO-3166-1 Alpha-2 code of the country associated with this counterparty address. Any value passed here is overrides `country`. Valid values can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
+                        type: string
+                    required:
+                    - city
+                    - country
+                    - line_one
+                    description: The primary address for this organization (if any)
+                description: Additional details for an organization. Should be set if `is_individual=False`
+              poc_details:
+                title: Poc Details
+                type: object
+                properties:
+                  first_name:
+                    title: First Name
+                    description: The first name of the Point of Contact
+                    type: string
+                  last_name:
+                    title: Last Name
+                    description: The last name of the Point of Contact
+                    type: string
+                  email:
+                    title: Email
+                    description: The email address of the Point of Contact
+                    type: string
+                required:
+                - first_name
+                - last_name
+                - email
+                description: Point of Contact details for this counterparty. Should be the details of the individual for `is_individual=True` and the details of the contact at the counterparty organization in case of `is_individual=False`.
+              party_role_identifier:
+                title: Party Role Identifier
+                description: The unique identifier of the party this counterparty should be assigned to.
+                minLength: 1
+                type: string
+            required:
+            - is_individual
+            - poc_details
+            examples:
+            - is_individual: true
+              organization_type: Private Limited
+              organization_name: Acme Corporation
+              organization_details: {}
+              poc_details:
+                first_name: Mike
+                last_name: Reed
+                email: Mike_reed@yahoo.com
+              primary_address:
+                city_name: Cincinnati
+                state_name: Ohio
+                country_name: USA
+                zipcode: '513'
+                line_one: 'st: 3, block: 2, Jenkins Road'
+        external_metadata:
+          title: External Metadata
+          type: object
+          properties:
+            id:
+              title: Id
+              description: Identifier of the record in the external system.
+            integration_name:
+              title: Integration Name
+              description: Name of the external integration, for example Salesforce.
+              type: string
+            record_type:
+              title: Record Type
+              description: External record type, for example Opportunity or Account.
+              type: string
+            record_data:
+              title: Record Data
+              description: Arbitrary metadata payload from the external system.
+              type: object
+            object_configuration_id:
+              title: Object Configuration Id
+              description: Optional public identifier for a native integration object configuration. When provided, also send `record_type`. The API resolves and stores the corresponding internal entity reference.
+              type: string
+              format: uuid
+          description: Optional external system metadata to associate with the executed contract.
+      required:
+      - contract_name
+      - file_name
+      - file_content
+      - contract_type_id
+      - organization_entity_id
+      examples:
+      - contract_name: Acme Corporation NDA
+        file_name: Acme_nda.pdf
+        file_content: base64 encoded string of the file content
+        contract_type_id: 103
+        organization_entity_id: 78
+        external_metadata: {}
+        counterparty_details:
+        - is_individual: true
+          organization_type: Private Limited
+          organization_name: Acme Corporation
+          organization_details: {}
+          poc_details:
+            first_name: Mike
+            last_name: Reed
+            email: Mike_reed@yahoo.com
+          primary_address:
+            city_name: Cincinnati
+            state_name: Ohio
+            country_name: USA
+            zipcode: '513'
+            line_one: 'st: 3, block: 2, Jenkins Road'
+    ExternalPOCDetails:
+      type: object
+      description: Defines the data required in poc details
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+          default: ''
+        email:
+          type: string
+      required:
+      - email
+      - first_name
+    RetriggerLatestWebhooksRequest:
+      title: RetriggerLatestWebhooksRequest
+      type: object
+      properties:
+        contract_ids:
+          title: Contract Ids
+          description: The list of contract ids whose latest webhook calls need to be re-triggered. Provide one or more contract ids.
+          type: array
+          items:
+            type: integer
+      required:
+      - contract_ids
+      examples:
+      - contract_ids:
+        - 1
+        - 2
+        - 3
+    DownloadUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL from which this contract can be downloaded.
+        file_name:
+          type: string
+          description: The file name of the contract.
+        current_version_id:
+          type: integer
+          description: The ID of the current version of the contract.
+      required:
+      - file_name
+      - url
+    ContractProcessMetricResponse:
+      title: ContractProcessMetricResponse
+      type: object
+      properties:
+        contract_id:
+          title: Contract Id
+          description: Id of the contract that this data belongs to
+          type: integer
+        contract_sent_to_cp_datetime:
+          title: Contract Sent To Cp Datetime
+          description: Date and time when the contract was first sent to Counterparty
+          type: string
+          format: date-time
+        cp_added_info_initial_datetime:
+          title: Cp Added Info Initial Datetime
+          description: Date and time when the Counterparty updated contract data for the first time
+          type: string
+          format: date-time
+        cp_added_info_latest_datetime:
+          title: Cp Added Info Latest Datetime
+          description: Date and time when the Counterparty updated contract data
+          type: string
+          format: date-time
+        cp_opened_review_email_datetime:
+          title: Cp Opened Review Email Datetime
+          description: Date and time when the Counterparty opened the contract review email for the first time
+          type: string
+          format: date-time
+        contract_signed_by_signatory_list:
+          title: Contract Signed By Signatory List
+          description: List of signatories along with the date and time of signature.
+          type: array
+          items:
+            title: SignatoryData
+            type: object
+            properties:
+              is_creator_party:
+                title: Is Creator Party
+                type: boolean
+              signed_datetime:
+                title: Signed Datetime
+                type: string
+                format: date-time
+              signatory_email:
+                title: Signatory Email
+                type: string
+            required:
+            - is_creator_party
+            - signed_datetime
+            - signatory_email
+        contract_turns:
+          title: ContractTurnsData
+          type: object
+          properties:
+            manual_override_reason:
+              title: Manual Override Reason
+              description: Reason for contract pending with counterparty having a manual override.
+              type: string
+            last_turn_change_datetime:
+              title: Last Turn Change Datetime
+              description: Date and time when the contract turn was last changed.
+              type: string
+              format: date-time
+            last_turn_change_org_user_email:
+              title: Last Turn Change Org User Email
+              description: User that caused the last turn change to happen.
+              type: string
+            no_of_turns:
+              title: No Of Turns
+              description: Number of turns recorded on this contract.
+              default: 0
+              type: integer
+        contract_executed_datetime:
+          title: Contract Executed Datetime
+          description: Date and time when the contract was executed.
+          type: string
+          format: date-time
+        type_of_workflow:
+          title: Type Of Workflow
+          description: Contract kind.
+          type: string
+        contract_status:
+          title: Contract Status
+          description: Current status of contract.
+          type: string
+        marked_for_signature_datetime:
+          title: Marked For Signature Datetime
+          description: Date and time when the contract was made ready to accept signatures.
+          type: string
+          format: date-time
+        pending_with:
+          allOf:
+          - $ref: '#/components/schemas/PendingWithEnum'
+          title: ContractPendingWith
+          description: Contract pending with party.
+      required:
+      - contract_id
+      - contract_turns
+      examples:
+      - contract_id: 1234
+        contract_sent_to_cp_datetime: '2019-08-24T14:15:22Z'
+        cp_added_info_initial_datetime: '2019-08-24T14:15:22Z'
+        cp_added_info_latest_datetime: '2019-08-24T14:15:22Z'
+        cp_opened_review_email_datetime: '2019-08-24T14:15:22Z'
+        contract_signed_by_signatory_list:
+        - is_creator_party: true
+          signed_datetime: '2019-08-24T14:15:22Z'
+          signatory_email: Mike_reed@yahoo.com
+        contract_turns:
+          manual_override_reason: Reason for manual override
+          last_turn_change_datetime: '2019-08-24T14:15:22Z'
+          last_turn_change_org_user_email: johndoe@example.com
+          no_of_turns: 2
+        contract_executed_datetime: '2019-08-24T14:15:22Z'
+        type_of_workflow: UPLOAD_SIGN
+        contract_status: COMPLETED
+        marked_for_signature_datetime: '2019-08-24T14:15:22Z'
+        pending_with: COUNTER_PARTY
+    ContractContentResponse:
+      title: ContractContentResponse
+      type: object
+      properties:
+        contract_id:
+          title: Contract Id
+          description: The contract ID
+          type: string
+        content_format:
+          allOf:
+          - $ref: '#/components/schemas/ContentFormatEnum'
+          title: ContractContentFormatType
+          description: Format of the returned content
+        content:
+          title: Content
+          description: Full contract text content (when format=text)
+          type: string
+        segments:
+          title: Segments
+          description: Text segments with metadata (when format=segments)
+          type: array
+          items:
+            title: TextSegmentedResponse
+            type: object
+            properties:
+              segment_text:
+                title: Segment Text
+                type: string
+            required:
+            - segment_text
+        extraction_status:
+          allOf:
+          - $ref: '#/components/schemas/ExtractionStatusEnum'
+          title: ContractContentExtractionStatus
+          description: Status of the content extraction process
+        last_updated:
+          title: Last Updated
+          description: Timestamp when content was last extracted
+          type: string
+          format: date-time
+      required:
+      - contract_id
+      - content_format
+      - extraction_status
+      examples:
+      - contract_id: T-12345
+        content_format: text
+        content: This Agreement is entered into between...
+        segments: null
+        extraction_status: completed
+        last_updated: '2024-01-15T10:30:00Z'
+      - contract_id: T-12345
+        content_format: segments
+        content: null
+        segments:
+        - segment_text: This Agreement is entered into...
+          page_number: 1
+          position: 1
+        extraction_status: completed
+        last_updated: '2024-01-15T10:30:00Z'
+    SendToCounterparty:
+      type: object
+      properties:
+        to_emails:
+          type: array
+          items:
+            type: string
+          description: Optional list of primary recipient email addresses. If omitted, SpotDraft uses the configured counterparty recipients for the contract.
+        cc_emails:
+          type: array
+          items:
+            type: string
+          description: Optional list of email addresses to copy on the outbound contract email.
+        bcc_emails:
+          type: array
+          items:
+            type: string
+          description: Optional list of blind-copy email addresses for the outbound contract email.
+        attachment_formats:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentFormatsEnum'
+          description: At least one attachment format is required. Allowed values come from the ContractEmailFormat enum.
+        extra_attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailBase64Attachment'
+          description: Optional additional attachments to send with the contract email.
+        custom_message:
+          type: string
+          description: Optional custom message to include in the contract email body.
+        subject:
+          type: string
+          description: Optional custom email subject line.
+      required:
+      - attachment_formats
+    ExternalContractRelationCreateRequest:
+      title: ExternalContractRelationCreateRequest
+      type: object
+      properties:
+        related_contract_id:
+          title: Related Contract Id
+          description: ID of the contract that is being related.
+          type: integer
+        relation_type:
+          allOf:
+          - $ref: '#/components/schemas/RelationTypeEnum'
+          title: ContractRelationType
+          description: Type of relationship established with the related contract.
+      required:
+      - related_contract_id
+      - relation_type
+      examples:
+      - related_contract_id: 1234
+        relation_type: CHILD
+    ExternalContractQuestionnairePublicResponse:
+      title: ExternalContractQuestionnairePublicResponse
+      type: object
+      properties:
+        questionnaire_response_data:
+          title: Questionnaire Response Data
+          description: Questionnaire response data for the contract.
+          type: object
+        respondents:
+          title: Respondents
+          description: List of users who answered the questionnaire.
+          type: array
+          items:
+            title: ExternalContractQuestionnaireRespondentPublicData
+            description: Respondent data for contract questionnaire responses
+            type: object
+            properties:
+              created_at:
+                title: Created At
+                description: Time when the respondent filled the questionnaire for the contract
+                type: string
+                format: date-time
+              created_by:
+                title: Created By
+                description: Respondent name who filled questionnaire for the contract
+                type: string
+              org_name:
+                title: Org Name
+                description: Name of the organization to which respondent belongs to.
+                type: string
+      required:
+      - questionnaire_response_data
+      examples:
+      - questionnaire_response_data:
+          department: product
+        respondents:
+        - created_at: '2023-06-14T10:46:15.205587Z'
+          created_by: Mike Reed
+          org_name: Acme Inc.
+    ContractUploadForReviewRequest:
+      title: ContractUploadForReviewRequest
+      type: object
+      properties:
+        contract_name:
+          title: Contract Name
+          description: The name of the uploaded contract that is visible to users.
+          type: string
+        contract_type_id:
+          title: Contract Type Id
+          description: The ID of the contract type for this uploaded contract. Use the [Get Contract Types](#tag/V2.1-Contract-Type-APIs/operation/v2.1_public_contract_types_list) API to get this ID.
+          type: integer
+        file_name:
+          title: File Name
+          description: The name of the file being uploaded. This is used when the file is downloaded. Expected to be a fully qualified file name with an extension.
+          type: string
+        file_base64:
+          title: File Base64
+          description: The contents of the file as a base64 encoded string.
+          type: string
+        creator_organization_entity_id:
+          title: Creator Organization Entity Id
+          description: The ID of the organization entity for the creator party of the uploaded contract. Use the [Get Organization Entities](#tag/V2.1-Organization-APIs/operation/v2.1_public_organizations_entities_list) API to get this ID.
+          type: integer
+        external_metadata:
+          title: External Metadata
+          type: object
+          properties:
+            id:
+              title: Id
+              description: Identifier of the record in the external system.
+            integration_name:
+              title: Integration Name
+              description: Name of the external integration, for example Salesforce.
+              type: string
+            record_type:
+              title: Record Type
+              description: External record type, for example Opportunity or Account.
+              type: string
+            record_data:
+              title: Record Data
+              description: Arbitrary metadata payload from the external system.
+              type: object
+            object_configuration_id:
+              title: Object Configuration Id
+              description: Optional public identifier for a native integration object configuration. When provided, also send `record_type`. The API resolves and stores the corresponding internal entity reference.
+              type: string
+              format: uuid
+          description: Optional external system metadata to associate with the uploaded contract.
+        reviewer:
+          title: Reviewer
+          type: object
+          properties:
+            org_user_email:
+              title: Org User Email
+              description: Email of the reviewer
+              type: string
+            role_id:
+              title: Role Id
+              description: Role id of reviewer
+              type: integer
+            description:
+              title: Description
+              description: Note to the reviewer
+              default: ''
+              type: string
+          description: Used to set reviewer for contract being uploaded
+        counterparty_workspace_id:
+          title: Counterparty Workspace Id
+          description: workspace_id of counterparty organization. Either this field or `counterparty_organization_name` is required.
+          type: integer
+        counterparty_organization_name:
+          title: Counterparty Organization Name
+          description: The name of the counter party's organization. Either this field or `counterparty_workspace_id` is required.
+          type: string
+        counterparty_is_individual:
+          title: Counterparty Is Individual
+          description: Defines if this Counterparty is an individual or an organization like a company.When not provided organization like company is created.
+          type: boolean
+        counterparty_poc_details:
+          title: Counterparty Poc Details
+          type: object
+          properties:
+            first_name:
+              title: First Name
+              description: The first name of the Point of Contact
+              type: string
+            last_name:
+              title: Last Name
+              description: The last name of the Point of Contact
+              type: string
+            email:
+              title: Email
+              description: The email address of the Point of Contact
+              type: string
+          required:
+          - first_name
+          - last_name
+          - email
+          description: Point of Contact details for this counterparty. Should be the details of the individual for `counterparty_is_individual=True` and the details of the contact at the counterparty organization in case of `counterparty_is_individual=False`.
+        intake_form_data:
+          title: Intake Form Data
+          description: A key-value object keyed by intake-form questionnaire field name. Values must match the question type configured on the upload workflow. Use the Intake Form Questionnaire API to discover the allowed field names and expected value shapes.
+          type: object
+        business_user_email:
+          title: Business User Email
+          description: The email address of the business user for the Upload for Sign contract.
+          type: string
+          format: email
+        creator_signatories:
+          title: Creator Signatories
+          description: Details of the signatories on the creator party side.
+          type: array
+          items:
+            title: CreatorPartySignatoryRequest
+            type: object
+            properties:
+              email:
+                title: Email
+                description: Email of the signatory on the creator party side.
+                type: string
+                format: email
+              title:
+                title: Title
+                description: Title of the signatory.
+                default: ''
+                type: string
+              note:
+                title: Note
+                description: Note for the signatory
+                type: string
+            required:
+            - email
+      required:
+      - contract_name
+      - contract_type_id
+      - file_name
+      - file_base64
+      examples:
+      - contract_name: Acme Vendor Paper
+        contract_type_id: 1
+        file_name: vendor-paper.pdf
+        file_base64: base64 encoded string of the PDF file
+        creator_organization_entity_id: 1
+        counterparty_organization_name: Acme Corporation
+        counterparty_is_individual: false
+        counterparty_poc_details:
+          first_name: Avery
+          last_name: Stone
+          email: legal@acme.example
+        reviewer:
+          org_user_email: reviewer@spotdraft.example
+          description: Please review the indemnity clause and payment terms.
+        intake_form_data:
+          term:
+            days: 180
+            type: MONTHS
+            value: 6
+          notes: Customer requested revised indemnity clause.
+          capacity: 15
+          setup_fee:
+            type: USD
+            value: 30000.0
+          start_date: '2026-04-01'
+          payment_method: annual_invoice
+    ExternalContractV3:
+      type: object
+      description: Defines the data required to be shown affter contract creation
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          description: The timestamp at which this contract was first created.
+        contract_name:
+          type: string
+          description: The name of the contract. Might be defaulted from the template or edited by the user.
+        contract_link:
+          type: string
+          readOnly: true
+          description: The link to the SpotDraft app where this contract can be viewed. The user will need to log in (and have view access) to be able to view the contract.
+        contract_status:
+          allOf:
+          - $ref: '#/components/schemas/ContractDisplayStatusEnum'
+          description: The status of this contract.
+          readOnly: true
+        created_by:
+          type: string
+          readOnly: true
+          description: The email address of the user who created this contract.
+        counter_party_name:
+          type: string
+          readOnly: true
+          description: The name of the Counter Party for this contract.
+        contract_type_name:
+          type: string
+          readOnly: true
+          description: The type of Contract. The types are as defined by the Client.
+        contract_type_id:
+          type: integer
+          readOnly: true
+          description: The ID of the Contract Type.
+        created_by_workspace:
+          type: integer
+          readOnly: true
+          description: The workspace ID of the user who created or uploaded the executed contract on to SpotDraft's platform.
+        external_metadata:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The external metadata associated with this contract.
+        reference_id:
+          type: string
+          readOnly: true
+          description: The reference id of the contract.
+      required:
+      - contract_link
+      - contract_name
+      - contract_status
+      - contract_type_id
+      - contract_type_name
+      - counter_party_name
+      - created
+      - created_by
+      - created_by_workspace
+      - external_metadata
+      - id
+      - reference_id
+    ScannedContractContentResponse:
+      title: ScannedContractContentResponse
+      type: object
+      properties:
+        contract_id:
+          title: Contract Id
+          description: The contract ID
+          type: string
+        content:
+          title: Content
+          description: Extracted full text content from the scanned PDF
+          type: string
+      required:
+      - contract_id
+      - content
+      examples:
+      - contract_id: 1090393
+        content: This Agreement is entered into between...
+    PatchedIntakeFormData:
+      title: IntakeFormData
+      description: A key-value object keyed by intake-form question field name. Values must match the question type configured on the contract type questionnaire.
+      type: object
+      additionalProperties: false
+      examples:
+      - term:
+          days: 180
+          type: MONTHS
+          value: 6
+        notes: Customer requested revised indemnity clause.
+        capacity: 15
+        setup_fee:
+          type: USD
+          value: 30000.0
+        start_date: '2026-04-01'
+        payment_method: annual_invoice
+    EmailBase64Attachment:
+      type: object
+      properties:
+        file_name:
+          type: string
+        mime_type:
+          type: string
+        content_base64:
+          type: string
+      required:
+      - content_base64
+      - file_name
+      - mime_type
+    CounterPartyEmbeddedUrlResponse:
+      title: CounterPartyEmbeddedUrlResponse
+      type: object
+      properties:
+        url:
+          title: Url
+          type: string
+      required:
+      - url
+    ExternalCreateContractSignatory:
+      type: object
+      description: Defines the data that is required for create contract signatory
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        title:
+          type: string
+        is_counterparty_signatory:
+          type: boolean
+          description: Set this as True if the signatory belongs to a counterparty. Else set it as False.
+        counterparty_name:
+          type: string
+          description: Required if `is_counterparty_signatory` is True. Must match the name of one of the counterparties in `counter_party_details`. If the counterparty `is_individual` is True, this should be the concatenation of the `first_name` and `last_name` from `poc_details` (e.g., 'John Doe'). If `is_individual` is False, this should match the `organization_name` of the counterparty.  If `is_counterparty_signatory` is False, leave this field blank.
+        sign_order:
+          type: integer
+        note:
+          type: string
+      required:
+      - email
+      - is_counterparty_signatory
+      - name
+    ExternalRelatedContractListResponse:
+      title: ExternalRelatedContractListResponse
+      type: object
+      properties:
+        page:
+          title: Page
+          description: Current page number
+          type: integer
+        limit:
+          title: Limit
+          description: Number of results per page
+          type: integer
+        total_results:
+          title: Total Results
+          description: Total number of related contracts
+          type: integer
+        results:
+          title: Results
+          description: List of related contracts
+          type: array
+          items:
+            title: ExternalRelatedContractResponse
+            type: object
+            properties:
+              id:
+                title: Id
+                description: Contract Relation ID
+                type: integer
+              contract:
+                title: Contract
+                type: object
+                properties:
+                  id:
+                    title: Id
+                    description: ID of the related contract
+                    type: integer
+                  name:
+                    title: Name
+                    description: Name of the related contract
+                    type: string
+                  counter_party_list:
+                    title: Counter Party List
+                    description: List of counterparty names associated with the contract
+                    type: array
+                    items:
+                      type: string
+                  display_status:
+                    title: ContractDisplayStatus
+                    description: Current display status of the contract
+                    enum:
+                    - DRAFT
+                    - REDLINING
+                    - SIGN
+                    - EXECUTED
+                    - ON_HOLD
+                    - VOIDED
+                    type: string
+                required:
+                - id
+                - name
+                - counter_party_list
+                - display_status
+                description: Details of the related contract
+              relation_type:
+                title: Relation Type
+                description: Type of relationship (CHILD, ADDENDUM, AMENDMENT, PARENT)
+                type: string
+            required:
+            - id
+            - contract
+            - relation_type
+            examples:
+            - id: 1000
+              contract:
+                id: 1234
+                name: Acme Corporation NDA
+                counter_party_list:
+                - Acme Corp
+                display_status: EXECUTED
+              relation_type: CHILD
+      required:
+      - page
+      - limit
+      - total_results
+      - results
+      examples:
+      - page: 1
+        limit: 10
+        total_results: 2
+        results:
+        - id: 1000
+          contract:
+            id: 1234
+            name: Acme Corporation NDA
+            counter_party_list:
+            - Acme Corp
+            display_status: EXECUTED
+          relation_type: CHILD
+        - id: 1001
+          contract:
+            id: 5678
+            name: Acme Corporation MSA
+            counter_party_list:
+            - Acme Corp
+            display_status: DRAFT
+          relation_type: AMENDMENT
   securitySchemes:
     ClickwrapId:
       type: apiKey

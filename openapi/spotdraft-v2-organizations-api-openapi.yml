@@ -155,6 +155,50 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
+    OrganizationTypeListDomainModel:
+      title: OrganizationTypeListDomainModel
+      type: array
+      items:
+        title: OrganizationTypeDomainModel
+        type: object
+        properties:
+          id:
+            title: Id
+            description: The ID of the Organization Type.
+            type: integer
+          name:
+            title: Name
+            description: Name of the Organization Type. For example LLP vs LLC vs S Corp in the US
+            type: string
+          jurisdiction:
+            title: Jurisdiction
+            type: object
+            properties:
+              id:
+                title: Id
+                description: The ID of the Jurisdiction.
+                type: integer
+              name:
+                title: Name
+                description: The name of the Jurisdiction.
+                type: string
+              code2:
+                title: Code2
+                description: The ISO-3166-1 Alpha-2 code of the Jurisdiction.
+                type: string
+            required:
+            - id
+            description: The Jurisdiction associated with the Organization Type.
+        required:
+        - id
+        - name
+        examples:
+        - id: 2798
+          name: Limited Liability Company (LLC)
+          jurisdiction:
+            id: 234
+            name: United States
+            iso_code: US
     OrganizationEntityDomainModel:
       title: OrganizationEntityDomainModel
       type: object
@@ -384,50 +428,6 @@ components:
           line_one: 3659 Burwell Heights Road
           country_iso_code: US
         is_primary: false
-    OrganizationTypeListDomainModel:
-      title: OrganizationTypeListDomainModel
-      type: array
-      items:
-        title: OrganizationTypeDomainModel
-        type: object
-        properties:
-          id:
-            title: Id
-            description: The ID of the Organization Type.
-            type: integer
-          name:
-            title: Name
-            description: Name of the Organization Type. For example LLP vs LLC vs S Corp in the US
-            type: string
-          jurisdiction:
-            title: Jurisdiction
-            type: object
-            properties:
-              id:
-                title: Id
-                description: The ID of the Jurisdiction.
-                type: integer
-              name:
-                title: Name
-                description: The name of the Jurisdiction.
-                type: string
-              code2:
-                title: Code2
-                description: The ISO-3166-1 Alpha-2 code of the Jurisdiction.
-                type: string
-            required:
-            - id
-            description: The Jurisdiction associated with the Organization Type.
-        required:
-        - id
-        - name
-        examples:
-        - id: 2798
-          name: Limited Liability Company (LLC)
-          jurisdiction:
-            id: 234
-            name: United States
-            iso_code: US
     OrganizationEntityListDomainModel:
       title: OrganizationEntityListDomainModel
       type: array

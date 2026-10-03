@@ -131,49 +131,6 @@ paths:
       x-tagGroup: Contracts
 components:
   schemas:
-    ExternalCommentResponse:
-      title: ExternalCommentResponse
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        contract_id:
-          title: Contract Id
-          description: The id of the contract to which the comment belongs.
-          type: integer
-        comment:
-          title: Comment
-          description: The content of the comment.
-          type: string
-        replies:
-          title: Replies
-          description: The replies associated with the comment.
-          type: array
-          items:
-            title: ExternalReplyResponse
-            type: object
-            properties:
-              id:
-                title: Id
-                type: integer
-              comment:
-                title: Comment
-                description: The content of the reply.
-                type: string
-            required:
-            - id
-            - comment
-      required:
-      - id
-      - contract_id
-      - comment
-      - replies
-      examples:
-      - id: 1001
-        contract_id: 211270
-        comment: Hey test.user@spotdraft.com please review this contract.
-        replies: []
     ExternalCreateContractCommentRequest:
       title: ExternalCreateContractCommentRequest
       type: object
@@ -265,6 +222,49 @@ components:
           contract_id: 211270
           comment: Hi team this contract need your review.
           replies: []
+    ExternalCommentResponse:
+      title: ExternalCommentResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        contract_id:
+          title: Contract Id
+          description: The id of the contract to which the comment belongs.
+          type: integer
+        comment:
+          title: Comment
+          description: The content of the comment.
+          type: string
+        replies:
+          title: Replies
+          description: The replies associated with the comment.
+          type: array
+          items:
+            title: ExternalReplyResponse
+            type: object
+            properties:
+              id:
+                title: Id
+                type: integer
+              comment:
+                title: Comment
+                description: The content of the reply.
+                type: string
+            required:
+            - id
+            - comment
+      required:
+      - id
+      - contract_id
+      - comment
+      - replies
+      examples:
+      - id: 1001
+        contract_id: 211270
+        comment: Hey test.user@spotdraft.com please review this contract.
+        replies: []
   securitySchemes:
     ClickwrapId:
       type: apiKey

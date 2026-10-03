@@ -163,11 +163,283 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
-    TaskCategoryEnum:
+    UserTaskCreateRequest:
+      title: UserTaskCreateRequest
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the task
+          minLength: 1
+          type: string
+        notes:
+          title: Notes
+          description: Notes for the task
+          default: ''
+          type: string
+        contract_id:
+          title: Contract Id
+          description: Contract Id for the task
+          type: integer
+        due_date:
+          title: Due Date
+          description: The date and time when this task is due for completion. For non-intake tasks, exactly one of `due_date` or `due_date_key_pointer_id` is required. For intake tasks, due date fields are optional.
+          type: string
+          format: date-time
+        due_date_key_pointer_id:
+          title: Due Date Key Pointer Id
+          description: The ID of the key pointer that has the due date for the task. For non-intake tasks, exactly one of `due_date` or `due_date_key_pointer_id` is required. For intake tasks, due date fields are optional.
+          type: integer
+        assignees:
+          title: Assignees
+          description: List of assignees for the task. For non-intake tasks, at least one assignee is required. Each assignee must set exactly one of `org_user_id` or `role_id`.
+          type: array
+          items:
+            title: TaskAssigneeCreateRequest
+            type: object
+            properties:
+              org_user_id:
+                title: Org User Id
+                type: integer
+              role_id:
+                title: Role Id
+                type: integer
+        reminders:
+          title: Reminders
+          description: List of reminders relative to the due date. Reminder values must use the supported duration object shape.
+          type: array
+          items:
+            title: ReminderRelativeTime
+            type: object
+            properties:
+              value:
+                title: Value
+                description: The value of the reminder relative time
+                type: integer
+              type:
+                title: DurationKind
+                description: The type of the reminder relative time
+                enum:
+                - DAYS
+                - WEEKS
+                - MONTHS
+                - YEARS
+                default: DAYS
+              days:
+                title: Days
+                description: The number of days for the reminder relative time
+                type: integer
+            required:
+            - value
+            - days
+        task_category:
+          allOf:
+          - $ref: '#/components/schemas/TaskCategoryEnum'
+          title: TaskCategory
+          description: The category of the task. `priority` and `intake_task_status` are only allowed for `INTAKE_TASK`.
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/PriorityEnum'
+          title: TaskPriority
+          description: Priority of the task. Only allowed for `INTAKE_TASK`; defaults to `MEDIUM` when omitted for intake tasks.
+        intake_task_status:
+          allOf:
+          - $ref: '#/components/schemas/IntakeTaskStatusEnum'
+          title: IntakeTaskStatus
+          description: Status of the intake task. Only allowed for `INTAKE_TASK`; defaults to `PENDING` when omitted for intake tasks.
+        task_associations:
+          title: Task Associations
+          description: The associations of the task
+          type: array
+          items:
+            title: TaskAssociationCreateRequest
+            type: object
+            properties:
+              entity_id:
+                title: Entity Id
+                description: The ID of the entity for the task association
+                type: integer
+              entity_type:
+                title: TaskAssociationEntityType
+                description: The type of the entity for the task association
+                enum:
+                - OBLIGATION
+                - LEGAL_INTAKE
+                type: string
+              association_type:
+                title: TaskAssociationType
+                description: The type of the association for the task association
+                enum:
+                - PRIMARY
+                - SECONDARY
+                type: string
+                default: PRIMARY
+      required:
+      - title
+      - assignees
+      examples:
+      - title: test title
+        notes: test note
+        contract_id: 1
+        due_date: '2021-05-20T04:52:04Z'
+        assignees:
+        - org_user_id: 1
+        - role_id: 1
+        reminders:
+        - value: 10
+          type: DAYS
+    UserTaskCreateRequestList:
+      title: UserTaskCreateRequestList
+      description: List of tasks
+      type: array
+      items:
+        title: UserTaskCreateRequest
+        type: object
+        properties:
+          title:
+            title: Title
+            description: Title of the task
+            minLength: 1
+            type: string
+          notes:
+            title: Notes
+            description: Notes for the task
+            default: ''
+            type: string
+          contract_id:
+            title: Contract Id
+            description: Contract Id for the task
+            type: integer
+          due_date:
+            title: Due Date
+            description: The date and time when this task is due for completion. For non-intake tasks, exactly one of `due_date` or `due_date_key_pointer_id` is required. For intake tasks, due date fields are optional.
+            type: string
+            format: date-time
+          due_date_key_pointer_id:
+            title: Due Date Key Pointer Id
+            description: The ID of the key pointer that has the due date for the task. For non-intake tasks, exactly one of `due_date` or `due_date_key_pointer_id` is required. For intake tasks, due date fields are optional.
+            type: integer
+          assignees:
+            title: Assignees
+            description: List of assignees for the task. For non-intake tasks, at least one assignee is required. Each assignee must set exactly one of `org_user_id` or `role_id`.
+            type: array
+            items:
+              title: TaskAssigneeCreateRequest
+              type: object
+              properties:
+                org_user_id:
+                  title: Org User Id
+                  type: integer
+                role_id:
+                  title: Role Id
+                  type: integer
+          reminders:
+            title: Reminders
+            description: List of reminders relative to the due date. Reminder values must use the supported duration object shape.
+            type: array
+            items:
+              title: ReminderRelativeTime
+              type: object
+              properties:
+                value:
+                  title: Value
+                  description: The value of the reminder relative time
+                  type: integer
+                type:
+                  title: DurationKind
+                  description: The type of the reminder relative time
+                  enum:
+                  - DAYS
+                  - WEEKS
+                  - MONTHS
+                  - YEARS
+                  default: DAYS
+                days:
+                  title: Days
+                  description: The number of days for the reminder relative time
+                  type: integer
+              required:
+              - value
+              - days
+          task_category:
+            title: TaskCategory
+            description: The category of the task. `priority` and `intake_task_status` are only allowed for `INTAKE_TASK`.
+            enum:
+            - USER_TASK
+            - OBLIGATION_TASK
+            - INTAKE_TASK
+            type: string
+          priority:
+            title: TaskPriority
+            description: Priority of the task. Only allowed for `INTAKE_TASK`; defaults to `MEDIUM` when omitted for intake tasks.
+            enum:
+            - LOW
+            - MEDIUM
+            - HIGH
+            type: string
+          intake_task_status:
+            title: IntakeTaskStatus
+            description: Status of the intake task. Only allowed for `INTAKE_TASK`; defaults to `PENDING` when omitted for intake tasks.
+            enum:
+            - PENDING
+            - IN_PROGRESS
+            - BLOCKED
+            - COMPLETED
+            - DISCARDED
+            type: string
+          task_associations:
+            title: Task Associations
+            description: The associations of the task
+            type: array
+            items:
+              title: TaskAssociationCreateRequest
+              type: object
+              properties:
+                entity_id:
+                  title: Entity Id
+                  description: The ID of the entity for the task association
+                  type: integer
+                entity_type:
+                  title: TaskAssociationEntityType
+                  description: The type of the entity for the task association
+                  enum:
+                  - OBLIGATION
+                  - LEGAL_INTAKE
+                  type: string
+                association_type:
+                  title: TaskAssociationType
+                  description: The type of the association for the task association
+                  enum:
+                  - PRIMARY
+                  - SECONDARY
+                  type: string
+                  default: PRIMARY
+        required:
+        - title
+        - assignees
+        examples:
+        - title: test title
+          notes: test note
+          contract_id: 1
+          due_date: '2021-05-20T04:52:04Z'
+          assignees:
+          - org_user_id: 1
+          - role_id: 1
+          reminders:
+          - value: 10
+            type: DAYS
+    UserTaskPublicResponseStatusEnum:
       enum:
-      - USER_TASK
-      - OBLIGATION_TASK
-      - INTAKE_TASK
+      - COMPLETED
+      - UPCOMING
+      - OVERDUE
+      - NO_DATE
+      type: string
+    PriorityEnum:
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
       type: string
     UserTaskPublicResponse:
       title: UserTaskPublicResponse
@@ -737,6 +1009,12 @@ components:
       - created_by_org_user
       - created_by_workspace
       - assignees
+    TaskCategoryEnum:
+      enum:
+      - USER_TASK
+      - OBLIGATION_TASK
+      - INTAKE_TASK
+      type: string
     UserTaskPublicResponseList:
       title: UserTaskPublicResponseList
       type: array
@@ -1315,137 +1593,6 @@ components:
         - created_by_org_user
         - created_by_workspace
         - assignees
-    UserTaskCreateRequest:
-      title: UserTaskCreateRequest
-      type: object
-      properties:
-        title:
-          title: Title
-          description: Title of the task
-          minLength: 1
-          type: string
-        notes:
-          title: Notes
-          description: Notes for the task
-          default: ''
-          type: string
-        contract_id:
-          title: Contract Id
-          description: Contract Id for the task
-          type: integer
-        due_date:
-          title: Due Date
-          description: The date and time when this task is due for completion. For non-intake tasks, exactly one of `due_date` or `due_date_key_pointer_id` is required. For intake tasks, due date fields are optional.
-          type: string
-          format: date-time
-        due_date_key_pointer_id:
-          title: Due Date Key Pointer Id
-          description: The ID of the key pointer that has the due date for the task. For non-intake tasks, exactly one of `due_date` or `due_date_key_pointer_id` is required. For intake tasks, due date fields are optional.
-          type: integer
-        assignees:
-          title: Assignees
-          description: List of assignees for the task. For non-intake tasks, at least one assignee is required. Each assignee must set exactly one of `org_user_id` or `role_id`.
-          type: array
-          items:
-            title: TaskAssigneeCreateRequest
-            type: object
-            properties:
-              org_user_id:
-                title: Org User Id
-                type: integer
-              role_id:
-                title: Role Id
-                type: integer
-        reminders:
-          title: Reminders
-          description: List of reminders relative to the due date. Reminder values must use the supported duration object shape.
-          type: array
-          items:
-            title: ReminderRelativeTime
-            type: object
-            properties:
-              value:
-                title: Value
-                description: The value of the reminder relative time
-                type: integer
-              type:
-                title: DurationKind
-                description: The type of the reminder relative time
-                enum:
-                - DAYS
-                - WEEKS
-                - MONTHS
-                - YEARS
-                default: DAYS
-              days:
-                title: Days
-                description: The number of days for the reminder relative time
-                type: integer
-            required:
-            - value
-            - days
-        task_category:
-          allOf:
-          - $ref: '#/components/schemas/TaskCategoryEnum'
-          title: TaskCategory
-          description: The category of the task. `priority` and `intake_task_status` are only allowed for `INTAKE_TASK`.
-        priority:
-          allOf:
-          - $ref: '#/components/schemas/PriorityEnum'
-          title: TaskPriority
-          description: Priority of the task. Only allowed for `INTAKE_TASK`; defaults to `MEDIUM` when omitted for intake tasks.
-        intake_task_status:
-          allOf:
-          - $ref: '#/components/schemas/IntakeTaskStatusEnum'
-          title: IntakeTaskStatus
-          description: Status of the intake task. Only allowed for `INTAKE_TASK`; defaults to `PENDING` when omitted for intake tasks.
-        task_associations:
-          title: Task Associations
-          description: The associations of the task
-          type: array
-          items:
-            title: TaskAssociationCreateRequest
-            type: object
-            properties:
-              entity_id:
-                title: Entity Id
-                description: The ID of the entity for the task association
-                type: integer
-              entity_type:
-                title: TaskAssociationEntityType
-                description: The type of the entity for the task association
-                enum:
-                - OBLIGATION
-                - LEGAL_INTAKE
-                type: string
-              association_type:
-                title: TaskAssociationType
-                description: The type of the association for the task association
-                enum:
-                - PRIMARY
-                - SECONDARY
-                type: string
-                default: PRIMARY
-      required:
-      - title
-      - assignees
-      examples:
-      - title: test title
-        notes: test note
-        contract_id: 1
-        due_date: '2021-05-20T04:52:04Z'
-        assignees:
-        - org_user_id: 1
-        - role_id: 1
-        reminders:
-        - value: 10
-          type: DAYS
-    PriorityEnum:
-      enum:
-      - LOW
-      - MEDIUM
-      - HIGH
-      type: string
     IntakeTaskStatusEnum:
       enum:
       - PENDING
@@ -1454,153 +1601,6 @@ components:
       - COMPLETED
       - DISCARDED
       type: string
-    UserTaskPublicResponseStatusEnum:
-      enum:
-      - COMPLETED
-      - UPCOMING
-      - OVERDUE
-      - NO_DATE
-      type: string
-    UserTaskCreateRequestList:
-      title: UserTaskCreateRequestList
-      description: List of tasks
-      type: array
-      items:
-        title: UserTaskCreateRequest
-        type: object
-        properties:
-          title:
-            title: Title
-            description: Title of the task
-            minLength: 1
-            type: string
-          notes:
-            title: Notes
-            description: Notes for the task
-            default: ''
-            type: string
-          contract_id:
-            title: Contract Id
-            description: Contract Id for the task
-            type: integer
-          due_date:
-            title: Due Date
-            description: The date and time when this task is due for completion. For non-intake tasks, exactly one of `due_date` or `due_date_key_pointer_id` is required. For intake tasks, due date fields are optional.
-            type: string
-            format: date-time
-          due_date_key_pointer_id:
-            title: Due Date Key Pointer Id
-            description: The ID of the key pointer that has the due date for the task. For non-intake tasks, exactly one of `due_date` or `due_date_key_pointer_id` is required. For intake tasks, due date fields are optional.
-            type: integer
-          assignees:
-            title: Assignees
-            description: List of assignees for the task. For non-intake tasks, at least one assignee is required. Each assignee must set exactly one of `org_user_id` or `role_id`.
-            type: array
-            items:
-              title: TaskAssigneeCreateRequest
-              type: object
-              properties:
-                org_user_id:
-                  title: Org User Id
-                  type: integer
-                role_id:
-                  title: Role Id
-                  type: integer
-          reminders:
-            title: Reminders
-            description: List of reminders relative to the due date. Reminder values must use the supported duration object shape.
-            type: array
-            items:
-              title: ReminderRelativeTime
-              type: object
-              properties:
-                value:
-                  title: Value
-                  description: The value of the reminder relative time
-                  type: integer
-                type:
-                  title: DurationKind
-                  description: The type of the reminder relative time
-                  enum:
-                  - DAYS
-                  - WEEKS
-                  - MONTHS
-                  - YEARS
-                  default: DAYS
-                days:
-                  title: Days
-                  description: The number of days for the reminder relative time
-                  type: integer
-              required:
-              - value
-              - days
-          task_category:
-            title: TaskCategory
-            description: The category of the task. `priority` and `intake_task_status` are only allowed for `INTAKE_TASK`.
-            enum:
-            - USER_TASK
-            - OBLIGATION_TASK
-            - INTAKE_TASK
-            type: string
-          priority:
-            title: TaskPriority
-            description: Priority of the task. Only allowed for `INTAKE_TASK`; defaults to `MEDIUM` when omitted for intake tasks.
-            enum:
-            - LOW
-            - MEDIUM
-            - HIGH
-            type: string
-          intake_task_status:
-            title: IntakeTaskStatus
-            description: Status of the intake task. Only allowed for `INTAKE_TASK`; defaults to `PENDING` when omitted for intake tasks.
-            enum:
-            - PENDING
-            - IN_PROGRESS
-            - BLOCKED
-            - COMPLETED
-            - DISCARDED
-            type: string
-          task_associations:
-            title: Task Associations
-            description: The associations of the task
-            type: array
-            items:
-              title: TaskAssociationCreateRequest
-              type: object
-              properties:
-                entity_id:
-                  title: Entity Id
-                  description: The ID of the entity for the task association
-                  type: integer
-                entity_type:
-                  title: TaskAssociationEntityType
-                  description: The type of the entity for the task association
-                  enum:
-                  - OBLIGATION
-                  - LEGAL_INTAKE
-                  type: string
-                association_type:
-                  title: TaskAssociationType
-                  description: The type of the association for the task association
-                  enum:
-                  - PRIMARY
-                  - SECONDARY
-                  type: string
-                  default: PRIMARY
-        required:
-        - title
-        - assignees
-        examples:
-        - title: test title
-          notes: test note
-          contract_id: 1
-          due_date: '2021-05-20T04:52:04Z'
-          assignees:
-          - org_user_id: 1
-          - role_id: 1
-          reminders:
-          - value: 10
-            type: DAYS
   securitySchemes:
     ClickwrapId:
       type: apiKey

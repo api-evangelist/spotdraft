@@ -524,12 +524,115 @@ paths:
       x-tagGroup: Legal Intake
 components:
   schemas:
-    LegalIntakeAssigneeEntityType:
+    LegalIntakePublicListResponse:
+      description: Paginated list of legal intakes. Response schema for List legal intakes API.
+      examples:
+      - has_next: false
+        has_previous: false
+        intakes:
+        - created_at: '2025-01-15T10:00:00Z'
+          created_by:
+            designation: Legal
+            email: jane@example.com
+            id: 1
+            name: Jane Doe
+          description: Legal review for vendor NDA
+          due_date: '2025-12-31T23:59:59Z'
+          frozen_workflow:
+            description: Standard NDA
+            id: 100
+            title: NDA Workflow
+            type: INTAKE_WORKFLOW
+            workflow_id: 1
+          id: 1
+          metadata: {}
+          modified_at: '2025-01-15T10:00:00Z'
+          priority: HIGH
+          public_id: 10f9a299-9e9a-4bc9-9299-5b89bc06d370
+          reference_id: I-001
+          status: PENDING
+          title: Review NDA
+        limit: 50
+        page: 1
+        total_count: 1
+        total_pages: 1
+      properties:
+        intakes:
+          description: List of legal intake response objects for the current page.
+          items:
+            $ref: '#/components/schemas/LegalIntakePublicListItemResponse'
+          title: Intakes
+          type: array
+        total_count:
+          description: Total matching intakes across pages.
+          title: Total Count
+          type: integer
+        page:
+          description: Current page number.
+          title: Page
+          type: integer
+        limit:
+          description: Page size used for this response.
+          title: Limit
+          type: integer
+        total_pages:
+          description: Total number of pages for the current query.
+          title: Total Pages
+          type: integer
+        has_next:
+          description: Whether a next page exists.
+          title: Has Next
+          type: boolean
+        has_previous:
+          description: Whether a previous page exists.
+          title: Has Previous
+          type: boolean
+      required:
+      - intakes
+      - total_count
+      - page
+      - limit
+      - total_pages
+      - has_next
+      - has_previous
+      title: LegalIntakePublicListResponse
+      type: object
+    LegalIntakePriority:
       enum:
-      - ORG_USER
-      - ROLE
-      title: LegalIntakeAssigneeEntityType
+      - LOW
+      - MEDIUM
+      - HIGH
+      title: LegalIntakePriority
       type: string
+    FrozenWorkflowPublicResponse:
+      properties:
+        id:
+          description: Id of the frozen workflow snapshot.
+          title: Id
+          type: integer
+        workflow_id:
+          description: Id of the parent workflow this frozen version belongs to.
+          title: Workflow Id
+          type: integer
+        title:
+          description: Title of the frozen workflow.
+          title: Title
+          type: string
+        description:
+          description: Description of the frozen workflow.
+          title: Description
+          type: string
+        type:
+          $ref: '#/components/schemas/WorkflowType'
+          description: Workflow type (e.g. INTAKE_WORKFLOW).
+      required:
+      - id
+      - workflow_id
+      - title
+      - description
+      - type
+      title: FrozenWorkflowPublicResponse
+      type: object
     LegalIntakePublicCreateRequest:
       description: Request body for creating a legal intake from a workflow.
       examples:
@@ -607,6 +710,157 @@ components:
       - workflow_id
       title: LegalIntakePublicCreateRequest
       type: object
+    TaskPriority:
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      title: TaskPriority
+      type: string
+    EntityTypeEnum:
+      enum:
+      - ORG_USER
+      type: string
+    LegalIntakeAssigneePublicResponse:
+      description: Assignee or collaborator in a legal intake response.
+      properties:
+        entity_id:
+          description: Id of the entity assigned to the intake.
+          title: Entity Id
+          type: string
+        entity_type:
+          $ref: '#/components/schemas/LegalIntakeAssigneeEntityType'
+          description: Type of the entity assigned to the intake.
+        assignee_type:
+          $ref: '#/components/schemas/LegalIntakeAssigneeType'
+          description: Type of the assignee.
+        assignee_org_user:
+          anyOf:
+          - $ref: '#/components/schemas/PublicOrgUserResponse'
+          - type: 'null'
+          default: null
+          description: User details when entity_type is ORG_USER.
+      required:
+      - entity_id
+      - entity_type
+      - assignee_type
+      title: LegalIntakeAssigneePublicResponse
+      type: object
+    PublicOrgUserResponse:
+      properties:
+        id:
+          description: Id of the user.
+          title: Id
+          type: integer
+        name:
+          description: Name of the user.
+          title: Name
+          type: string
+        email:
+          description: Email of the user.
+          title: Email
+          type: string
+        designation:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Designation of the user.
+          title: Designation
+      required:
+      - id
+      - name
+      - email
+      title: PublicOrgUserResponse
+      type: object
+    LegalIntakeTaskPublicResponse:
+      description: User task fields returned on legal intake public responses (list/detail).
+      examples:
+      - absolute_due_date: '2025-12-20T17:00:00Z'
+        id: 101
+        intake_task_status: PENDING
+        notes: Friday EOD
+        priority: HIGH
+        reference_id: T-0101
+        status: UPCOMING
+        title: Sign the document
+      properties:
+        id:
+          description: Task ID.
+          title: Id
+          type: integer
+        title:
+          description: Task title.
+          title: Title
+          type: string
+        notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Task notes.
+          title: Notes
+        absolute_due_date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          default: null
+          description: When the task is due.
+          title: Absolute Due Date
+        status:
+          $ref: '#/components/schemas/UserTaskStatus'
+          description: Derived status from due date and completion (e.g. UPCOMING, OVERDUE).
+        priority:
+          anyOf:
+          - $ref: '#/components/schemas/TaskPriority'
+          - type: 'null'
+          default: null
+          description: Priority for intake tasks.
+        intake_task_status:
+          anyOf:
+          - $ref: '#/components/schemas/IntakeTaskStatus'
+          - type: 'null'
+          default: null
+          description: Intake workflow status for the task.
+        reference_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Human-readable task reference when available.
+          title: Reference Id
+      required:
+      - id
+      - title
+      - status
+      title: LegalIntakeTaskPublicResponse
+      type: object
+    LegalIntakeAttachmentPublicResponse:
+      description: Lightweight attachment metadata exposed by the public detail API.
+      properties:
+        uuid:
+          description: Stable UUID for the attached workspace file.
+          format: uuid
+          title: Uuid
+          type: string
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          description: Original filename of the attached workspace file.
+          title: Name
+      required:
+      - uuid
+      title: LegalIntakeAttachmentPublicResponse
+      type: object
+    LegalIntakeAssigneeEntityType:
+      enum:
+      - ORG_USER
+      - ROLE
+      title: LegalIntakeAssigneeEntityType
+      type: string
     LegalIntakePublicDetailResponse:
       description: Detailed legal intake response used by public get/create/update APIs.
       examples:
@@ -773,102 +1027,6 @@ components:
       - modified_at
       title: LegalIntakePublicDetailResponse
       type: object
-    TaskPriority:
-      enum:
-      - LOW
-      - MEDIUM
-      - HIGH
-      title: TaskPriority
-      type: string
-    LegalIntakeAttachmentPublicResponse:
-      description: Lightweight attachment metadata exposed by the public detail API.
-      properties:
-        uuid:
-          description: Stable UUID for the attached workspace file.
-          format: uuid
-          title: Uuid
-          type: string
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          description: Original filename of the attached workspace file.
-          title: Name
-      required:
-      - uuid
-      title: LegalIntakeAttachmentPublicResponse
-      type: object
-    LegalIntakeTaskPublicResponse:
-      description: User task fields returned on legal intake public responses (list/detail).
-      examples:
-      - absolute_due_date: '2025-12-20T17:00:00Z'
-        id: 101
-        intake_task_status: PENDING
-        notes: Friday EOD
-        priority: HIGH
-        reference_id: T-0101
-        status: UPCOMING
-        title: Sign the document
-      properties:
-        id:
-          description: Task ID.
-          title: Id
-          type: integer
-        title:
-          description: Task title.
-          title: Title
-          type: string
-        notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          description: Task notes.
-          title: Notes
-        absolute_due_date:
-          anyOf:
-          - format: date-time
-            type: string
-          - type: 'null'
-          default: null
-          description: When the task is due.
-          title: Absolute Due Date
-        status:
-          $ref: '#/components/schemas/UserTaskStatus'
-          description: Derived status from due date and completion (e.g. UPCOMING, OVERDUE).
-        priority:
-          anyOf:
-          - $ref: '#/components/schemas/TaskPriority'
-          - type: 'null'
-          default: null
-          description: Priority for intake tasks.
-        intake_task_status:
-          anyOf:
-          - $ref: '#/components/schemas/IntakeTaskStatus'
-          - type: 'null'
-          default: null
-          description: Intake workflow status for the task.
-        reference_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          description: Human-readable task reference when available.
-          title: Reference Id
-      required:
-      - id
-      - title
-      - status
-      title: LegalIntakeTaskPublicResponse
-      type: object
-    WorkflowType:
-      enum:
-      - TEMPLATE_WORKFLOW
-      - UPLOAD_WORKFLOW
-      - INTAKE_WORKFLOW
-      title: WorkflowType
-      type: string
     UserTaskStatus:
       enum:
       - COMPLETED
@@ -876,73 +1034,6 @@ components:
       - OVERDUE
       - NO_DATE
       title: UserTaskStatus
-      type: string
-    LegalIntakeAssigneePublicResponse:
-      description: Assignee or collaborator in a legal intake response.
-      properties:
-        entity_id:
-          description: Id of the entity assigned to the intake.
-          title: Entity Id
-          type: string
-        entity_type:
-          $ref: '#/components/schemas/LegalIntakeAssigneeEntityType'
-          description: Type of the entity assigned to the intake.
-        assignee_type:
-          $ref: '#/components/schemas/LegalIntakeAssigneeType'
-          description: Type of the assignee.
-        assignee_org_user:
-          anyOf:
-          - $ref: '#/components/schemas/PublicOrgUserResponse'
-          - type: 'null'
-          default: null
-          description: User details when entity_type is ORG_USER.
-      required:
-      - entity_id
-      - entity_type
-      - assignee_type
-      title: LegalIntakeAssigneePublicResponse
-      type: object
-    LegalIntakePriority:
-      enum:
-      - LOW
-      - MEDIUM
-      - HIGH
-      title: LegalIntakePriority
-      type: string
-    FrozenWorkflowPublicResponse:
-      properties:
-        id:
-          description: Id of the frozen workflow snapshot.
-          title: Id
-          type: integer
-        workflow_id:
-          description: Id of the parent workflow this frozen version belongs to.
-          title: Workflow Id
-          type: integer
-        title:
-          description: Title of the frozen workflow.
-          title: Title
-          type: string
-        description:
-          description: Description of the frozen workflow.
-          title: Description
-          type: string
-        type:
-          $ref: '#/components/schemas/WorkflowType'
-          description: Workflow type (e.g. INTAKE_WORKFLOW).
-      required:
-      - id
-      - workflow_id
-      - title
-      - description
-      - type
-      title: FrozenWorkflowPublicResponse
-      type: object
-    LegalIntakeAssigneeType:
-      enum:
-      - ASSIGNED_TO
-      - COLLABORATOR
-      title: LegalIntakeAssigneeType
       type: string
     LegalIntakeStatus:
       enum:
@@ -954,6 +1045,48 @@ components:
       - DISCARDED
       title: LegalIntakeStatus
       type: string
+    LegalIntakeAssigneeType:
+      enum:
+      - ASSIGNED_TO
+      - COLLABORATOR
+      title: LegalIntakeAssigneeType
+      type: string
+    IntakeTaskStatus:
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - BLOCKED
+      - COMPLETED
+      - DISCARDED
+      title: IntakeTaskStatus
+      type: string
+    LegalIntakeAssigneePublicCreateRequest:
+      description: Request model for creating an assignee for a legal intake.
+      examples:
+      - assignee_type: ASSIGNED_TO
+        entity_id: '1'
+        entity_type: ORG_USER
+      properties:
+        entity_id:
+          description: Id of the assignee entity (organization user id as a string).
+          minLength: 1
+          title: Entity Id
+          type: string
+        entity_type:
+          allOf:
+          - $ref: '#/components/schemas/EntityTypeEnum'
+          const: ORG_USER
+          description: Type of assignee entity. Only ORG_USER is supported in the public API.
+          title: Entity Type
+        assignee_type:
+          $ref: '#/components/schemas/LegalIntakeAssigneeType'
+          description: 'Relationship to the intake: ASSIGNED_TO or COLLABORATOR.'
+      required:
+      - entity_id
+      - entity_type
+      - assignee_type
+      title: LegalIntakeAssigneePublicCreateRequest
+      type: object
     PatchedLegalIntakePublicUpdateRequest:
       description: Request body for updating a legal intake. All fields optional.
       examples:
@@ -1014,146 +1147,6 @@ components:
           title: Assignees
       title: LegalIntakePublicUpdateRequest
       type: object
-    PublicOrgUserResponse:
-      properties:
-        id:
-          description: Id of the user.
-          title: Id
-          type: integer
-        name:
-          description: Name of the user.
-          title: Name
-          type: string
-        email:
-          description: Email of the user.
-          title: Email
-          type: string
-        designation:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          description: Designation of the user.
-          title: Designation
-      required:
-      - id
-      - name
-      - email
-      title: PublicOrgUserResponse
-      type: object
-    EntityTypeEnum:
-      enum:
-      - ORG_USER
-      type: string
-    LegalIntakePublicListResponse:
-      description: Paginated list of legal intakes. Response schema for List legal intakes API.
-      examples:
-      - has_next: false
-        has_previous: false
-        intakes:
-        - created_at: '2025-01-15T10:00:00Z'
-          created_by:
-            designation: Legal
-            email: jane@example.com
-            id: 1
-            name: Jane Doe
-          description: Legal review for vendor NDA
-          due_date: '2025-12-31T23:59:59Z'
-          frozen_workflow:
-            description: Standard NDA
-            id: 100
-            title: NDA Workflow
-            type: INTAKE_WORKFLOW
-            workflow_id: 1
-          id: 1
-          metadata: {}
-          modified_at: '2025-01-15T10:00:00Z'
-          priority: HIGH
-          public_id: 10f9a299-9e9a-4bc9-9299-5b89bc06d370
-          reference_id: I-001
-          status: PENDING
-          title: Review NDA
-        limit: 50
-        page: 1
-        total_count: 1
-        total_pages: 1
-      properties:
-        intakes:
-          description: List of legal intake response objects for the current page.
-          items:
-            $ref: '#/components/schemas/LegalIntakePublicListItemResponse'
-          title: Intakes
-          type: array
-        total_count:
-          description: Total matching intakes across pages.
-          title: Total Count
-          type: integer
-        page:
-          description: Current page number.
-          title: Page
-          type: integer
-        limit:
-          description: Page size used for this response.
-          title: Limit
-          type: integer
-        total_pages:
-          description: Total number of pages for the current query.
-          title: Total Pages
-          type: integer
-        has_next:
-          description: Whether a next page exists.
-          title: Has Next
-          type: boolean
-        has_previous:
-          description: Whether a previous page exists.
-          title: Has Previous
-          type: boolean
-      required:
-      - intakes
-      - total_count
-      - page
-      - limit
-      - total_pages
-      - has_next
-      - has_previous
-      title: LegalIntakePublicListResponse
-      type: object
-    LegalIntakeAssigneePublicCreateRequest:
-      description: Request model for creating an assignee for a legal intake.
-      examples:
-      - assignee_type: ASSIGNED_TO
-        entity_id: '1'
-        entity_type: ORG_USER
-      properties:
-        entity_id:
-          description: Id of the assignee entity (organization user id as a string).
-          minLength: 1
-          title: Entity Id
-          type: string
-        entity_type:
-          allOf:
-          - $ref: '#/components/schemas/EntityTypeEnum'
-          const: ORG_USER
-          description: Type of assignee entity. Only ORG_USER is supported in the public API.
-          title: Entity Type
-        assignee_type:
-          $ref: '#/components/schemas/LegalIntakeAssigneeType'
-          description: 'Relationship to the intake: ASSIGNED_TO or COLLABORATOR.'
-      required:
-      - entity_id
-      - entity_type
-      - assignee_type
-      title: LegalIntakeAssigneePublicCreateRequest
-      type: object
-    IntakeTaskStatus:
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - BLOCKED
-      - COMPLETED
-      - DISCARDED
-      title: IntakeTaskStatus
-      type: string
     LegalIntakePublicListItemResponse:
       description: Minimal legal intake response used by the public list API.
       examples:
@@ -1260,6 +1253,13 @@ components:
       - modified_at
       title: LegalIntakePublicListItemResponse
       type: object
+    WorkflowType:
+      enum:
+      - TEMPLATE_WORKFLOW
+      - UPLOAD_WORKFLOW
+      - INTAKE_WORKFLOW
+      title: WorkflowType
+      type: string
   securitySchemes:
     ClickwrapId:
       type: apiKey

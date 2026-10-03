@@ -214,6 +214,108 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
+    OnlyForActivitiesEnum:
+      enum:
+      - CONTRACT_VERSION_UPLOADED
+      - CONTRACT_APPROVAL_COMPLETED
+      - CONTRACT_APPROVAL_REQUESTED
+      - CONTRACT_CREATED
+      - CONTRACT_DATA_UPDATED
+      - CONTRACT_DELETED
+      - CONTRACT_EXECUTED
+      - CONTRACT_MARK_FOR_EXECUTION
+      - CONTRACT_SENT_TO_COUNTERPARTY
+      - CONTRACT_SIGNATURE_DECLINED
+      - CONTRACT_SIGNATURE_REQUESTED
+      - CONTRACT_SIGNED
+      - CONTRACT_UNMARK_FOR_EXECUTION
+      - POSTMARK_EMAIL_EVENT
+      - CONTRACT_KEY_POINTER_UPDATION
+      - CONTRACT_KEY_POINTER_CREATION
+      - SIGNING_EMAIL_DELIVERED
+      - SIGNING_EMAIL_OPENED
+      - SIGNING_EMAIL_NOT_DELIVERED
+      - SIGNING_EMAIL_LINK_CLICKED
+      - REDLINING_EMAIL_DELIVERED
+      - REDLINING_EMAIL_OPENED
+      - REDLINING_EMAIL_NOT_DELIVERED
+      - REDLINING_EMAIL_LINK_CLICKED
+      - CONTRACT_SIGNATURE_REQUESTED_NOTIFICATION_SENT
+      - COUNTER_PARTY_CREATED
+      - COUNTER_PARTY_UPDATED
+      - COUNTER_PARTY_CONTACT_CREATED
+      - COUNTER_PARTY_CONTACT_UPDATED
+      - COUNTER_PARTY_ADDRESS_CREATED
+      - COUNTER_PARTY_ADDRESS_UPDATED
+      - CONTRACT_ACTIVITY_LOG_COMMENT_CREATED
+      - CONTRACT_VOIDED
+      - CONTRACT_PROCESS_METRIC_UPDATED
+      - CONTRACT_EXTERNAL_METADATA_CREATED
+      - CONTRACT_EXTERNAL_METADATA_UPDATED
+      - CONTRACT_ENTITY_UPDATED
+      type: string
+    PublicWebhookResponseStatusEnum:
+      enum:
+      - ACTIVE
+      - DISABLED_BY_USER
+      - DISABLED_BY_ERROR
+      type: string
+    WebhookSecretKeyResponse:
+      title: WebhookSecretKeyResponse
+      type: object
+      properties:
+        hmac_key:
+          title: Hmac Key
+          description: Base64 of the secret for webhook
+          minLength: 1
+          type: string
+      required:
+      - hmac_key
+      examples:
+      - hmac_key: zJDCvFUXhByUkPcQIzf+dt2W7bqm6x6Fb2o/gLhfUgXyPqvPcrZ6P9yYtoUrI4dErHzq2t+4gjZ4zH2btdpoSA==
+    PublicWebhookCreateRequest:
+      title: PublicWebhookCreateRequest
+      type: object
+      properties:
+        title:
+          title: Title
+          description: The title of this webhook
+          minLength: 1
+          type: string
+        description:
+          title: Description
+          description: The description for the webhook
+          type: string
+        custom_headers:
+          title: Custom Headers
+          description: Custom headers to be included in the webhook call. Header names are trimmed before validation. Use custom header names only; standard HTTP headers are rejected. Header names should start with `X-` and must not start with X-Google-, X-Goog-, X-GFE-, X-Amz-, X-MS-, X-DD-, X-Datadog-, X-B3-, X-SD- and X-SPOTDRAFT-.
+          type: object
+        only_for_activities:
+          description: Webhook activity types for which to trigger this webhook. The list cannot be empty.
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/OnlyForActivitiesEnum'
+            title: ContractWebhookActivityType
+            description: An enumeration.
+        url:
+          title: Url
+          description: The HTTPS URL that should receive this event. Non-HTTPS URLs are rejected.
+          minLength: 1
+          type: string
+      required:
+      - title
+      - only_for_activities
+      - url
+      examples:
+      - title: Contract Created webhook
+        only_for_activities:
+        - CONTRACT_CREATED
+        url: https://yourdomain.com/webhooks/event-handler
+        description: Created for contract create webhook
+        custom_headers:
+          X-ABC-ACCESS-KEY: example-access-key
+          X-CLIENT-SIGNATURE: example-client-signature
     PublicWebhookResponse:
       title: PublicWebhookResponse
       type: object
@@ -298,108 +400,6 @@ components:
           X-ABC-ACCESS-KEY: example-access-key
           DEF-ACCESS-KEY: example-secondary-access-key
         status: ACTIVE
-    PublicWebhookResponseStatusEnum:
-      enum:
-      - ACTIVE
-      - DISABLED_BY_USER
-      - DISABLED_BY_ERROR
-      type: string
-    WebhookSecretKeyResponse:
-      title: WebhookSecretKeyResponse
-      type: object
-      properties:
-        hmac_key:
-          title: Hmac Key
-          description: Base64 of the secret for webhook
-          minLength: 1
-          type: string
-      required:
-      - hmac_key
-      examples:
-      - hmac_key: zJDCvFUXhByUkPcQIzf+dt2W7bqm6x6Fb2o/gLhfUgXyPqvPcrZ6P9yYtoUrI4dErHzq2t+4gjZ4zH2btdpoSA==
-    OnlyForActivitiesEnum:
-      enum:
-      - CONTRACT_VERSION_UPLOADED
-      - CONTRACT_APPROVAL_COMPLETED
-      - CONTRACT_APPROVAL_REQUESTED
-      - CONTRACT_CREATED
-      - CONTRACT_DATA_UPDATED
-      - CONTRACT_DELETED
-      - CONTRACT_EXECUTED
-      - CONTRACT_MARK_FOR_EXECUTION
-      - CONTRACT_SENT_TO_COUNTERPARTY
-      - CONTRACT_SIGNATURE_DECLINED
-      - CONTRACT_SIGNATURE_REQUESTED
-      - CONTRACT_SIGNED
-      - CONTRACT_UNMARK_FOR_EXECUTION
-      - POSTMARK_EMAIL_EVENT
-      - CONTRACT_KEY_POINTER_UPDATION
-      - CONTRACT_KEY_POINTER_CREATION
-      - SIGNING_EMAIL_DELIVERED
-      - SIGNING_EMAIL_OPENED
-      - SIGNING_EMAIL_NOT_DELIVERED
-      - SIGNING_EMAIL_LINK_CLICKED
-      - REDLINING_EMAIL_DELIVERED
-      - REDLINING_EMAIL_OPENED
-      - REDLINING_EMAIL_NOT_DELIVERED
-      - REDLINING_EMAIL_LINK_CLICKED
-      - CONTRACT_SIGNATURE_REQUESTED_NOTIFICATION_SENT
-      - COUNTER_PARTY_CREATED
-      - COUNTER_PARTY_UPDATED
-      - COUNTER_PARTY_CONTACT_CREATED
-      - COUNTER_PARTY_CONTACT_UPDATED
-      - COUNTER_PARTY_ADDRESS_CREATED
-      - COUNTER_PARTY_ADDRESS_UPDATED
-      - CONTRACT_ACTIVITY_LOG_COMMENT_CREATED
-      - CONTRACT_VOIDED
-      - CONTRACT_PROCESS_METRIC_UPDATED
-      - CONTRACT_EXTERNAL_METADATA_CREATED
-      - CONTRACT_EXTERNAL_METADATA_UPDATED
-      - CONTRACT_ENTITY_UPDATED
-      type: string
-    PublicWebhookCreateRequest:
-      title: PublicWebhookCreateRequest
-      type: object
-      properties:
-        title:
-          title: Title
-          description: The title of this webhook
-          minLength: 1
-          type: string
-        description:
-          title: Description
-          description: The description for the webhook
-          type: string
-        custom_headers:
-          title: Custom Headers
-          description: Custom headers to be included in the webhook call. Header names are trimmed before validation. Use custom header names only; standard HTTP headers are rejected. Header names should start with `X-` and must not start with X-Google-, X-Goog-, X-GFE-, X-Amz-, X-MS-, X-DD-, X-Datadog-, X-B3-, X-SD- and X-SPOTDRAFT-.
-          type: object
-        only_for_activities:
-          description: Webhook activity types for which to trigger this webhook. The list cannot be empty.
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/OnlyForActivitiesEnum'
-            title: ContractWebhookActivityType
-            description: An enumeration.
-        url:
-          title: Url
-          description: The HTTPS URL that should receive this event. Non-HTTPS URLs are rejected.
-          minLength: 1
-          type: string
-      required:
-      - title
-      - only_for_activities
-      - url
-      examples:
-      - title: Contract Created webhook
-        only_for_activities:
-        - CONTRACT_CREATED
-        url: https://yourdomain.com/webhooks/event-handler
-        description: Created for contract create webhook
-        custom_headers:
-          X-ABC-ACCESS-KEY: example-access-key
-          X-CLIENT-SIGNATURE: example-client-signature
   securitySchemes:
     ClickwrapId:
       type: apiKey

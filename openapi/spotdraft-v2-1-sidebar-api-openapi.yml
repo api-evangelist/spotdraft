@@ -249,6 +249,119 @@ components:
       required:
       - file_id
       - status
+    SidebarSearchResult:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of a source used in the answer.
+        url:
+          type: string
+          format: uri
+          description: Link to a source used in the answer.
+        source_id:
+          type:
+          - string
+          - 'null'
+          description: Optional source identifier.
+      required:
+      - title
+      - url
+    SidebarQueryAcceptedResponse:
+      type: object
+      properties:
+        chat_id:
+          type: string
+          format: uuid
+          description: Conversation ID allocated for the asynchronous request.
+        status:
+          type: string
+          description: Always `accepted` when the result will be delivered later.
+      required:
+      - chat_id
+      - status
+    SidebarQueryResponse:
+      type: object
+      properties:
+        chat_id:
+          type: string
+          format: uuid
+          description: Conversation ID for the created or reused Sidebar chat.
+        response:
+          type: string
+          description: Sidebar's answer.
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SidebarSearchResult'
+          description: Sources referenced in the answer.
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message if the request failed.
+      required:
+      - chat_id
+      - response
+    SidebarFileUploadRequest:
+      type: object
+      properties:
+        file:
+          type: string
+          format: uri
+          description: File to upload to Sidebar.
+        upload_source:
+          allOf:
+          - $ref: '#/components/schemas/UploadSourceEnum'
+          description: 'Where the file should be attached. Use `assistant` when attaching it to an agent.
+
+
+            * `chat` - chat
+
+            * `hub` - hub
+
+            * `assistant` - assistant
+
+            * `table` - table'
+        entity_id:
+          type: string
+          format: uuid
+          description: ID of the chat, hub, agent, or table that should receive the file.
+        webhook_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+          pattern: ^https://
+          description: Optional HTTPS callback URL. If provided, Sidebar sends the final upload result there instead of keeping this request open.
+      required:
+      - entity_id
+      - file
+      - upload_source
+    SidebarContractContext:
+      type: object
+      properties:
+        contract_id:
+          type: string
+          description: ID of a contract that Sidebar should use.
+        contract_name:
+          type: string
+          description: Name of the contract, to help you identify it.
+      required:
+      - contract_id
+      - contract_name
+    SidebarTableContext:
+      type: object
+      properties:
+        table_id:
+          type: string
+          description: ID of a table that Sidebar should use.
+        table_name:
+          type: string
+          description: Name of the table, to help you identify it.
+      required:
+      - table_id
+      - table_name
     UploadSourceEnum:
       enum:
       - chat
@@ -263,6 +376,43 @@ components:
         * `assistant` - assistant
 
         * `table` - table'
+    SidebarFileContext:
+      type: object
+      properties:
+        file_id:
+          type: string
+          format: uuid
+          description: ID of a file that Sidebar should use.
+        file_name:
+          type: string
+          description: Name of the file, to help you identify it.
+        version_number:
+          type:
+          - integer
+          - 'null'
+          description: Optional file version to use.
+      required:
+      - file_id
+      - file_name
+    SidebarWebSources:
+      type: object
+      properties:
+        open:
+          type: boolean
+          default: false
+          description: Let Sidebar search the public web.
+        indian:
+          type: boolean
+          default: false
+          description: Let Sidebar search Indian legal and government websites.
+        eu:
+          type: boolean
+          default: false
+          description: Let Sidebar search EU legal and government websites.
+        us:
+          type: boolean
+          default: false
+          description: Let Sidebar search US legal and government websites.
     SidebarQueryRequest:
       type: object
       properties:
@@ -329,59 +479,6 @@ components:
           type: boolean
           default: false
           description: Let Sidebar use your connected SpotDraft contract data.
-    SidebarSearchResult:
-      type: object
-      properties:
-        title:
-          type: string
-          description: Title of a source used in the answer.
-        url:
-          type: string
-          format: uri
-          description: Link to a source used in the answer.
-        source_id:
-          type:
-          - string
-          - 'null'
-          description: Optional source identifier.
-      required:
-      - title
-      - url
-    SidebarTableContext:
-      type: object
-      properties:
-        table_id:
-          type: string
-          description: ID of a table that Sidebar should use.
-        table_name:
-          type: string
-          description: Name of the table, to help you identify it.
-      required:
-      - table_id
-      - table_name
-    SidebarQueryResponse:
-      type: object
-      properties:
-        chat_id:
-          type: string
-          format: uuid
-          description: Conversation ID for the created or reused Sidebar chat.
-        response:
-          type: string
-          description: Sidebar's answer.
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/SidebarSearchResult'
-          description: Sources referenced in the answer.
-        error:
-          type:
-          - string
-          - 'null'
-          description: Error message if the request failed.
-      required:
-      - chat_id
-      - response
     SidebarLawSources:
       type: object
       properties:
@@ -389,103 +486,6 @@ components:
           type: boolean
           default: false
           description: Let Sidebar use US legal materials.
-    SidebarContractContext:
-      type: object
-      properties:
-        contract_id:
-          type: string
-          description: ID of a contract that Sidebar should use.
-        contract_name:
-          type: string
-          description: Name of the contract, to help you identify it.
-      required:
-      - contract_id
-      - contract_name
-    SidebarFileContext:
-      type: object
-      properties:
-        file_id:
-          type: string
-          format: uuid
-          description: ID of a file that Sidebar should use.
-        file_name:
-          type: string
-          description: Name of the file, to help you identify it.
-        version_number:
-          type:
-          - integer
-          - 'null'
-          description: Optional file version to use.
-      required:
-      - file_id
-      - file_name
-    SidebarWebSources:
-      type: object
-      properties:
-        open:
-          type: boolean
-          default: false
-          description: Let Sidebar search the public web.
-        indian:
-          type: boolean
-          default: false
-          description: Let Sidebar search Indian legal and government websites.
-        eu:
-          type: boolean
-          default: false
-          description: Let Sidebar search EU legal and government websites.
-        us:
-          type: boolean
-          default: false
-          description: Let Sidebar search US legal and government websites.
-    SidebarFileUploadRequest:
-      type: object
-      properties:
-        file:
-          type: string
-          format: uri
-          description: File to upload to Sidebar.
-        upload_source:
-          allOf:
-          - $ref: '#/components/schemas/UploadSourceEnum'
-          description: 'Where the file should be attached. Use `assistant` when attaching it to an agent.
-
-
-            * `chat` - chat
-
-            * `hub` - hub
-
-            * `assistant` - assistant
-
-            * `table` - table'
-        entity_id:
-          type: string
-          format: uuid
-          description: ID of the chat, hub, agent, or table that should receive the file.
-        webhook_url:
-          type:
-          - string
-          - 'null'
-          format: uri
-          pattern: ^https://
-          description: Optional HTTPS callback URL. If provided, Sidebar sends the final upload result there instead of keeping this request open.
-      required:
-      - entity_id
-      - file
-      - upload_source
-    SidebarQueryAcceptedResponse:
-      type: object
-      properties:
-        chat_id:
-          type: string
-          format: uuid
-          description: Conversation ID allocated for the asynchronous request.
-        status:
-          type: string
-          description: Always `accepted` when the result will be delivered later.
-      required:
-      - chat_id
-      - status
     SidebarFileUploadResponse:
       type: object
       properties:

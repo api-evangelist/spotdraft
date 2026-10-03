@@ -99,33 +99,28 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
-    PublicBulkTagCreateResponse:
-      description: Response body for bulk tag creation.
+    PublicBulkTagCreateRequest:
+      description: Request body for bulk tag creation.
       examples:
       - tags:
         - colour_code: '#FF5733'
-          id: 42
           name: NDA
+        - name: MSA
+        - colour_code: '#3498DB'
+          name: SOW
           tag_entity_type: Contract
-          workspace_id: 101
       properties:
         tags:
-          description: List of successfully created tags
+          description: List of tags to create. Each tag requires at minimum a 'name' field.
           items:
-            $ref: '#/components/schemas/PublicTagResponse'
+            $ref: '#/components/schemas/PublicTagCreateRequest'
+          minItems: 1
           title: Tags
           type: array
       required:
       - tags
-      title: PublicBulkTagCreateResponse
+      title: PublicBulkTagCreateRequest
       type: object
-    TagEntityType:
-      description: Enum type to indicate type of the entity for which the tags correspond to
-      enum:
-      - Contract
-      - Clause
-      title: TagEntityType
-      type: string
     PublicTagResponse:
       description: Response model for a created tag.
       examples:
@@ -162,27 +157,32 @@ components:
       - tag_entity_type
       title: PublicTagResponse
       type: object
-    PublicBulkTagCreateRequest:
-      description: Request body for bulk tag creation.
+    TagEntityType:
+      description: Enum type to indicate type of the entity for which the tags correspond to
+      enum:
+      - Contract
+      - Clause
+      title: TagEntityType
+      type: string
+    PublicBulkTagCreateResponse:
+      description: Response body for bulk tag creation.
       examples:
       - tags:
         - colour_code: '#FF5733'
+          id: 42
           name: NDA
-        - name: MSA
-        - colour_code: '#3498DB'
-          name: SOW
           tag_entity_type: Contract
+          workspace_id: 101
       properties:
         tags:
-          description: List of tags to create. Each tag requires at minimum a 'name' field.
+          description: List of successfully created tags
           items:
-            $ref: '#/components/schemas/PublicTagCreateRequest'
-          minItems: 1
+            $ref: '#/components/schemas/PublicTagResponse'
           title: Tags
           type: array
       required:
       - tags
-      title: PublicBulkTagCreateRequest
+      title: PublicBulkTagCreateResponse
       type: object
     PublicTagCreateRequest:
       description: Request model for a single tag to be created.

@@ -172,6 +172,134 @@ paths:
       x-tagGroup: Contracts
 components:
   schemas:
+    ContractKeyPointerMinimalListResponse:
+      title: ContractKeyPointerMinimalListResponse
+      type: array
+      items:
+        title: ContractKeyPointerMinimalResponse
+        type: object
+        properties:
+          id:
+            title: Id
+            type: integer
+          value:
+            title: Value
+            description: Value of the key pointer
+            anyOf:
+            - type: number
+            - type: integer
+            - type: string
+            - type: array
+              items: {}
+            - type: object
+            - type: boolean
+          label:
+            title: Label
+            type: string
+          field_name:
+            title: Field Name
+            type: string
+          data_type:
+            title: Data Type
+            type: string
+          format_option:
+            title: Format Option
+            type: object
+        required:
+        - id
+        - value
+        - label
+        - field_name
+        - data_type
+        - format_option
+        examples:
+        - id: 1
+          value: sample
+          label: Sample Label
+          filed_name: sample_field_name
+          data_type: string
+          format_option:
+            data: sample format option
+    ContractKeyPointerMinimalResponse:
+      title: ContractKeyPointerMinimalResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        value:
+          title: Value
+          description: Value of the key pointer
+          anyOf:
+          - type: number
+          - type: integer
+          - type: string
+          - type: array
+            items: {}
+          - type: object
+          - type: boolean
+        label:
+          title: Label
+          type: string
+        field_name:
+          title: Field Name
+          type: string
+        data_type:
+          title: Data Type
+          type: string
+        format_option:
+          title: Format Option
+          type: object
+      required:
+      - id
+      - value
+      - label
+      - field_name
+      - data_type
+      - format_option
+      examples:
+      - id: 1
+        value: sample
+        label: Sample Label
+        filed_name: sample_field_name
+        data_type: string
+        format_option:
+          data: sample format option
+    ContractKeyPointerBulkRequest:
+      title: ContractKeyPointerBulkRequest
+      type: object
+      properties:
+        key_pointers:
+          title: Key Pointers
+          description: List of keypointers to be created/updated for a contract.
+          type: array
+          items:
+            title: ContractKeyPointerRequest
+            type: object
+            properties:
+              key_pointer_id:
+                title: Key Pointer Id
+                description: ID of the key pointer that needs to be created or updated for a contract
+                type: integer
+              key_pointer_field_name:
+                title: Key Pointer Field Name
+                description: Field name of the key pointer that needs to be created or updated for a contract. At least one of `key_pointer_id` or `key_pointer_field_name` is required.
+                type: string
+              value:
+                title: Value
+                description: Value of the keypointer, the type of this value depends on the type of the keypointer.
+      required:
+      - key_pointers
+      examples:
+      - key_pointers:
+        - key_pointer_id: 100
+          value:
+            type: MONTHS
+            value: 6
+        - key_pointer_field_name: key_pointer_field_name
+          value:
+            type: MONTHS
+            value: 6
     PatchedContractKeyPointerUpdateRequest:
       title: ContractKeyPointerUpdateRequest
       type: object
@@ -462,134 +590,6 @@ components:
         source_datatype:
           title: Source Datatype
           type: string
-    ContractKeyPointerBulkRequest:
-      title: ContractKeyPointerBulkRequest
-      type: object
-      properties:
-        key_pointers:
-          title: Key Pointers
-          description: List of keypointers to be created/updated for a contract.
-          type: array
-          items:
-            title: ContractKeyPointerRequest
-            type: object
-            properties:
-              key_pointer_id:
-                title: Key Pointer Id
-                description: ID of the key pointer that needs to be created or updated for a contract
-                type: integer
-              key_pointer_field_name:
-                title: Key Pointer Field Name
-                description: Field name of the key pointer that needs to be created or updated for a contract. At least one of `key_pointer_id` or `key_pointer_field_name` is required.
-                type: string
-              value:
-                title: Value
-                description: Value of the keypointer, the type of this value depends on the type of the keypointer.
-      required:
-      - key_pointers
-      examples:
-      - key_pointers:
-        - key_pointer_id: 100
-          value:
-            type: MONTHS
-            value: 6
-        - key_pointer_field_name: key_pointer_field_name
-          value:
-            type: MONTHS
-            value: 6
-    ContractKeyPointerMinimalResponse:
-      title: ContractKeyPointerMinimalResponse
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        value:
-          title: Value
-          description: Value of the key pointer
-          anyOf:
-          - type: number
-          - type: integer
-          - type: string
-          - type: array
-            items: {}
-          - type: object
-          - type: boolean
-        label:
-          title: Label
-          type: string
-        field_name:
-          title: Field Name
-          type: string
-        data_type:
-          title: Data Type
-          type: string
-        format_option:
-          title: Format Option
-          type: object
-      required:
-      - id
-      - value
-      - label
-      - field_name
-      - data_type
-      - format_option
-      examples:
-      - id: 1
-        value: sample
-        label: Sample Label
-        filed_name: sample_field_name
-        data_type: string
-        format_option:
-          data: sample format option
-    ContractKeyPointerMinimalListResponse:
-      title: ContractKeyPointerMinimalListResponse
-      type: array
-      items:
-        title: ContractKeyPointerMinimalResponse
-        type: object
-        properties:
-          id:
-            title: Id
-            type: integer
-          value:
-            title: Value
-            description: Value of the key pointer
-            anyOf:
-            - type: number
-            - type: integer
-            - type: string
-            - type: array
-              items: {}
-            - type: object
-            - type: boolean
-          label:
-            title: Label
-            type: string
-          field_name:
-            title: Field Name
-            type: string
-          data_type:
-            title: Data Type
-            type: string
-          format_option:
-            title: Format Option
-            type: object
-        required:
-        - id
-        - value
-        - label
-        - field_name
-        - data_type
-        - format_option
-        examples:
-        - id: 1
-          value: sample
-          label: Sample Label
-          filed_name: sample_field_name
-          data_type: string
-          format_option:
-            data: sample format option
   securitySchemes:
     ClickwrapId:
       type: apiKey
