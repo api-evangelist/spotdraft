@@ -121,6 +121,13 @@ components:
       - tags
       title: PublicBulkTagCreateRequest
       type: object
+    TagEntityType:
+      description: Enum type to indicate type of the entity for which the tags correspond to
+      enum:
+      - Contract
+      - Clause
+      title: TagEntityType
+      type: string
     PublicTagResponse:
       description: Response model for a created tag.
       examples:
@@ -157,13 +164,6 @@ components:
       - tag_entity_type
       title: PublicTagResponse
       type: object
-    TagEntityType:
-      description: Enum type to indicate type of the entity for which the tags correspond to
-      enum:
-      - Contract
-      - Clause
-      title: TagEntityType
-      type: string
     PublicBulkTagCreateResponse:
       description: Response body for bulk tag creation.
       examples:

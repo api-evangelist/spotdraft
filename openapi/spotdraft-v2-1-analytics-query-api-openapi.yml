@@ -148,25 +148,6 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
-    PublicAnalyticsQueryRequest:
-      description: Body for POST /api/v2.1/public/analytics/query/.
-      properties:
-        query:
-          description: A single GoogleSQL SELECT (optional WITH / UNION). Maximum length 10,000 characters.
-          maxLength: 10000
-          title: Query
-          type: string
-        user_scoped:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          default: null
-          description: 'When set, overrides X-Spotdraft-Analytics-User-Scoped. True: restrict Contracts via user_access (default when unset). False: workspace-wide only for users with the workspace Admin role. Non-admin callers cannot widen access by sending `false`.'
-          title: User Scoped
-      required:
-      - query
-      title: PublicAnalyticsQueryRequest
-      type: object
     PublicAnalyticsQueryResponse:
       properties:
         columns:
@@ -200,6 +181,25 @@ components:
       - truncated
       - execution_ms
       title: PublicAnalyticsQueryResponse
+      type: object
+    PublicAnalyticsQueryRequest:
+      description: Body for POST /api/v2.1/public/analytics/query/.
+      properties:
+        query:
+          description: A single GoogleSQL SELECT (optional WITH / UNION). Maximum length 10,000 characters.
+          maxLength: 10000
+          title: Query
+          type: string
+        user_scoped:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: null
+          description: 'When set, overrides X-Spotdraft-Analytics-User-Scoped. True: restrict Contracts via user_access (default when unset). False: workspace-wide only for users with the workspace Admin role. Non-admin callers cannot widen access by sending `false`.'
+          title: User Scoped
+      required:
+      - query
+      title: PublicAnalyticsQueryRequest
       type: object
   securitySchemes:
     ClickwrapId:

@@ -74,6 +74,18 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
+    ObligationTypeListResponse:
+      example:
+      - description: Requires the submission of relevant reports or documentation at specified intervals or triggers.
+        id: 101
+        name: Reporting
+      - description: Requires the delivery of goods, services, or results in accordance with agreed terms.
+        id: 102
+        name: Performance/Delivery
+      items:
+        $ref: '#/components/schemas/ObligationTypeResponse'
+      title: ObligationTypeListResponse
+      type: array
     ObligationTypeResponse:
       example:
         description: Requires the delivery of goods, services, or results in accordance with agreed terms.
@@ -101,18 +113,6 @@ components:
       - description
       title: ObligationTypeResponse
       type: object
-    ObligationTypeListResponse:
-      example:
-      - description: Requires the submission of relevant reports or documentation at specified intervals or triggers.
-        id: 101
-        name: Reporting
-      - description: Requires the delivery of goods, services, or results in accordance with agreed terms.
-        id: 102
-        name: Performance/Delivery
-      items:
-        $ref: '#/components/schemas/ObligationTypeResponse'
-      title: ObligationTypeListResponse
-      type: array
   securitySchemes:
     ClickwrapId:
       type: apiKey

@@ -236,73 +236,54 @@ paths:
       x-tagGroup: Sidebar
 components:
   schemas:
-    SidebarFileUploadAcceptedResponse:
+    SidebarSources:
+      type: object
+      properties:
+        web:
+          $ref: '#/components/schemas/SidebarWebSources'
+        law:
+          $ref: '#/components/schemas/SidebarLawSources'
+        clm_connector:
+          type: boolean
+          default: false
+          description: Let Sidebar use your connected SpotDraft contract data.
+    SidebarFileContext:
       type: object
       properties:
         file_id:
           type: string
           format: uuid
-          description: ID of the uploaded file.
-        status:
+          description: ID of a file that Sidebar should use.
+        file_name:
           type: string
-          description: Always `accepted` when processing will continue in the background and the terminal file result will be delivered via webhook.
+          description: Name of the file, to help you identify it.
+        version_number:
+          type:
+          - integer
+          - 'null'
+          description: Optional file version to use.
       required:
       - file_id
-      - status
-    SidebarSearchResult:
+      - file_name
+    SidebarTableContext:
       type: object
       properties:
-        title:
+        table_id:
           type: string
-          description: Title of a source used in the answer.
-        url:
+          description: ID of a table that Sidebar should use.
+        table_name:
           type: string
-          format: uri
-          description: Link to a source used in the answer.
-        source_id:
-          type:
-          - string
-          - 'null'
-          description: Optional source identifier.
+          description: Name of the table, to help you identify it.
       required:
-      - title
-      - url
-    SidebarQueryAcceptedResponse:
+      - table_id
+      - table_name
+    SidebarLawSources:
       type: object
       properties:
-        chat_id:
-          type: string
-          format: uuid
-          description: Conversation ID allocated for the asynchronous request.
-        status:
-          type: string
-          description: Always `accepted` when the result will be delivered later.
-      required:
-      - chat_id
-      - status
-    SidebarQueryResponse:
-      type: object
-      properties:
-        chat_id:
-          type: string
-          format: uuid
-          description: Conversation ID for the created or reused Sidebar chat.
-        response:
-          type: string
-          description: Sidebar's answer.
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/SidebarSearchResult'
-          description: Sources referenced in the answer.
-        error:
-          type:
-          - string
-          - 'null'
-          description: Error message if the request failed.
-      required:
-      - chat_id
-      - response
+        us:
+          type: boolean
+          default: false
+          description: Let Sidebar use US legal materials.
     SidebarFileUploadRequest:
       type: object
       properties:
@@ -338,62 +319,6 @@ components:
       - entity_id
       - file
       - upload_source
-    SidebarContractContext:
-      type: object
-      properties:
-        contract_id:
-          type: string
-          description: ID of a contract that Sidebar should use.
-        contract_name:
-          type: string
-          description: Name of the contract, to help you identify it.
-      required:
-      - contract_id
-      - contract_name
-    SidebarTableContext:
-      type: object
-      properties:
-        table_id:
-          type: string
-          description: ID of a table that Sidebar should use.
-        table_name:
-          type: string
-          description: Name of the table, to help you identify it.
-      required:
-      - table_id
-      - table_name
-    UploadSourceEnum:
-      enum:
-      - chat
-      - hub
-      - assistant
-      - table
-      type: string
-      description: '* `chat` - chat
-
-        * `hub` - hub
-
-        * `assistant` - assistant
-
-        * `table` - table'
-    SidebarFileContext:
-      type: object
-      properties:
-        file_id:
-          type: string
-          format: uuid
-          description: ID of a file that Sidebar should use.
-        file_name:
-          type: string
-          description: Name of the file, to help you identify it.
-        version_number:
-          type:
-          - integer
-          - 'null'
-          description: Optional file version to use.
-      required:
-      - file_id
-      - file_name
     SidebarWebSources:
       type: object
       properties:
@@ -413,6 +338,47 @@ components:
           type: boolean
           default: false
           description: Let Sidebar search US legal and government websites.
+    SidebarQueryResponse:
+      type: object
+      properties:
+        chat_id:
+          type: string
+          format: uuid
+          description: Conversation ID for the created or reused Sidebar chat.
+        response:
+          type: string
+          description: Sidebar's answer.
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SidebarSearchResult'
+          description: Sources referenced in the answer.
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message if the request failed.
+      required:
+      - chat_id
+      - response
+    SidebarSearchResult:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of a source used in the answer.
+        url:
+          type: string
+          format: uri
+          description: Link to a source used in the answer.
+        source_id:
+          type:
+          - string
+          - 'null'
+          description: Optional source identifier.
+      required:
+      - title
+      - url
     SidebarQueryRequest:
       type: object
       properties:
@@ -468,24 +434,33 @@ components:
           description: Optional agent to use for this question.
       required:
       - user_input
-    SidebarSources:
+    UploadSourceEnum:
+      enum:
+      - chat
+      - hub
+      - assistant
+      - table
+      type: string
+      description: '* `chat` - chat
+
+        * `hub` - hub
+
+        * `assistant` - assistant
+
+        * `table` - table'
+    SidebarFileUploadAcceptedResponse:
       type: object
       properties:
-        web:
-          $ref: '#/components/schemas/SidebarWebSources'
-        law:
-          $ref: '#/components/schemas/SidebarLawSources'
-        clm_connector:
-          type: boolean
-          default: false
-          description: Let Sidebar use your connected SpotDraft contract data.
-    SidebarLawSources:
-      type: object
-      properties:
-        us:
-          type: boolean
-          default: false
-          description: Let Sidebar use US legal materials.
+        file_id:
+          type: string
+          format: uuid
+          description: ID of the uploaded file.
+        status:
+          type: string
+          description: Always `accepted` when processing will continue in the background and the terminal file result will be delivered via webhook.
+      required:
+      - file_id
+      - status
     SidebarFileUploadResponse:
       type: object
       properties:
@@ -503,6 +478,31 @@ components:
           description: Error message if processing failed.
       required:
       - file_id
+      - status
+    SidebarContractContext:
+      type: object
+      properties:
+        contract_id:
+          type: string
+          description: ID of a contract that Sidebar should use.
+        contract_name:
+          type: string
+          description: Name of the contract, to help you identify it.
+      required:
+      - contract_id
+      - contract_name
+    SidebarQueryAcceptedResponse:
+      type: object
+      properties:
+        chat_id:
+          type: string
+          format: uuid
+          description: Conversation ID allocated for the asynchronous request.
+        status:
+          type: string
+          description: Always `accepted` when the result will be delivered later.
+      required:
+      - chat_id
       - status
   securitySchemes:
     ClickwrapId:

@@ -155,20 +155,24 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
-    OrganizationTypeListDomainModel:
-      title: OrganizationTypeListDomainModel
+    OrganizationEntityListDomainModel:
+      title: OrganizationEntityListDomainModel
       type: array
       items:
-        title: OrganizationTypeDomainModel
+        title: OrganizationEntityDomainModel
         type: object
         properties:
           id:
             title: Id
-            description: The ID of the Organization Type.
+            description: The ID of the Entity
             type: integer
           name:
             title: Name
-            description: Name of the Organization Type. For example LLP vs LLC vs S Corp in the US
+            description: The name of Entity as rendered in the contracts and shown to users.
+            type: string
+          reference_id:
+            title: Reference Id
+            description: The Reference ID of the entity which is used to identify the entity in templates.
             type: string
           jurisdiction:
             title: Jurisdiction
@@ -188,17 +192,120 @@ components:
                 type: string
             required:
             - id
-            description: The Jurisdiction associated with the Organization Type.
+            description: The Jurisdiction associated with the entity.
+          organization_type:
+            title: Organization Type
+            type: object
+            properties:
+              id:
+                title: Id
+                description: The ID of the Organization Type.
+                type: integer
+              name:
+                title: Name
+                description: Name of the Organization Type. For example LLP vs LLC vs S Corp in the US
+                type: string
+            required:
+            - id
+            - name
+            examples:
+            - id: 2798
+              name: Limited Liability Company (LLC)
+            description: The type of this entity. This identifies the company type. For example LLP vs LLC vs S Corp in the US
+          primary_address:
+            title: Primary Address
+            type: object
+            properties:
+              id:
+                title: Id
+                description: The ID for this address.
+                type: integer
+              line_one:
+                title: Line One
+                description: The first line of the address. Usually the apartment, floor, and street information.
+                type: string
+              city_name:
+                title: City Name
+                description: The city name for this address.
+                type: string
+              state_name:
+                title: State Name
+                description: The state name for this address.
+                type: string
+              zipcode:
+                title: Zipcode
+                description: The zip/pin/postal code for this address.
+                type: string
+              country:
+                title: Country
+                type: object
+                properties:
+                  id:
+                    title: Id
+                    description: The ID of the Jurisdiction.
+                    type: integer
+                  name:
+                    title: Name
+                    description: The name of the Jurisdiction.
+                    type: string
+                  code2:
+                    title: Code2
+                    description: The ISO-3166-1 Alpha-2 code of the Jurisdiction.
+                    type: string
+                required:
+                - id
+                description: The ISO-3166-1 Alpha-2 code of the country associated with this organization entity address.
+            required:
+            - id
+            - line_one
+            - city_name
+            - state_name
+            - zipcode
+            examples:
+            - id: 5073
+              line_one: 3659 Burwell Heights Road
+              city_name: Houston
+              state_name: Texas
+              zipcode: '77020'
+              country:
+                id: 234
+                name: United States
+                iso_code: US
+            description: The address details of the entity.
+          is_primary:
+            title: Is Primary
+            description: This identify the entity as the primary entity or not
+            type: boolean
         required:
         - id
         - name
+        - reference_id
+        - jurisdiction
+        - organization_type
+        - primary_address
+        - is_primary
         examples:
-        - id: 2798
-          name: Limited Liability Company (LLC)
+        - id: 1045
+          name: Acme Inc.
+          reference_id: US20
           jurisdiction:
             id: 234
             name: United States
             iso_code: US
+          organization_type:
+            id: 1
+            name: Private Company
+          primary_address:
+            id: 5073
+            line_one: 3659 Burwell Heights Road
+            city_name: Houston
+            state_name: Texas
+            zipcode: '77020'
+            country:
+              id: 234
+              name: United States
+              iso_code: US
+          is_primary: true
     OrganizationEntityDomainModel:
       title: OrganizationEntityDomainModel
       type: object
@@ -428,24 +535,20 @@ components:
           line_one: 3659 Burwell Heights Road
           country_iso_code: US
         is_primary: false
-    OrganizationEntityListDomainModel:
-      title: OrganizationEntityListDomainModel
+    OrganizationTypeListDomainModel:
+      title: OrganizationTypeListDomainModel
       type: array
       items:
-        title: OrganizationEntityDomainModel
+        title: OrganizationTypeDomainModel
         type: object
         properties:
           id:
             title: Id
-            description: The ID of the Entity
+            description: The ID of the Organization Type.
             type: integer
           name:
             title: Name
-            description: The name of Entity as rendered in the contracts and shown to users.
-            type: string
-          reference_id:
-            title: Reference Id
-            description: The Reference ID of the entity which is used to identify the entity in templates.
+            description: Name of the Organization Type. For example LLP vs LLC vs S Corp in the US
             type: string
           jurisdiction:
             title: Jurisdiction
@@ -465,120 +568,17 @@ components:
                 type: string
             required:
             - id
-            description: The Jurisdiction associated with the entity.
-          organization_type:
-            title: Organization Type
-            type: object
-            properties:
-              id:
-                title: Id
-                description: The ID of the Organization Type.
-                type: integer
-              name:
-                title: Name
-                description: Name of the Organization Type. For example LLP vs LLC vs S Corp in the US
-                type: string
-            required:
-            - id
-            - name
-            examples:
-            - id: 2798
-              name: Limited Liability Company (LLC)
-            description: The type of this entity. This identifies the company type. For example LLP vs LLC vs S Corp in the US
-          primary_address:
-            title: Primary Address
-            type: object
-            properties:
-              id:
-                title: Id
-                description: The ID for this address.
-                type: integer
-              line_one:
-                title: Line One
-                description: The first line of the address. Usually the apartment, floor, and street information.
-                type: string
-              city_name:
-                title: City Name
-                description: The city name for this address.
-                type: string
-              state_name:
-                title: State Name
-                description: The state name for this address.
-                type: string
-              zipcode:
-                title: Zipcode
-                description: The zip/pin/postal code for this address.
-                type: string
-              country:
-                title: Country
-                type: object
-                properties:
-                  id:
-                    title: Id
-                    description: The ID of the Jurisdiction.
-                    type: integer
-                  name:
-                    title: Name
-                    description: The name of the Jurisdiction.
-                    type: string
-                  code2:
-                    title: Code2
-                    description: The ISO-3166-1 Alpha-2 code of the Jurisdiction.
-                    type: string
-                required:
-                - id
-                description: The ISO-3166-1 Alpha-2 code of the country associated with this organization entity address.
-            required:
-            - id
-            - line_one
-            - city_name
-            - state_name
-            - zipcode
-            examples:
-            - id: 5073
-              line_one: 3659 Burwell Heights Road
-              city_name: Houston
-              state_name: Texas
-              zipcode: '77020'
-              country:
-                id: 234
-                name: United States
-                iso_code: US
-            description: The address details of the entity.
-          is_primary:
-            title: Is Primary
-            description: This identify the entity as the primary entity or not
-            type: boolean
+            description: The Jurisdiction associated with the Organization Type.
         required:
         - id
         - name
-        - reference_id
-        - jurisdiction
-        - organization_type
-        - primary_address
-        - is_primary
         examples:
-        - id: 1045
-          name: Acme Inc.
-          reference_id: US20
+        - id: 2798
+          name: Limited Liability Company (LLC)
           jurisdiction:
             id: 234
             name: United States
             iso_code: US
-          organization_type:
-            id: 1
-            name: Private Company
-          primary_address:
-            id: 5073
-            line_one: 3659 Burwell Heights Road
-            city_name: Houston
-            state_name: Texas
-            zipcode: '77020'
-            country:
-              id: 234
-              name: United States
-              iso_code: US
-          is_primary: true
   securitySchemes:
     ClickwrapId:
       type: apiKey

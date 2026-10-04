@@ -192,86 +192,6 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
-    PublicRoleMembersAddRequest:
-      title: PublicRoleMembersAddRequest
-      type: object
-      properties:
-        user_ids_to_add:
-          title: User Ids To Add
-          description: The user ids that are to be added to the role. The IDs are returned by the [Get User List](#tag/v21-users/GET/api/v2.1/public/auth/users/) API. This list must contain at least one user id.
-          default: []
-          type: array
-          items:
-            type: integer
-      examples:
-      - user_ids_to_add:
-        - 4567
-        - 2345
-    PublicUserMinimalListResponse:
-      title: PublicUserMinimalListResponse
-      description: SD Generic Model from which all other Generic Models should inherit
-      type: object
-      properties:
-        page:
-          title: Page
-          description: The current page number. Page numbers start at 1.
-          type: integer
-        limit:
-          title: Limit
-          description: The number of items returned per page.
-          type: integer
-        total_results:
-          title: Total Results
-          description: Total number of items in the result set.
-          type: integer
-        results:
-          title: Results
-          description: The actual results.
-          type: array
-          items:
-            title: PublicMinimalUserResponse
-            type: object
-            properties:
-              id:
-                title: Id
-                description: ID of the user
-                type: integer
-              email:
-                title: Email
-                description: Email Id of the user
-                type: string
-              name:
-                title: Name
-                description: Name of the user
-                type: string
-              designation:
-                title: Designation
-                description: Designation of the user within the organization
-                type: string
-            required:
-            - id
-            - email
-            - name
-      required:
-      - page
-      - limit
-      - total_results
-      - results
-      examples:
-      - total_results: 2
-        page: 1
-        limit: 10
-        results:
-        - id: 100
-          first_name: Sonia
-          last_name: Sotomayor
-          email: sonia_sotomayor@notreally.supremecourt.gov
-          designation: Lawyer
-        - id: 101
-          first_name: Elena
-          last_name: Kagan
-          email: elena_kagan@notreally.supremecourt.gov
-          designation: Lead Lawyer
     PublicRoleMemberAddResponse:
       title: PublicRoleMemberAddResponse
       description: A list of the members who were added to the role.
@@ -347,6 +267,86 @@ components:
         - id: 3
           name: APAC Sales
           description: The Asia Pacific Sales Team (ex Japan)
+    PublicUserMinimalListResponse:
+      title: PublicUserMinimalListResponse
+      description: SD Generic Model from which all other Generic Models should inherit
+      type: object
+      properties:
+        page:
+          title: Page
+          description: The current page number. Page numbers start at 1.
+          type: integer
+        limit:
+          title: Limit
+          description: The number of items returned per page.
+          type: integer
+        total_results:
+          title: Total Results
+          description: Total number of items in the result set.
+          type: integer
+        results:
+          title: Results
+          description: The actual results.
+          type: array
+          items:
+            title: PublicMinimalUserResponse
+            type: object
+            properties:
+              id:
+                title: Id
+                description: ID of the user
+                type: integer
+              email:
+                title: Email
+                description: Email Id of the user
+                type: string
+              name:
+                title: Name
+                description: Name of the user
+                type: string
+              designation:
+                title: Designation
+                description: Designation of the user within the organization
+                type: string
+            required:
+            - id
+            - email
+            - name
+      required:
+      - page
+      - limit
+      - total_results
+      - results
+      examples:
+      - total_results: 2
+        page: 1
+        limit: 10
+        results:
+        - id: 100
+          first_name: Sonia
+          last_name: Sotomayor
+          email: sonia_sotomayor@notreally.supremecourt.gov
+          designation: Lawyer
+        - id: 101
+          first_name: Elena
+          last_name: Kagan
+          email: elena_kagan@notreally.supremecourt.gov
+          designation: Lead Lawyer
+    PublicRoleMembersAddRequest:
+      title: PublicRoleMembersAddRequest
+      type: object
+      properties:
+        user_ids_to_add:
+          title: User Ids To Add
+          description: The user ids that are to be added to the role. The IDs are returned by the [Get User List](#tag/v21-users/GET/api/v2.1/public/auth/users/) API. This list must contain at least one user id.
+          default: []
+          type: array
+          items:
+            type: integer
+      examples:
+      - user_ids_to_add:
+        - 4567
+        - 2345
   securitySchemes:
     ClickwrapId:
       type: apiKey

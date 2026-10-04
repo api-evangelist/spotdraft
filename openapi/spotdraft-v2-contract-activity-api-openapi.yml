@@ -131,18 +131,6 @@ paths:
       x-tagGroup: Contracts
 components:
   schemas:
-    ExternalCreateContractCommentRequest:
-      title: ExternalCreateContractCommentRequest
-      type: object
-      properties:
-        comment:
-          title: Comment
-          description: The content of the comment. Whitespace-only comments are rejected. Users can be mentioned using the format `!!@{user_id}!!`, where the user id must belong to the same workspace. Use the [Get User List](#tag/v21-users/GET/api/v2.1/public/auth/users/) API to fetch valid user ids.
-          type: string
-      required:
-      - comment
-      examples:
-      - comment: Hey !!@12310!! please review this contract.
     ExternalCommentListResponse:
       title: ExternalCommentListResponse
       type: object
@@ -222,6 +210,18 @@ components:
           contract_id: 211270
           comment: Hi team this contract need your review.
           replies: []
+    ExternalCreateContractCommentRequest:
+      title: ExternalCreateContractCommentRequest
+      type: object
+      properties:
+        comment:
+          title: Comment
+          description: The content of the comment. Whitespace-only comments are rejected. Users can be mentioned using the format `!!@{user_id}!!`, where the user id must belong to the same workspace. Use the [Get User List](#tag/v21-users/GET/api/v2.1/public/auth/users/) API to fetch valid user ids.
+          type: string
+      required:
+      - comment
+      examples:
+      - comment: Hey !!@12310!! please review this contract.
     ExternalCommentResponse:
       title: ExternalCommentResponse
       type: object

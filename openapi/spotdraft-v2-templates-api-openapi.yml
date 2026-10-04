@@ -235,6 +235,60 @@ paths:
       x-tagGroup: Workflow
 components:
   schemas:
+    PatchedTemplateUpdateRequest:
+      title: TemplateUpdateRequest
+      type: object
+      properties:
+        tags:
+          title: Tags
+          description: The complete set of tags to store on the requested template. Send an empty list to clear existing tags.
+          type: array
+          items:
+            type: string
+      examples:
+      - tags:
+        - Tag1
+        - Tag2
+    CounterPartyKindEnum:
+      enum:
+      - Individual
+      - Organisation
+      - Both
+      type: string
+    TemplateResponseV2:
+      title: TemplateResponseV2
+      description: A template along with the updated data as updated by the public API.
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the template
+          type: integer
+        name:
+          title: Name
+          description: The name of the template
+          type: string
+        contract_type_id:
+          title: Contract Type Id
+          description: The id of the contract type
+          type: integer
+        tags:
+          title: Tags
+          description: The tags to be updated for the requested template id.
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - name
+      - contract_type_id
+      examples:
+      - id: 1
+        name: Basic Non Disclosure Agreement
+        tags:
+        - Tag1
+        - Tag2
+        contract_type_id: 10
     TemplateMetaDataResponseV2:
       title: TemplateMetaDataResponseV2
       type: object
@@ -461,60 +515,6 @@ components:
         - id: 1
           name: Basic Non Disclosure Agreement
           contract_type_id: 10
-    CounterPartyKindEnum:
-      enum:
-      - Individual
-      - Organisation
-      - Both
-      type: string
-    TemplateResponseV2:
-      title: TemplateResponseV2
-      description: A template along with the updated data as updated by the public API.
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the template
-          type: integer
-        name:
-          title: Name
-          description: The name of the template
-          type: string
-        contract_type_id:
-          title: Contract Type Id
-          description: The id of the contract type
-          type: integer
-        tags:
-          title: Tags
-          description: The tags to be updated for the requested template id.
-          type: array
-          items:
-            type: string
-      required:
-      - id
-      - name
-      - contract_type_id
-      examples:
-      - id: 1
-        name: Basic Non Disclosure Agreement
-        tags:
-        - Tag1
-        - Tag2
-        contract_type_id: 10
-    PatchedTemplateUpdateRequest:
-      title: TemplateUpdateRequest
-      type: object
-      properties:
-        tags:
-          title: Tags
-          description: The complete set of tags to store on the requested template. Send an empty list to clear existing tags.
-          type: array
-          items:
-            type: string
-      examples:
-      - tags:
-        - Tag1
-        - Tag2
   securitySchemes:
     ClickwrapId:
       type: apiKey

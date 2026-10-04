@@ -126,6 +126,25 @@ paths:
       x-tagGroup: Workflow
 components:
   schemas:
+    ContractTypeListDomainModel:
+      title: ContractTypeListDomainModel
+      type: array
+      items:
+        title: ContractTypeDomainModel
+        type: object
+        properties:
+          id:
+            title: Id
+            type: integer
+          name:
+            title: Name
+            type: string
+        required:
+        - id
+        - name
+      examples:
+      - - id: 100
+          name: General
     IntakeFormQuestionnairePublicResponse:
       title: IntakeFormQuestionnairePublicResponse
       description: The list of attributes for this contract template.
@@ -282,25 +301,6 @@ components:
 
           Accept anyone picture him air.'
         attributes: null
-    ContractTypeListDomainModel:
-      title: ContractTypeListDomainModel
-      type: array
-      items:
-        title: ContractTypeDomainModel
-        type: object
-        properties:
-          id:
-            title: Id
-            type: integer
-          name:
-            title: Name
-            type: string
-        required:
-        - id
-        - name
-      examples:
-      - - id: 100
-          name: General
     ExternalContractTypeEntityListResponse:
       title: ExternalContractTypeEntityListResponse
       description: The list of entities for the contract type

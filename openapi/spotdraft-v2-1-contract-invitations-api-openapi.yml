@@ -146,21 +146,6 @@ paths:
       x-tagGroup: Contracts
 components:
   schemas:
-    ExternalContractUnInviteRequest:
-      title: ExternalContractUnInviteRequest
-      type: object
-      properties:
-        user_id:
-          title: User Id
-          description: ID of the user that is to be uninvited. Set exactly one of `user_id` or `role_id`.
-          type: integer
-        role_id:
-          title: Role Id
-          description: ID of the role that is to be uninvited. Set exactly one of `user_id` or `role_id`.
-          type: integer
-      examples:
-      - user_id: 100
-        role_id: 101
     ExternalContractInviteResponse:
       title: ExternalContractInviteResponse
       type: object
@@ -286,6 +271,21 @@ components:
         - role_id: 34
           permission_name: CONTRACT.READ
           note: Inviting Legal team with contract read access.
+    ExternalContractUnInviteRequest:
+      title: ExternalContractUnInviteRequest
+      type: object
+      properties:
+        user_id:
+          title: User Id
+          description: ID of the user that is to be uninvited. Set exactly one of `user_id` or `role_id`.
+          type: integer
+        role_id:
+          title: Role Id
+          description: ID of the role that is to be uninvited. Set exactly one of `user_id` or `role_id`.
+          type: integer
+      examples:
+      - user_id: 100
+        role_id: 101
   securitySchemes:
     ClickwrapId:
       type: apiKey

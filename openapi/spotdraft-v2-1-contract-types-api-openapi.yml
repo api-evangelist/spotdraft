@@ -165,6 +165,113 @@ paths:
       x-tagGroup: Workflow
 components:
   schemas:
+    PermissionFilterListEnum:
+      enum:
+      - READ
+      - SUGGEST
+      - EDIT
+      - SIGN
+      - CREATE
+      type: string
+    ExternalContractTypeEntityListResponse:
+      title: ExternalContractTypeEntityListResponse
+      description: The list of entities for the contract type
+      type: array
+      items:
+        title: ExternalContractTypeEntityResponse
+        type: object
+        properties:
+          entity_id:
+            title: Entity Id
+            description: The id of the entity
+            type: integer
+          entity_name:
+            title: Entity Name
+            description: The name of the entity
+            type: string
+          entity_type:
+            title: Entity Type
+            description: The type of the entity
+            type: string
+          jurisdiction_of_incorporation:
+            title: Jurisdiction Of Incorporation
+            description: The jurisdiction of incorporation
+            type: string
+          address:
+            title: Address
+            type: object
+            properties:
+              city:
+                title: City
+                description: The city name for this address.
+                type: string
+              state:
+                title: State
+                description: The state name for this address.
+                default: ''
+                type: string
+              country:
+                title: Country
+                description: The name of the country associated with this entity address.
+                type: string
+              zipcode:
+                title: Zipcode
+                description: The zip/pin/postal code for this address.
+                default: ''
+                type: string
+              line_one:
+                title: Line One
+                description: The first line of the address. Usually the apartment, floor, and street information.
+                type: string
+            required:
+            - city
+            - country
+            - line_one
+            examples:
+            - address:
+                city_name: Cincinnati
+                state_name: Ohio
+                country_name: USA
+                zipcode: '513'
+                line_one: 'st: 3, block: 2, Jenkins Road'
+            description: The address of the entity
+          is_primary:
+            title: Is Primary
+            description: Defines if this is the primary entity
+            type: boolean
+        required:
+        - entity_id
+        - entity_name
+        - entity_type
+        - jurisdiction_of_incorporation
+        - address
+        - is_primary
+        examples:
+        - entity_id: 100
+          entity_name: ABC Services
+          entity_type: Private Company
+          jurisdiction_of_incorporation: United Arab Emirates
+          address:
+            city_name: Cincinnati
+            state_name: Ohio
+            country_name: USA
+            zipcode: '513'
+            line_one: 'st: 3, block: 2, Jenkins Road'
+          is_primary: true
+    ContractTypeAccessControlListAPIRequest:
+      title: ContractTypeAccessControlListAPIRequest
+      type: object
+      properties:
+        permission_filter_list:
+          description: List of permission types to filter on. Provide one or more permission enum values.
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/PermissionFilterListEnum'
+            title: ExternalContractInvitePermissionType
+            description: An enumeration.
+      required:
+      - permission_filter_list
     ContractTypeListDomainModel:
       title: ContractTypeListDomainModel
       type: array
@@ -184,113 +291,6 @@ components:
       examples:
       - - id: 100
           name: General
-    ContractTypeAccessControlListAPIRequest:
-      title: ContractTypeAccessControlListAPIRequest
-      type: object
-      properties:
-        permission_filter_list:
-          description: List of permission types to filter on. Provide one or more permission enum values.
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/PermissionFilterListEnum'
-            title: ExternalContractInvitePermissionType
-            description: An enumeration.
-      required:
-      - permission_filter_list
-    ExternalContractTypeAccessControlListAPIResponse:
-      title: ExternalContractTypeAccessControlListAPIResponse
-      type: object
-      properties:
-        contract_type_id:
-          title: Contract Type Id
-          type: integer
-        contract_type_name:
-          title: Contract Type Name
-          type: string
-        permission_list:
-          title: Permission List
-          type: array
-          items:
-            title: ExternalAccessControlListItem
-            type: object
-            properties:
-              permission_label:
-                title: Permission Label
-                type: string
-              authorized_list:
-                title: Authorized List
-                type: array
-                items:
-                  title: ExternalPolicyResponse
-                  type: object
-                  properties:
-                    kind:
-                      title: Kind
-                      type: string
-                    subject_id:
-                      title: Subject Id
-                      type: integer
-                    role:
-                      title: ExternalRolePublicResponse
-                      type: object
-                      properties:
-                        id:
-                          title: Id
-                          description: Id of the role.
-                          type: integer
-                        name:
-                          title: Name
-                          description: Name of the role.
-                          minLength: 1
-                          type: string
-                        description:
-                          title: Description
-                          description: Description of the role.
-                          type: string
-                      required:
-                      - id
-                      - name
-                      - description
-                    user:
-                      title: ExternalUserPublicResponse
-                      type: object
-                      properties:
-                        id:
-                          title: Id
-                          description: Id of the User.
-                          type: integer
-                        name:
-                          title: Name
-                          description: Name of the User.
-                          default: ''
-                          type: string
-                        email:
-                          title: Email
-                          description: Email of the User.
-                          type: string
-                          format: email
-                        designation:
-                          title: Designation
-                          description: Designation of the User.
-                          type: string
-                      required:
-                      - id
-                      - email
-                  required:
-                  - kind
-                  - subject_id
-            required:
-            - permission_label
-            - authorized_list
-        auto_add_read_access_creator_team:
-          title: Auto Add Read Access Creator Team
-          default: false
-          type: boolean
-      required:
-      - contract_type_id
-      - contract_type_name
-      - permission_list
     IntakeFormQuestionnairePublicResponse:
       title: IntakeFormQuestionnairePublicResponse
       description: The list of attributes for this contract template.
@@ -447,99 +447,99 @@ components:
 
           Accept anyone picture him air.'
         attributes: null
-    PermissionFilterListEnum:
-      enum:
-      - READ
-      - SUGGEST
-      - EDIT
-      - SIGN
-      - CREATE
-      type: string
-    ExternalContractTypeEntityListResponse:
-      title: ExternalContractTypeEntityListResponse
-      description: The list of entities for the contract type
-      type: array
-      items:
-        title: ExternalContractTypeEntityResponse
-        type: object
-        properties:
-          entity_id:
-            title: Entity Id
-            description: The id of the entity
-            type: integer
-          entity_name:
-            title: Entity Name
-            description: The name of the entity
-            type: string
-          entity_type:
-            title: Entity Type
-            description: The type of the entity
-            type: string
-          jurisdiction_of_incorporation:
-            title: Jurisdiction Of Incorporation
-            description: The jurisdiction of incorporation
-            type: string
-          address:
-            title: Address
+    ExternalContractTypeAccessControlListAPIResponse:
+      title: ExternalContractTypeAccessControlListAPIResponse
+      type: object
+      properties:
+        contract_type_id:
+          title: Contract Type Id
+          type: integer
+        contract_type_name:
+          title: Contract Type Name
+          type: string
+        permission_list:
+          title: Permission List
+          type: array
+          items:
+            title: ExternalAccessControlListItem
             type: object
             properties:
-              city:
-                title: City
-                description: The city name for this address.
+              permission_label:
+                title: Permission Label
                 type: string
-              state:
-                title: State
-                description: The state name for this address.
-                default: ''
-                type: string
-              country:
-                title: Country
-                description: The name of the country associated with this entity address.
-                type: string
-              zipcode:
-                title: Zipcode
-                description: The zip/pin/postal code for this address.
-                default: ''
-                type: string
-              line_one:
-                title: Line One
-                description: The first line of the address. Usually the apartment, floor, and street information.
-                type: string
+              authorized_list:
+                title: Authorized List
+                type: array
+                items:
+                  title: ExternalPolicyResponse
+                  type: object
+                  properties:
+                    kind:
+                      title: Kind
+                      type: string
+                    subject_id:
+                      title: Subject Id
+                      type: integer
+                    role:
+                      title: ExternalRolePublicResponse
+                      type: object
+                      properties:
+                        id:
+                          title: Id
+                          description: Id of the role.
+                          type: integer
+                        name:
+                          title: Name
+                          description: Name of the role.
+                          minLength: 1
+                          type: string
+                        description:
+                          title: Description
+                          description: Description of the role.
+                          type: string
+                      required:
+                      - id
+                      - name
+                      - description
+                    user:
+                      title: ExternalUserPublicResponse
+                      type: object
+                      properties:
+                        id:
+                          title: Id
+                          description: Id of the User.
+                          type: integer
+                        name:
+                          title: Name
+                          description: Name of the User.
+                          default: ''
+                          type: string
+                        email:
+                          title: Email
+                          description: Email of the User.
+                          type: string
+                          format: email
+                        designation:
+                          title: Designation
+                          description: Designation of the User.
+                          type: string
+                      required:
+                      - id
+                      - email
+                  required:
+                  - kind
+                  - subject_id
             required:
-            - city
-            - country
-            - line_one
-            examples:
-            - address:
-                city_name: Cincinnati
-                state_name: Ohio
-                country_name: USA
-                zipcode: '513'
-                line_one: 'st: 3, block: 2, Jenkins Road'
-            description: The address of the entity
-          is_primary:
-            title: Is Primary
-            description: Defines if this is the primary entity
-            type: boolean
-        required:
-        - entity_id
-        - entity_name
-        - entity_type
-        - jurisdiction_of_incorporation
-        - address
-        - is_primary
-        examples:
-        - entity_id: 100
-          entity_name: ABC Services
-          entity_type: Private Company
-          jurisdiction_of_incorporation: United Arab Emirates
-          address:
-            city_name: Cincinnati
-            state_name: Ohio
-            country_name: USA
-            zipcode: '513'
-            line_one: 'st: 3, block: 2, Jenkins Road'
-          is_primary: true
+            - permission_label
+            - authorized_list
+        auto_add_read_access_creator_team:
+          title: Auto Add Read Access Creator Team
+          default: false
+          type: boolean
+      required:
+      - contract_type_id
+      - contract_type_name
+      - permission_list
   securitySchemes:
     ClickwrapId:
       type: apiKey

@@ -214,6 +214,12 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
+    PublicWebhookResponseStatusEnum:
+      enum:
+      - ACTIVE
+      - DISABLED_BY_USER
+      - DISABLED_BY_ERROR
+      type: string
     OnlyForActivitiesEnum:
       enum:
       - CONTRACT_VERSION_UPLOADED
@@ -254,25 +260,6 @@ components:
       - CONTRACT_EXTERNAL_METADATA_UPDATED
       - CONTRACT_ENTITY_UPDATED
       type: string
-    PublicWebhookResponseStatusEnum:
-      enum:
-      - ACTIVE
-      - DISABLED_BY_USER
-      - DISABLED_BY_ERROR
-      type: string
-    WebhookSecretKeyResponse:
-      title: WebhookSecretKeyResponse
-      type: object
-      properties:
-        hmac_key:
-          title: Hmac Key
-          description: Base64 of the secret for webhook
-          minLength: 1
-          type: string
-      required:
-      - hmac_key
-      examples:
-      - hmac_key: zJDCvFUXhByUkPcQIzf+dt2W7bqm6x6Fb2o/gLhfUgXyPqvPcrZ6P9yYtoUrI4dErHzq2t+4gjZ4zH2btdpoSA==
     PublicWebhookCreateRequest:
       title: PublicWebhookCreateRequest
       type: object
@@ -400,6 +387,19 @@ components:
           X-ABC-ACCESS-KEY: example-access-key
           DEF-ACCESS-KEY: example-secondary-access-key
         status: ACTIVE
+    WebhookSecretKeyResponse:
+      title: WebhookSecretKeyResponse
+      type: object
+      properties:
+        hmac_key:
+          title: Hmac Key
+          description: Base64 of the secret for webhook
+          minLength: 1
+          type: string
+      required:
+      - hmac_key
+      examples:
+      - hmac_key: zJDCvFUXhByUkPcQIzf+dt2W7bqm6x6Fb2o/gLhfUgXyPqvPcrZ6P9yYtoUrI4dErHzq2t+4gjZ4zH2btdpoSA==
   securitySchemes:
     ClickwrapId:
       type: apiKey

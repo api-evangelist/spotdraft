@@ -113,21 +113,6 @@ components:
       - content_type
       title: WorkspaceFileUploadInitiationRequestItem
       type: object
-    WorkspaceFileUploadInitiationRequest:
-      description: Bulk request payload for public upload initiation.
-      properties:
-        files:
-          description: Files to initialize for upload.
-          items:
-            $ref: '#/components/schemas/WorkspaceFileUploadInitiationRequestItem'
-          maxItems: 50
-          minItems: 1
-          title: Files
-          type: array
-      required:
-      - files
-      title: WorkspaceFileUploadInitiationRequest
-      type: object
     WorkspaceFileUploadInitiationPublicResponse:
       description: Bulk response payload for public upload initiation.
       properties:
@@ -183,6 +168,21 @@ components:
       required:
       - signed_url
       title: WorkspaceFileDownloadPublicResponse
+      type: object
+    WorkspaceFileUploadInitiationRequest:
+      description: Bulk request payload for public upload initiation.
+      properties:
+        files:
+          description: Files to initialize for upload.
+          items:
+            $ref: '#/components/schemas/WorkspaceFileUploadInitiationRequestItem'
+          maxItems: 50
+          minItems: 1
+          title: Files
+          type: array
+      required:
+      - files
+      title: WorkspaceFileUploadInitiationRequest
       type: object
   securitySchemes:
     ClickwrapId:

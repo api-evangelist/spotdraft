@@ -296,19 +296,14 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
-    ExternalUserActiveRole:
+    PatchedExternalUserEdit:
       type: object
-      description: The response for the active role for that workspace
       properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 150
-      required:
-      - id
-      - name
+        roles:
+          type: array
+          items:
+            type: integer
+          description: The Role IDs for this user. Role IDs are returned by the Roles API.
     ExternalUser:
       type: object
       description: The response for the user created in SpotDraft
@@ -347,36 +342,6 @@ components:
       - modified
       - roles
       - username
-    PatchedExternalUserEdit:
-      type: object
-      properties:
-        roles:
-          type: array
-          items:
-            type: integer
-          description: The Role IDs for this user. Role IDs are returned by the Roles API.
-    ExternalUserPaginated:
-      type: object
-      properties:
-        total_results:
-          type: integer
-          description: Total number of items in the result set.
-        page:
-          type: integer
-          description: The current page number. Page numbers start at 1.
-        limit:
-          type: integer
-          description: The number of items returned per page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalUser'
-          description: The actual results.
-      required:
-      - limit
-      - page
-      - results
-      - total_results
     ExternalUserCreate:
       type: object
       description: The request body to create the users in SpotDraft
@@ -404,6 +369,41 @@ components:
       - last_name
       - roles
       - username
+    ExternalUserActiveRole:
+      type: object
+      description: The response for the active role for that workspace
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 150
+      required:
+      - id
+      - name
+    ExternalUserPaginated:
+      type: object
+      properties:
+        total_results:
+          type: integer
+          description: Total number of items in the result set.
+        page:
+          type: integer
+          description: The current page number. Page numbers start at 1.
+        limit:
+          type: integer
+          description: The number of items returned per page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalUser'
+          description: The actual results.
+      required:
+      - limit
+      - page
+      - results
+      - total_results
   securitySchemes:
     ClickwrapId:
       type: apiKey

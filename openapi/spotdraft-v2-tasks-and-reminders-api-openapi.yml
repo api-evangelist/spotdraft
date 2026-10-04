@@ -126,6 +126,13 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
+    UserTaskPublicResponseStatusEnum:
+      enum:
+      - COMPLETED
+      - UPCOMING
+      - OVERDUE
+      - NO_DATE
+      type: string
     UserTaskCreateRequest:
       title: UserTaskCreateRequest
       type: object
@@ -251,13 +258,6 @@ components:
         reminders:
         - value: 10
           type: DAYS
-    UserTaskPublicResponseStatusEnum:
-      enum:
-      - COMPLETED
-      - UPCOMING
-      - OVERDUE
-      - NO_DATE
-      type: string
     PriorityEnum:
       enum:
       - LOW
