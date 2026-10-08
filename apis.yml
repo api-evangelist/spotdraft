@@ -2420,6 +2420,12 @@ apis:
   - type: Webhooks
     url: https://help.spotdraft.com/hc/en-us/articles/19587223206429-Developer-Settings
 common:
+  - type: Plans
+    url: plans/spotdraft-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/spotdraft-rate-limits.yml
+  - type: FinOps
+    url: finops/spotdraft-finops.yml
   - type: CapabilityMap
     url: capabilities/spotdraft-capability-edges.yml
     name: SpotDraft Business Capability Map
