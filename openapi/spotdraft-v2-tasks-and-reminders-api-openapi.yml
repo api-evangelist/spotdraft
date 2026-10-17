@@ -133,6 +133,14 @@ components:
       - OVERDUE
       - NO_DATE
       type: string
+    IntakeTaskStatusEnum:
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - BLOCKED
+      - COMPLETED
+      - DISCARDED
+      type: string
     UserTaskCreateRequest:
       title: UserTaskCreateRequest
       type: object
@@ -837,14 +845,6 @@ components:
       - USER_TASK
       - OBLIGATION_TASK
       - INTAKE_TASK
-      type: string
-    IntakeTaskStatusEnum:
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - BLOCKED
-      - COMPLETED
-      - DISCARDED
       type: string
   securitySchemes:
     ClickwrapId:

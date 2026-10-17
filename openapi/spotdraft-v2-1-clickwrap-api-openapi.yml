@@ -207,31 +207,35 @@ paths:
       x-tagGroup: Clickwrap
 components:
   schemas:
-    ContractMinimalResponseV2ContractKindEnum:
-      enum:
-      - TEMPLATE
-      - TEMPLATE_EDITABLE
-      - UPLOAD_EDITABLE
-      - UPLOAD_SIGN
-      - UPLOAD_EXECUTED
-      - EXPRESS_TEMPLATE
-      - CLICKWRAP
-      - HISTORICAL_CLICKWRAP
-      type: string
-    WorkflowStatusEnum:
-      enum:
-      - DRAFT
-      - INVITE_CLIENT
-      - INFO_COLLECTION
-      - CONTRACT_APPROVAL
-      - CONTRACT_DRAFT_APPROVAL
-      - CONTRACT_APPROVAL_REJECTED
-      - REVIEW
-      - SIGN
-      - COMPLETING
-      - COMPLETED
-      - TEMPLATE_PRE_SIGN_APPROVAL
-      type: string
+    OrgUserMinimalDomainModel:
+      properties:
+        id:
+          title: Id
+          type: integer
+        name:
+          title: Name
+          type: string
+        email:
+          title: Email
+          type: string
+        designation:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          title: Designation
+        auth_user_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: null
+          title: Auth User Id
+      required:
+      - id
+      - name
+      - email
+      title: OrgUserMinimalDomainModel
+      type: object
     ClickwrapWithVersionGetAPIResponse:
       properties:
         id:
@@ -277,81 +281,6 @@ components:
       - full_version_number
       title: ClickwrapWithVersionGetAPIResponse
       type: object
-    CreateClickwrapContractRequest:
-      title: CreateClickwrapContractRequest
-      type: object
-      properties:
-        clickwrap_public_id:
-          title: Clickwrap Public Id
-          description: Public clickwrap id that identifies the clickwrap experience.
-          type: string
-          format: uuid
-        user_identifier:
-          title: User Identifier
-          description: Your stable identifier for the end user accepting the clickwrap, such as an email address or application user id.
-          type: string
-        clickwrap_id:
-          title: Clickwrap Id
-          description: Internal clickwrap id resolved by SpotDraft for the requested public clickwrap.
-          type: integer
-        first_name:
-          title: First Name
-          description: Optional first name for the accepting user.
-          type: string
-        last_name:
-          title: Last Name
-          description: Optional last name for the accepting user.
-          type: string
-        user_email:
-          title: User Email
-          description: Optional email address for the accepting user.
-          type: string
-        ip_address:
-          title: Ip Address
-          description: IP address captured for the acceptance event.
-          type: string
-        additional_custom_information:
-          title: Additional Custom Information
-          description: Optional custom key-value metadata to store alongside the acceptance record.
-          type: object
-        key_pointer_information:
-          title: Key Pointer Information
-          description: Optional structured values to populate contract metadata fields during clickwrap contract creation.
-          type: object
-        agreements:
-          title: Agreements
-          description: Agreement versions the user is accepting as part of this clickwrap execution.
-          minItems: 1
-          type: array
-          items:
-            title: CreateClickwrapContractAgreementVersionRequest
-            type: object
-            properties:
-              id:
-                title: Id
-                description: Agreement id included in the clickwrap execution request.
-                type: integer
-              version_id:
-                title: Version Id
-                description: Published agreement version id the user is accepting.
-                type: integer
-              has_clicked:
-                title: Has Clicked
-                description: Whether the user opened or interacted with this agreement before acceptance.
-                default: false
-                type: boolean
-            required:
-            - id
-            - version_id
-        external_metadata:
-          title: External Metadata
-          description: Optional external-system metadata to associate with the created clickwrap contract.
-          type: object
-      required:
-      - clickwrap_public_id
-      - user_identifier
-      - clickwrap_id
-      - agreements
     ClickwrapConsentStatus:
       enum:
       - NOT_ACCEPTED
@@ -359,73 +288,6 @@ components:
       - ACCEPTED_LATEST_VERSION
       title: ClickwrapConsentStatus
       type: string
-    ClickwrapAgreementVersionStatusType:
-      enum:
-      - PUBLISHED
-      - DRAFT
-      - PAST_PUBLISHED
-      title: ClickwrapAgreementVersionStatusType
-      type: string
-    EditorClientEnum:
-      enum:
-      - ONLY_OFFICE_NATIVE
-      - WOPI
-      - UNSET
-      type: string
-    AgreementClickwrapGetAPIResponse:
-      properties:
-        id:
-          title: Id
-          type: integer
-        current_version:
-          $ref: '#/components/schemas/ClickwrapWithVersionGetAPIResponse'
-      required:
-      - id
-      - current_version
-      title: AgreementClickwrapGetAPIResponse
-      type: object
-    PublicGetClickwrapConsentStatusRequestData:
-      examples:
-      - user_identifier: 10f9a299-9e9a-4bc9-9299-5b89bc06d370
-      properties:
-        user_identifier:
-          description: An identifier for the user whose consent status is being queried.
-          minLength: 1
-          title: User Identifier
-          type: string
-      required:
-      - user_identifier
-      title: PublicGetClickwrapConsentStatusRequestData
-      type: object
-    OrgUserMinimalDomainModel:
-      properties:
-        id:
-          title: Id
-          type: integer
-        name:
-          title: Name
-          type: string
-        email:
-          title: Email
-          type: string
-        designation:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: null
-          title: Designation
-        auth_user_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          default: null
-          title: Auth User Id
-      required:
-      - id
-      - name
-      - email
-      title: OrgUserMinimalDomainModel
-      type: object
     ContractMinimalResponseV2:
       title: ContractMinimalResponseV2
       description: "Minimal response model for a contract.\nAttributes:\n    id (ContractId): The ID of the contract.\n    public_id (str): Public ID of the contract.\n    contract_name (str): Name of the contract.\n    contract_type_id (ContractTypeId): ID of the contract type.\n    contract_template_id (Optional[int], optional): ID of the associated contract template.\n    status (str): Status of the contract.\n    display_status (ContractDisplayStatus): Display status of the contract.\n    display_status_without_on_hold_check (ContractDisplayStatus):\n        Display status of the contract without on-hold check.\n    workflow_status (Optional[ContractWorkflowStatus], optional): Workflow status of the contract.\n    contract_kind (ContractKind): Kind of the contract.\n    campaign_id (Optional[int], optional): ID of the associated campaign.\n    campaign_v3_id (Optional[CampaignId], optional): ID of the associated campaign (v3).\n    express_template_id (Optional[int], optional): ID of the express template.\n    contract_data_id (Optional[int], optional): ID of the contract data.\n    contract_editable_document_id (Optional[int], optional): ID of the editable document related to the contract.\n    created (datetime): Date and time when the contract was created.\n    created_by_workspace_id (WorkspaceId): ID of the workspace where the contract was created.\n    editor_client (ContractEditorClient): Client editor of the contract.\n    execution_date (Optional[datetime], optional): Date and time of contract execution.\n    frozen_template_id (Optional[int], optional): ID of the frozen contract template.\n    workflow_id (str): ID of the workflow associated with the contract.\n\nMethods:\n    is_executed() -> bool:\n        Checks if the contract is executed.\n\n    is_voided() -> bool:\n        Checks if the contract is voided.\n\n    is_historic_upload() -> bool:\n        Checks if the contract is a historic upload.\n\n    contract_response_v2() -> ContractResponseV2:\n        Retrieves the full response object for the contract.\n\n    get_fields_to_select() -> List[str]:\n        Retrieves the list of fields to select for the contract."
@@ -522,6 +384,18 @@ components:
       - created_by_workspace_id
       - editor_client
       - workflow_id
+    AgreementClickwrapGetAPIResponse:
+      properties:
+        id:
+          title: Id
+          type: integer
+        current_version:
+          $ref: '#/components/schemas/ClickwrapWithVersionGetAPIResponse'
+      required:
+      - id
+      - current_version
+      title: AgreementClickwrapGetAPIResponse
+      type: object
     ClickwrapSettingsPublicResponse:
       properties:
         type:
@@ -553,71 +427,6 @@ components:
       - clickwrap_texts_raw
       title: ClickwrapSettingsPublicResponse
       type: object
-    ContractDisplayStatusEnum:
-      enum:
-      - DRAFT
-      - REDLINING
-      - SIGN
-      - EXECUTED
-      - ON_HOLD
-      - VOIDED
-      type: string
-    PublicClickwrapConsentStatusResponse:
-      example:
-        status: NOT_ACCEPTED
-      properties:
-        status:
-          $ref: '#/components/schemas/ClickwrapConsentStatus'
-        trigger_acceptance:
-          title: Trigger Acceptance
-          type: boolean
-      required:
-      - status
-      - trigger_acceptance
-      title: PublicClickwrapConsentStatusResponse
-      type: object
-    ClickwrapAgreementPreviewRequest:
-      title: ClickwrapAgreementPreviewRequest
-      type: object
-      properties:
-        auth_user_id:
-          title: Auth User Id
-          description: Authenticated user id under whose context the agreement preview should be rendered.
-          type: integer
-        workspace_id:
-          title: Workspace Id
-          description: Workspace id that owns the clickwrap agreement.
-          type: integer
-        org_user_id:
-          title: Org User Id
-          description: Workspace membership id for the authenticated user.
-          type: integer
-        agreement_id:
-          title: Agreement Id
-          description: Agreement id to preview.
-          type: integer
-        name:
-          title: Name
-          description: Agreement name shown in the preview.
-          type: string
-        html_content:
-          title: Html Content
-          description: Rendered agreement HTML that should be previewed.
-          type: string
-      required:
-      - auth_user_id
-      - workspace_id
-      - org_user_id
-      - agreement_id
-      - name
-      - html_content
-    ClickwrapType:
-      enum:
-      - SINGLE_CHECKBOX
-      - MULTIPLE_CHECKBOX
-      - INLINE
-      title: ClickwrapType
-      type: string
     ClickwrapPublicGetAPIResponse:
       properties:
         id:
@@ -661,6 +470,197 @@ components:
       - contract_type_id
       - settings
       title: ClickwrapPublicGetAPIResponse
+      type: object
+    ContractDisplayStatusEnum:
+      enum:
+      - DRAFT
+      - REDLINING
+      - SIGN
+      - EXECUTED
+      - ON_HOLD
+      - VOIDED
+      type: string
+    ContractMinimalResponseV2ContractKindEnum:
+      enum:
+      - TEMPLATE
+      - TEMPLATE_EDITABLE
+      - UPLOAD_EDITABLE
+      - UPLOAD_SIGN
+      - UPLOAD_EXECUTED
+      - EXPRESS_TEMPLATE
+      - CLICKWRAP
+      - HISTORICAL_CLICKWRAP
+      type: string
+    WorkflowStatusEnum:
+      enum:
+      - DRAFT
+      - INVITE_CLIENT
+      - INFO_COLLECTION
+      - CONTRACT_APPROVAL
+      - CONTRACT_DRAFT_APPROVAL
+      - CONTRACT_APPROVAL_REJECTED
+      - REVIEW
+      - SIGN
+      - COMPLETING
+      - COMPLETED
+      - TEMPLATE_PRE_SIGN_APPROVAL
+      type: string
+    CreateClickwrapContractRequest:
+      title: CreateClickwrapContractRequest
+      type: object
+      properties:
+        clickwrap_public_id:
+          title: Clickwrap Public Id
+          description: Public clickwrap id that identifies the clickwrap experience.
+          type: string
+          format: uuid
+        user_identifier:
+          title: User Identifier
+          description: Your stable identifier for the end user accepting the clickwrap, such as an email address or application user id.
+          type: string
+        clickwrap_id:
+          title: Clickwrap Id
+          description: Internal clickwrap id resolved by SpotDraft for the requested public clickwrap.
+          type: integer
+        first_name:
+          title: First Name
+          description: Optional first name for the accepting user.
+          type: string
+        last_name:
+          title: Last Name
+          description: Optional last name for the accepting user.
+          type: string
+        user_email:
+          title: User Email
+          description: Optional email address for the accepting user.
+          type: string
+        ip_address:
+          title: Ip Address
+          description: IP address captured for the acceptance event.
+          type: string
+        additional_custom_information:
+          title: Additional Custom Information
+          description: Optional custom key-value metadata to store alongside the acceptance record.
+          type: object
+        key_pointer_information:
+          title: Key Pointer Information
+          description: Optional structured values to populate contract metadata fields during clickwrap contract creation.
+          type: object
+        agreements:
+          title: Agreements
+          description: Agreement versions the user is accepting as part of this clickwrap execution.
+          minItems: 1
+          type: array
+          items:
+            title: CreateClickwrapContractAgreementVersionRequest
+            type: object
+            properties:
+              id:
+                title: Id
+                description: Agreement id included in the clickwrap execution request.
+                type: integer
+              version_id:
+                title: Version Id
+                description: Published agreement version id the user is accepting.
+                type: integer
+              has_clicked:
+                title: Has Clicked
+                description: Whether the user opened or interacted with this agreement before acceptance.
+                default: false
+                type: boolean
+            required:
+            - id
+            - version_id
+        external_metadata:
+          title: External Metadata
+          description: Optional external-system metadata to associate with the created clickwrap contract.
+          type: object
+      required:
+      - clickwrap_public_id
+      - user_identifier
+      - clickwrap_id
+      - agreements
+    EditorClientEnum:
+      enum:
+      - ONLY_OFFICE_NATIVE
+      - WOPI
+      - UNSET
+      type: string
+    ClickwrapAgreementPreviewRequest:
+      title: ClickwrapAgreementPreviewRequest
+      type: object
+      properties:
+        auth_user_id:
+          title: Auth User Id
+          description: Authenticated user id under whose context the agreement preview should be rendered.
+          type: integer
+        workspace_id:
+          title: Workspace Id
+          description: Workspace id that owns the clickwrap agreement.
+          type: integer
+        org_user_id:
+          title: Org User Id
+          description: Workspace membership id for the authenticated user.
+          type: integer
+        agreement_id:
+          title: Agreement Id
+          description: Agreement id to preview.
+          type: integer
+        name:
+          title: Name
+          description: Agreement name shown in the preview.
+          type: string
+        html_content:
+          title: Html Content
+          description: Rendered agreement HTML that should be previewed.
+          type: string
+      required:
+      - auth_user_id
+      - workspace_id
+      - org_user_id
+      - agreement_id
+      - name
+      - html_content
+    ClickwrapType:
+      enum:
+      - SINGLE_CHECKBOX
+      - MULTIPLE_CHECKBOX
+      - INLINE
+      title: ClickwrapType
+      type: string
+    PublicGetClickwrapConsentStatusRequestData:
+      examples:
+      - user_identifier: 10f9a299-9e9a-4bc9-9299-5b89bc06d370
+      properties:
+        user_identifier:
+          description: An identifier for the user whose consent status is being queried.
+          minLength: 1
+          title: User Identifier
+          type: string
+      required:
+      - user_identifier
+      title: PublicGetClickwrapConsentStatusRequestData
+      type: object
+    ClickwrapAgreementVersionStatusType:
+      enum:
+      - PUBLISHED
+      - DRAFT
+      - PAST_PUBLISHED
+      title: ClickwrapAgreementVersionStatusType
+      type: string
+    PublicClickwrapConsentStatusResponse:
+      example:
+        status: NOT_ACCEPTED
+      properties:
+        status:
+          $ref: '#/components/schemas/ClickwrapConsentStatus'
+        trigger_acceptance:
+          title: Trigger Acceptance
+          type: boolean
+      required:
+      - status
+      - trigger_acceptance
+      title: PublicClickwrapConsentStatusResponse
       type: object
   securitySchemes:
     ClickwrapId:

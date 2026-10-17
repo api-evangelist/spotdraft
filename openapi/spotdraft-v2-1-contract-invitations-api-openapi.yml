@@ -146,6 +146,65 @@ paths:
       x-tagGroup: Contracts
 components:
   schemas:
+    ExternalContractInviteRequest:
+      title: ExternalContractInviteRequest
+      type: object
+      properties:
+        items:
+          title: Items
+          description: The list of roles/org users/new emails to be invited for this contract. The list cannot be empty.
+          type: array
+          items:
+            title: ExternalContractInviteRequestItem
+            type: object
+            properties:
+              role_id:
+                title: Role Id
+                description: The Role ID to be invited. [This](https://api.spotdraft.com/api/v2/public/auth/roles) API can be used to fetch the role ID.
+                type: integer
+              user_id:
+                title: User Id
+                description: The User ID to be invited. [This](https://api.spotdraft.com/api/v2.1/public/auth/users) API can be used to fetch the user ID.
+                type: integer
+              new_user_email:
+                title: New User Email
+                description: Email of the new user to be invited. Set exactly one of `role_id`, `user_id`, or `new_user_email`.
+                minLength: 1
+                type: string
+              new_user_name:
+                title: New User Name
+                description: Name of the new user to be invited.
+                default: ''
+                minLength: 1
+                type: string
+              new_user_role_id:
+                title: New User Role Id
+                description: Role ID to which the new invited user is to be assigned. [This](https://api.spotdraft.com/api/v2/public/auth/roles) API can be used to fetch the role ID.
+                type: integer
+              note:
+                title: Note
+                description: Note to be included in the contract invite.
+                default: ''
+                minLength: 1
+                type: string
+              permission_name:
+                title: ExternalContractInvitePermissionType
+                description: The type of permission to be provided to the invited role/user.
+                enum:
+                - CONTRACT.READ
+                - CONTRACT.SUGGEST
+                - CONTRACT.EDIT
+                - CONTRACT.SIGN
+                type: string
+            required:
+            - permission_name
+      required:
+      - items
+      examples:
+      - items:
+        - role_id: 34
+          permission_name: CONTRACT.READ
+          note: Inviting Legal team with contract read access.
     ExternalContractInviteResponse:
       title: ExternalContractInviteResponse
       type: object
@@ -212,65 +271,6 @@ components:
         - id: 34
           name: Legal
           description: Legal team
-    ExternalContractInviteRequest:
-      title: ExternalContractInviteRequest
-      type: object
-      properties:
-        items:
-          title: Items
-          description: The list of roles/org users/new emails to be invited for this contract. The list cannot be empty.
-          type: array
-          items:
-            title: ExternalContractInviteRequestItem
-            type: object
-            properties:
-              role_id:
-                title: Role Id
-                description: The Role ID to be invited. [This](https://api.spotdraft.com/api/v2/public/auth/roles) API can be used to fetch the role ID.
-                type: integer
-              user_id:
-                title: User Id
-                description: The User ID to be invited. [This](https://api.spotdraft.com/api/v2.1/public/auth/users) API can be used to fetch the user ID.
-                type: integer
-              new_user_email:
-                title: New User Email
-                description: Email of the new user to be invited. Set exactly one of `role_id`, `user_id`, or `new_user_email`.
-                minLength: 1
-                type: string
-              new_user_name:
-                title: New User Name
-                description: Name of the new user to be invited.
-                default: ''
-                minLength: 1
-                type: string
-              new_user_role_id:
-                title: New User Role Id
-                description: Role ID to which the new invited user is to be assigned. [This](https://api.spotdraft.com/api/v2/public/auth/roles) API can be used to fetch the role ID.
-                type: integer
-              note:
-                title: Note
-                description: Note to be included in the contract invite.
-                default: ''
-                minLength: 1
-                type: string
-              permission_name:
-                title: ExternalContractInvitePermissionType
-                description: The type of permission to be provided to the invited role/user.
-                enum:
-                - CONTRACT.READ
-                - CONTRACT.SUGGEST
-                - CONTRACT.EDIT
-                - CONTRACT.SIGN
-                type: string
-            required:
-            - permission_name
-      required:
-      - items
-      examples:
-      - items:
-        - role_id: 34
-          permission_name: CONTRACT.READ
-          note: Inviting Legal team with contract read access.
     ExternalContractUnInviteRequest:
       title: ExternalContractUnInviteRequest
       type: object

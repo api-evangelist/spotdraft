@@ -126,6 +126,26 @@ paths:
       x-tagGroup: Contracts
 components:
   schemas:
+    ContractNoteMinimalResponse:
+      title: ContractNoteMinimalResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        text:
+          title: Text
+          type: string
+        note_tag:
+          title: Note Tag
+          type: string
+      required:
+      - id
+      - text
+      examples:
+      - id: 1
+        text: sample note for contract
+        note_tag: sample_tag
     ContractNoteUpdateRequest:
       title: ContractNoteUpdateRequest
       type: object
@@ -148,26 +168,6 @@ components:
           type: string
       required:
       - text
-    ContractNoteMinimalResponse:
-      title: ContractNoteMinimalResponse
-      type: object
-      properties:
-        id:
-          title: Id
-          type: integer
-        text:
-          title: Text
-          type: string
-        note_tag:
-          title: Note Tag
-          type: string
-      required:
-      - id
-      - text
-      examples:
-      - id: 1
-        text: sample note for contract
-        note_tag: sample_tag
   securitySchemes:
     ClickwrapId:
       type: apiKey

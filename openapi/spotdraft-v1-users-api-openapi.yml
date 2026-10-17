@@ -296,14 +296,6 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
-    PatchedExternalUserEdit:
-      type: object
-      properties:
-        roles:
-          type: array
-          items:
-            type: integer
-          description: The Role IDs for this user. Role IDs are returned by the Roles API.
     ExternalUser:
       type: object
       description: The response for the user created in SpotDraft
@@ -342,6 +334,28 @@ components:
       - modified
       - roles
       - username
+    ExternalUserPaginated:
+      type: object
+      properties:
+        total_results:
+          type: integer
+          description: Total number of items in the result set.
+        page:
+          type: integer
+          description: The current page number. Page numbers start at 1.
+        limit:
+          type: integer
+          description: The number of items returned per page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalUser'
+          description: The actual results.
+      required:
+      - limit
+      - page
+      - results
+      - total_results
     ExternalUserCreate:
       type: object
       description: The request body to create the users in SpotDraft
@@ -382,28 +396,14 @@ components:
       required:
       - id
       - name
-    ExternalUserPaginated:
+    PatchedExternalUserEdit:
       type: object
       properties:
-        total_results:
-          type: integer
-          description: Total number of items in the result set.
-        page:
-          type: integer
-          description: The current page number. Page numbers start at 1.
-        limit:
-          type: integer
-          description: The number of items returned per page.
-        results:
+        roles:
           type: array
           items:
-            $ref: '#/components/schemas/ExternalUser'
-          description: The actual results.
-      required:
-      - limit
-      - page
-      - results
-      - total_results
+            type: integer
+          description: The Role IDs for this user. Role IDs are returned by the Roles API.
   securitySchemes:
     ClickwrapId:
       type: apiKey

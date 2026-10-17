@@ -95,6 +95,32 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
+    WorkspaceFileDownloadPublicResponse:
+      description: Response payload for workspace file download API.
+      examples:
+      - signed_url: https://storage.googleapis.com/bucket/path/file.pdf?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Signature=...
+      properties:
+        signed_url:
+          description: Signed URL for workspace file download
+          minLength: 1
+          title: Signed Url
+          type: string
+      required:
+      - signed_url
+      title: WorkspaceFileDownloadPublicResponse
+      type: object
+    WorkspaceFileUploadInitiationPublicResponse:
+      description: Bulk response payload for public upload initiation.
+      properties:
+        files:
+          items:
+            $ref: '#/components/schemas/WorkspaceFileUploadInitiationResponseItem'
+          title: Files
+          type: array
+      required:
+      - files
+      title: WorkspaceFileUploadInitiationPublicResponse
+      type: object
     WorkspaceFileUploadInitiationRequestItem:
       description: Single file entry for public upload initiation.
       properties:
@@ -113,17 +139,20 @@ components:
       - content_type
       title: WorkspaceFileUploadInitiationRequestItem
       type: object
-    WorkspaceFileUploadInitiationPublicResponse:
-      description: Bulk response payload for public upload initiation.
+    WorkspaceFileUploadInitiationRequest:
+      description: Bulk request payload for public upload initiation.
       properties:
         files:
+          description: Files to initialize for upload.
           items:
-            $ref: '#/components/schemas/WorkspaceFileUploadInitiationResponseItem'
+            $ref: '#/components/schemas/WorkspaceFileUploadInitiationRequestItem'
+          maxItems: 50
+          minItems: 1
           title: Files
           type: array
       required:
       - files
-      title: WorkspaceFileUploadInitiationPublicResponse
+      title: WorkspaceFileUploadInitiationRequest
       type: object
     WorkspaceFileUploadInitiationResponseItem:
       description: Single file upload instruction returned by the public API.
@@ -154,35 +183,6 @@ components:
       - upload_url
       - expires_at
       title: WorkspaceFileUploadInitiationResponseItem
-      type: object
-    WorkspaceFileDownloadPublicResponse:
-      description: Response payload for workspace file download API.
-      examples:
-      - signed_url: https://storage.googleapis.com/bucket/path/file.pdf?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Signature=...
-      properties:
-        signed_url:
-          description: Signed URL for workspace file download
-          minLength: 1
-          title: Signed Url
-          type: string
-      required:
-      - signed_url
-      title: WorkspaceFileDownloadPublicResponse
-      type: object
-    WorkspaceFileUploadInitiationRequest:
-      description: Bulk request payload for public upload initiation.
-      properties:
-        files:
-          description: Files to initialize for upload.
-          items:
-            $ref: '#/components/schemas/WorkspaceFileUploadInitiationRequestItem'
-          maxItems: 50
-          minItems: 1
-          title: Files
-          type: array
-      required:
-      - files
-      title: WorkspaceFileUploadInitiationRequest
       type: object
   securitySchemes:
     ClickwrapId:

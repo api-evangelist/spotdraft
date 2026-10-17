@@ -173,6 +173,113 @@ components:
       - SIGN
       - CREATE
       type: string
+    ContractTypeAccessControlListAPIRequest:
+      title: ContractTypeAccessControlListAPIRequest
+      type: object
+      properties:
+        permission_filter_list:
+          description: List of permission types to filter on. Provide one or more permission enum values.
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/PermissionFilterListEnum'
+            title: ExternalContractInvitePermissionType
+            description: An enumeration.
+      required:
+      - permission_filter_list
+    ExternalContractTypeAccessControlListAPIResponse:
+      title: ExternalContractTypeAccessControlListAPIResponse
+      type: object
+      properties:
+        contract_type_id:
+          title: Contract Type Id
+          type: integer
+        contract_type_name:
+          title: Contract Type Name
+          type: string
+        permission_list:
+          title: Permission List
+          type: array
+          items:
+            title: ExternalAccessControlListItem
+            type: object
+            properties:
+              permission_label:
+                title: Permission Label
+                type: string
+              authorized_list:
+                title: Authorized List
+                type: array
+                items:
+                  title: ExternalPolicyResponse
+                  type: object
+                  properties:
+                    kind:
+                      title: Kind
+                      type: string
+                    subject_id:
+                      title: Subject Id
+                      type: integer
+                    role:
+                      title: ExternalRolePublicResponse
+                      type: object
+                      properties:
+                        id:
+                          title: Id
+                          description: Id of the role.
+                          type: integer
+                        name:
+                          title: Name
+                          description: Name of the role.
+                          minLength: 1
+                          type: string
+                        description:
+                          title: Description
+                          description: Description of the role.
+                          type: string
+                      required:
+                      - id
+                      - name
+                      - description
+                    user:
+                      title: ExternalUserPublicResponse
+                      type: object
+                      properties:
+                        id:
+                          title: Id
+                          description: Id of the User.
+                          type: integer
+                        name:
+                          title: Name
+                          description: Name of the User.
+                          default: ''
+                          type: string
+                        email:
+                          title: Email
+                          description: Email of the User.
+                          type: string
+                          format: email
+                        designation:
+                          title: Designation
+                          description: Designation of the User.
+                          type: string
+                      required:
+                      - id
+                      - email
+                  required:
+                  - kind
+                  - subject_id
+            required:
+            - permission_label
+            - authorized_list
+        auto_add_read_access_creator_team:
+          title: Auto Add Read Access Creator Team
+          default: false
+          type: boolean
+      required:
+      - contract_type_id
+      - contract_type_name
+      - permission_list
     ExternalContractTypeEntityListResponse:
       title: ExternalContractTypeEntityListResponse
       description: The list of entities for the contract type
@@ -258,20 +365,6 @@ components:
             zipcode: '513'
             line_one: 'st: 3, block: 2, Jenkins Road'
           is_primary: true
-    ContractTypeAccessControlListAPIRequest:
-      title: ContractTypeAccessControlListAPIRequest
-      type: object
-      properties:
-        permission_filter_list:
-          description: List of permission types to filter on. Provide one or more permission enum values.
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/PermissionFilterListEnum'
-            title: ExternalContractInvitePermissionType
-            description: An enumeration.
-      required:
-      - permission_filter_list
     ContractTypeListDomainModel:
       title: ContractTypeListDomainModel
       type: array
@@ -447,99 +540,6 @@ components:
 
           Accept anyone picture him air.'
         attributes: null
-    ExternalContractTypeAccessControlListAPIResponse:
-      title: ExternalContractTypeAccessControlListAPIResponse
-      type: object
-      properties:
-        contract_type_id:
-          title: Contract Type Id
-          type: integer
-        contract_type_name:
-          title: Contract Type Name
-          type: string
-        permission_list:
-          title: Permission List
-          type: array
-          items:
-            title: ExternalAccessControlListItem
-            type: object
-            properties:
-              permission_label:
-                title: Permission Label
-                type: string
-              authorized_list:
-                title: Authorized List
-                type: array
-                items:
-                  title: ExternalPolicyResponse
-                  type: object
-                  properties:
-                    kind:
-                      title: Kind
-                      type: string
-                    subject_id:
-                      title: Subject Id
-                      type: integer
-                    role:
-                      title: ExternalRolePublicResponse
-                      type: object
-                      properties:
-                        id:
-                          title: Id
-                          description: Id of the role.
-                          type: integer
-                        name:
-                          title: Name
-                          description: Name of the role.
-                          minLength: 1
-                          type: string
-                        description:
-                          title: Description
-                          description: Description of the role.
-                          type: string
-                      required:
-                      - id
-                      - name
-                      - description
-                    user:
-                      title: ExternalUserPublicResponse
-                      type: object
-                      properties:
-                        id:
-                          title: Id
-                          description: Id of the User.
-                          type: integer
-                        name:
-                          title: Name
-                          description: Name of the User.
-                          default: ''
-                          type: string
-                        email:
-                          title: Email
-                          description: Email of the User.
-                          type: string
-                          format: email
-                        designation:
-                          title: Designation
-                          description: Designation of the User.
-                          type: string
-                      required:
-                      - id
-                      - email
-                  required:
-                  - kind
-                  - subject_id
-            required:
-            - permission_label
-            - authorized_list
-        auto_add_read_access_creator_team:
-          title: Auto Add Read Access Creator Team
-          default: false
-          type: boolean
-      required:
-      - contract_type_id
-      - contract_type_name
-      - permission_list
   securitySchemes:
     ClickwrapId:
       type: apiKey

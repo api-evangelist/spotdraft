@@ -296,6 +296,40 @@ components:
         - id
         - descriptors
         - section
+    FieldNameMappingListDomainModel:
+      description: Domain model for list of field name mappings.
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/FieldNameMappingDomainModel'
+          title: Items
+          type: array
+      title: FieldNameMappingListDomainModel
+      type: object
+    ListFieldNameMappingViewRequest:
+      title: ListFieldNameMappingViewRequest
+      type: object
+      properties:
+        contract_id:
+          title: Contract Id
+          description: Optional contract id to scope the mapping lookup to a specific contract instance.
+          type: integer
+        contract_type_id:
+          title: Contract Type Id
+          description: Optional contract type id to scope the mapping lookup to a specific workflow or template family.
+          type: integer
+        old_field_names:
+          title: Old Field Names
+          description: Optional list of legacy template field names to translate into current contract metadata labels.
+          type: array
+          items:
+            type: string
+        new_field_names:
+          title: New Field Names
+          description: Optional list of current template field names to map back to existing contract metadata labels.
+          type: array
+          items:
+            type: string
     FieldNameMappingDomainModel:
       description: Domain model for field name mapping.
       properties:
@@ -359,40 +393,6 @@ components:
       - new_field_name
       - tenant_workspace_id
       title: FieldNameMappingDomainModel
-      type: object
-    ListFieldNameMappingViewRequest:
-      title: ListFieldNameMappingViewRequest
-      type: object
-      properties:
-        contract_id:
-          title: Contract Id
-          description: Optional contract id to scope the mapping lookup to a specific contract instance.
-          type: integer
-        contract_type_id:
-          title: Contract Type Id
-          description: Optional contract type id to scope the mapping lookup to a specific workflow or template family.
-          type: integer
-        old_field_names:
-          title: Old Field Names
-          description: Optional list of legacy template field names to translate into current contract metadata labels.
-          type: array
-          items:
-            type: string
-        new_field_names:
-          title: New Field Names
-          description: Optional list of current template field names to map back to existing contract metadata labels.
-          type: array
-          items:
-            type: string
-    FieldNameMappingListDomainModel:
-      description: Domain model for list of field name mappings.
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/FieldNameMappingDomainModel'
-          title: Items
-          type: array
-      title: FieldNameMappingListDomainModel
       type: object
   securitySchemes:
     ClickwrapId:

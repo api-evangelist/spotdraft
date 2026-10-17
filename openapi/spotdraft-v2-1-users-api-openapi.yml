@@ -294,41 +294,6 @@ paths:
       x-tagGroup: Platform
 components:
   schemas:
-    OrganizationUserInvitePublicApiResponse:
-      title: OrganizationUserInvitePublicApiResponse
-      type: object
-      properties:
-        email:
-          title: Email
-          type: string
-        first_name:
-          title: First Name
-          type: string
-        last_name:
-          title: Last Name
-          type: string
-        designation:
-          title: Designation
-          type: string
-        token:
-          title: Token
-          type: string
-        disabled_token:
-          title: Disabled Token
-          type: boolean
-        created_by_user:
-          title: Created By User
-          type: string
-        role_ids:
-          title: Role Ids
-          type: array
-          items:
-            type: integer
-      required:
-      - email
-      - token
-      - disabled_token
-      - created_by_user
     PublicUserMinimalListResponse:
       title: PublicUserMinimalListResponse
       description: SD Generic Model from which all other Generic Models should inherit
@@ -394,39 +359,6 @@ components:
           last_name: Kagan
           email: elena_kagan@notreally.supremecourt.gov
           designation: Lead Lawyer
-    PublicRoleMemberAddResponse:
-      title: PublicRoleMemberAddResponse
-      description: A list of the members who were added to the role.
-      type: array
-      items:
-        title: PublicMinimalUserResponse
-        type: object
-        properties:
-          id:
-            title: Id
-            description: ID of the user
-            type: integer
-          email:
-            title: Email
-            description: Email Id of the user
-            type: string
-          name:
-            title: Name
-            description: Name of the user
-            type: string
-          designation:
-            title: Designation
-            description: Designation of the user within the organization
-            type: string
-        required:
-        - id
-        - email
-        - name
-      examples:
-      - - id: 6545
-          email: barack@obama.com
-          name: Barack Obama
-          designation: President
     InviteUserAndAssignRolesPublicRequest:
       title: InviteUserAndAssignRolesPublicRequest
       type: object
@@ -506,6 +438,41 @@ components:
         - id: 3
           name: APAC Sales
           description: The Asia Pacific Sales Team (ex Japan)
+    OrganizationUserInvitePublicApiResponse:
+      title: OrganizationUserInvitePublicApiResponse
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+        first_name:
+          title: First Name
+          type: string
+        last_name:
+          title: Last Name
+          type: string
+        designation:
+          title: Designation
+          type: string
+        token:
+          title: Token
+          type: string
+        disabled_token:
+          title: Disabled Token
+          type: boolean
+        created_by_user:
+          title: Created By User
+          type: string
+        role_ids:
+          title: Role Ids
+          type: array
+          items:
+            type: integer
+      required:
+      - email
+      - token
+      - disabled_token
+      - created_by_user
     PublicUserWithRolesMinimalListResponse:
       title: PublicUserWithRolesMinimalListResponse
       description: SD Generic Model from which all other Generic Models should inherit
@@ -628,6 +595,39 @@ components:
       - user_ids_to_add:
         - 4567
         - 2345
+    PublicRoleMemberAddResponse:
+      title: PublicRoleMemberAddResponse
+      description: A list of the members who were added to the role.
+      type: array
+      items:
+        title: PublicMinimalUserResponse
+        type: object
+        properties:
+          id:
+            title: Id
+            description: ID of the user
+            type: integer
+          email:
+            title: Email
+            description: Email Id of the user
+            type: string
+          name:
+            title: Name
+            description: Name of the user
+            type: string
+          designation:
+            title: Designation
+            description: Designation of the user within the organization
+            type: string
+        required:
+        - id
+        - email
+        - name
+      examples:
+      - - id: 6545
+          email: barack@obama.com
+          name: Barack Obama
+          designation: President
   securitySchemes:
     ClickwrapId:
       type: apiKey
