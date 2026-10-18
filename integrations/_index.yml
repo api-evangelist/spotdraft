@@ -28,3 +28,16 @@
     builder: unknown (not in the directory record)
   status: not-a-workflow
   arazzo: null
+- slug: spotdraft-slack-own
+  label: Slack (own)
+  partner: slack
+  partner_name: Slack (own)
+  category: Slack app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://slack.com/marketplace/A028E9MG1HC-spotdraft
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
