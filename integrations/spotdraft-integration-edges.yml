@@ -123,6 +123,23 @@ edges:
   detected: '2026-10-21'
   detected_by: mirror-platform-listings.py
   category: contractManagement
+- partner_name: HubSpot (own)
+  partner: hubspot
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://ecosystem.hubspot.com/marketplace/listing/spotdraft-1300920
+  mirror_of: hubspot/integrations/hubspot-integration-edges.yml
+  apps:
+  - SpotDraft
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: SALES_ENABLEMENT
 method: searched
 checked:
 - https://zapier.com/api/v4/apps/
@@ -139,5 +156,6 @@ checked:
 - https://developer.salesforce.com/docs/atlas.en-us.packagingGuide.meta/packagingGuide/security_review_overview.htm
 - https://slack.com/marketplace
 - salesforce/integrations/salesforce-integration-edges.yml
+- hubspot/integrations/hubspot-integration-edges.yml
 source:
 - https://zapier.com/api/v4/apps/
